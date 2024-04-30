@@ -4,19 +4,149 @@
         <div class="mb-2">
             <div class="row">
                 <div class="col-md-12">
+                    <!-- <pre>{{todo}}</pre> -->
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-2">
-                                <label for="">User ID</label>
+                                <label for="">Cabang</label>
+                
                             </div>
                             <div class="col-md-6">
-                                <FormInput :class="errorField.type ? 'input-error' : ''" v-model="todo.type" @input="
+                                <v-select :options="cboCabang" v-model="cboCabangVal" @update:modelValue="mySelectEvent()" :clearable="false"></v-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="">Outlet</label>
+                                <!-- {{todo}} -->
+                            </div>
+                            <div class="col-md-6">
+                                <v-select :options="cboOutlet" v-model="cboOutletVal" @update:modelValue="mySelectEvent2()" :clearable="false"></v-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="">Penempatan Salesman</label>
+                                <!-- {{todo}} -->
+                            </div>
+                            <div class="col-md-6">
+                                <v-select :options="cboPenempatan" v-model="cboPenempatanVal" @update:modelValue="mySelectEvent3()" :clearable="false"></v-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="">NIK</label>
+                            </div>
+                            <div class="col-md-6">
+                                <FormInput :class="errorField.user_nik ? 'input-error' : ''" v-model="todo.user_nik" @input="
                       (val) => 
-                        (todo.type = todo.type.trim())
+                        (todo.user_nik = todo.user_nik.trim())
                     "></FormInput>
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="">Username</label>
+                            </div>
+                            <div class="col-md-6">
+                                <FormInput :class="errorField.user_name ? 'input-error' : ''" v-model="todo.user_name" @input="
+                      (val) => 
+                        (todo.user_name = todo.user_name.trim())
+                    "></FormInput>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="">Fullname</label>
+                            </div>
+                            <div class="col-md-6">
+                                <FormInput :class="errorField.user_fullname ? 'input-error' : ''" v-model="todo.user_fullname" @input="
+                      (val) => 
+                        (todo.user_fullname = todo.user_fullname.trim())
+                    "></FormInput>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="">Phone</label>
+                            </div>
+                            <div class="col-md-6">
+                                <FormInput :class="errorField.user_phone ? 'input-error' : ''" v-model="todo.user_phone" @input="
+                    (val) => 
+                        (todo.user_phone = todo.user_phone.trim())
+                    "></FormInput>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="">Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <FormInput :class="errorField.user_email ? 'input-error' : ''" v-model="todo.user_email" @input="
+                      (val) => 
+                        (todo.user_email = todo.user_email.trim())
+                    "></FormInput>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="">User Status</label>
+                                <!-- {{todo}} -->
+                            </div>
+                            <div class="col-md-6">
+                                <v-select :options="cboUserStatus" v-model="cboUserStatusVal" @update:modelValue="mySelectEvent4()" :clearable="false"></v-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="">User Tipe</label>
+                                <!-- {{todo}} -->
+                            </div>
+                            <div class="col-md-6">
+                                <v-select :options="cboUserTipeId" v-model="cboUserTipeIdVal" @update:modelValue="mySelectEvent5()" :clearable="false"></v-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="">Status</label>
+                                <!-- {{todo}} -->
+                            </div>
+                            <div class="col-md-6">
+                                <v-select :options="cboStatusBa" v-model="cboStatusBaVal" @update:modelValue="mySelectEvent6()" :clearable="false"></v-select>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-2"></div>
@@ -49,145 +179,42 @@
                 <div style="width: 90vw">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="">Kode Outlet</label>
+                                        <label for="">User Status</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <FormInput id="inputA" :class="errorField.store_id ? 'input-error' : ''" v-model="todo2.store_id" @input="
-                          (val) =>
-                            (todo2.store_id = todo2.store_id.trim())
-                        " readonly></FormInput>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">Nama Outlet</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <FormInput :class="errorField.store_name ? 'input-error' : ''" v-model="todo2.store_name" @input="
-                          (val) =>
-                            (todo2.store_name = todo2.store_name.trim())
-                        "></FormInput>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">NIK</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <FormInput :class="errorField.user_nik ? 'input-error' : ''" v-model="todo2.user_nik" @input="
-                          (val) =>
-                            (todo2.user_nik = todo2.user_nik.trim())
-                        "></FormInput>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">Nama</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <FormInput :class="errorField.user_fullname ? 'input-error' : ''" v-model="todo2.user_fullname" @input="
-                          (val) =>
-                            (todo2.user_fullname = todo2.user_fullname.trim())
-                        "></FormInput>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">Tipe User</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <FormInput :class="errorField.user_type_id ? 'input-error' : ''" v-model="todo2.user_type_id" @input="
-                          (val) =>
-                            (todo2.user_type_id = todo2.user_type_id.trim())
-                        "></FormInput>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">Username</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <FormInput :class="errorField.user_name ? 'input-error' : ''" v-model="todo2.user_name" @input="
-                          (val) =>
-                            (todo2.user_name = todo2.user_name.trim())
-                        "></FormInput>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">Nomor Telp</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <FormInput :class="errorField.user_phone ? 'input-error' : ''" v-model="todo2.user_phone" @input="
-                          (val) =>
-                            (todo2.user_phone = todo2.user_phone.trim())
-                        "></FormInput>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">Cabang</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <FormInput :class="errorField.cabang_id ? 'input-error' : ''" v-model="todo2.cabang_id" @input="
-                          (val) =>
-                            (todo2.cabang_id = todo2.cabang_id.trim())
-                        "></FormInput>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">Status</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <FormInput :class="errorField.status_ba ? 'input-error' : ''" v-model="todo2.status_ba" @input="
+                                        <FormInput :class="errorField.user_status ? 'input-error' : ''" v-model="todo2.user_status" @input="
                           (val) =>
                             (todo2.status_ba = todo2.status_ba.trim())
                         "></FormInput>
                                     </div>
                                 </div>
-                            </div>
-
-                            <!-- <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">Update Time</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <FormInput :class="errorField.updated_at ? 'input-error' : ''" v-model="todo2.updated_at" @input="
-                          (val) =>
-                            (todo2.updated_at = todo2.updated_at.trim())
-                        "></FormInput>
-                                    </div>
-                                </div>
                             </div> -->
+                            <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="">User Status</label>
+                                <!-- {{todo}} -->
+                            </div>
+                            <div class="col-md-6">
+                                <v-select :options="cboUserStatus" v-model="cboUserStatusVal2" @update:modelValue="mySelectEvent4_2()" :clearable="false"></v-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label for="">Status</label>
+                                <!-- {{todo}} -->
+                            </div>
+                            <div class="col-md-6">
+                                <v-select :options="cboStatusBa" v-model="cboStatusBaVal2" @update:modelValue="mySelectEvent6_2()" :clearable="false"></v-select>
+                            </div>
+                        </div>
+                    </div>
 
                         </div>
                     </div>
@@ -257,31 +284,83 @@ export default {
             acuanEdit: null,
 
             todo: {
-                type: "",
+                cabang_id: "",
+                store_id: "",
+                nama_cabang: "",
+                user_nik: "",
+                user_name: "",
+                user_fullname: "",
+                user_phone: "",
+                user_email: "",
+                user_status: "",
+                user_type_id: "",
+                update_at: "",
+                status_ba: "",
             },
 
-            tipeWarehouseOptions: [],
-            tmp_whsCodeType: [],
+            // tipeCabangOptions: [],
+            // tmp_cabang: [],
+
+            cboCabang: [{
+                    code: 0,
+                    label: "PUSAT"
+                },
+                // {
+                //     code: 0,
+                //     label: "Not Active"
+                // },
+            ],
+            cboOutlet: [{
+                code: 1,
+                label: "ALL OUTLET"
+            }, ],
+            cboPenempatan: [{
+                code: 1,
+                label: "dari lokasi"
+            }, ],
+            cboUserStatus: [{
+                    code: 0,
+                    label: "0"
+                },
+                {
+                    code: 1,
+                    label: "1"
+                },
+            ],
+            cboUserTipeId: [{
+                code: 1,
+                label: "dari db user_type"
+            }, ],
+            cboStatusBa: [{
+                    // code: 0,
+                    label: "Tidak Aktif"
+                },
+                {
+                    // code: 1,
+                    label: "Aktif"
+                },
+            ],
+
             tmp_whsCodeType2: [],
+            cboUserStatusVal2:[],
+            cboStatusBaVal2:[],
 
             todo2: {
-                store_id: "",
-                store_name: "",
-                user_nik: "",
-                user_fullname: "",
-                user_type_id: "",
-                user_name: "",
-                user_phone: "",
-                cabang_id: "",
+                user_status: "",
                 status_ba: "",
-                updated_at: "",
             },
 
             errorList: "",
             errorField: {
                 type: false,
             },
-
+            cboCabangVal: null,
+            cboOutletVal: null,
+            cboPenempatanVal: null,
+            cboUserStatusVal: null,
+            cboUserTipeIdVal: null,
+            cboStatusBaVal: null,
+            select2Id1: "select2Id1",
             userid: "",
 
             uObject: "",
@@ -289,18 +368,88 @@ export default {
     },
     mounted() {
         this.getTable();
-        //this.getCbowhsCodeType();
-        //this.userid = "9999";
+
+        this.getCboUserType();
+        this.getCboStoreCabang();
+        this.getCboOutlet();
+        this.getCboPenempatan();
 
         this.uObject = JSON.parse(localStorage.getItem("auth"));
         this.userid = this.uObject.id;
     },
     methods: {
+        getCboOutlet() {
+            var mythis = this;
+            mythis.$root.loader = true;
+            axios
+                .get("http://localhost:8000/sgs/getCboOutlet")
+                .then((res) => {
+                    mythis.cboOutlet = res.data.data;
+                    //console.log(res.data.data);
+                    mythis.$root.loader = false;
+                });
+        },
+
+        getCboUserType() {
+            var mythis = this;
+            mythis.$root.loader = true;
+            axios
+                .get("http://localhost:8000/sgs/getCboUserType")
+                .then((res) => {
+                    mythis.cboUserTipeId = res.data.data;
+                    //console.log(res.data.data);
+                    mythis.$root.loader = false;
+                });
+        },
+
+        getCboStoreCabang() {
+            var mythis = this;
+            mythis.$root.loader = true;
+            axios
+                .get("http://localhost:8000/sgs/getCboStoreCabang")
+                .then((res) => {
+                    mythis.cboCabang = res.data.data;
+                    //console.log(res.data.data);
+                    mythis.$root.loader = false;
+                });
+        },
+
+        getCboPenempatan() {
+            var mythis = this;
+            mythis.$root.loader = true;
+            axios
+                .get("http://localhost:8000/sgs/getCboPenempatan")
+                .then((res) => {
+                    mythis.cboPenempatan = res.data.data;
+                    //console.log(res.data.data);
+                    mythis.$root.loader = false;
+                });
+        },
+
         mySelectEvent() {
-            this.todo.whsCodeType = this.tmp_whsCodeType.code;
+            this.todo.cabang_id = this.cboCabangVal.code;
         },
         mySelectEvent2() {
-            this.todo2.whsCodeType = this.tmp_whsCodeType2.code;
+            // this.todo2.whsCodeType = this.tmp_whsCodeType2.code;
+            this.todo.store_id = this.cboOutletVal.code;
+        },
+        mySelectEvent3() {
+            this.todo.nama_cabang = this.cboPenempatanVal.code;
+        },
+        mySelectEvent4() {
+            this.todo.user_status = this.cboUserStatusVal.code;
+        },
+        mySelectEvent4_2() {
+            this.todo2.user_status = this.cboUserStatusVal2.code;
+        },
+        mySelectEvent5() {
+            this.todo.user_type_id = this.cboUserTipeIdVal.code;
+        },
+        mySelectEvent6() {
+            this.todo.status_ba = this.cboStatusBaVal.label;
+        },
+        mySelectEvent6_2() {
+            this.todo2.status_ba = this.cboStatusBaVal2.label;
         },
         resetForm() {
             var mythis = this;
@@ -316,9 +465,9 @@ export default {
             var mythis = this;
             mythis.$root.loader = true;
             axios
-                .get(this.$root.apiHostWmsTPS + "wms/getCbowhsCodeType")
+                .get('http://localhost:8000/sgs/user_info/' + "wms/getCbowhsCodeType")
                 .then((res) => {
-                    this.tipeWarehouseOptions = res.data.data;
+                    this.tipeCabangOptions = res.data.data;
                     //console.log(res.data.data);
                     mythis.$root.loader = false;
                 });
@@ -349,14 +498,7 @@ export default {
                     {
                         id: "store_id",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Kode Outlet</b></div>'
-                        ),
-                    },
-
-                    {
-                        id: "store_name",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Nama Outlet</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Store ID</b></div>'
                         ),
                     },
 
@@ -396,23 +538,23 @@ export default {
                     },
 
                     {
-                        id: "cabang_id",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Cabang</b></div>'
-                        ),
-                    },
-
-                    {
                         id: "status_ba",
                         name: html(
                             '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Status</b></div>'
                         ),
                     },
 
+                    // {
+                    //     id: "status_ba",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Status</b></div>'
+                    //     ),
+                    // },
+
                     {
-                        id: "updated_at",
+                        id: "update_time",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Update Time</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Update At</b></div>'
                         ),
                     },
 
@@ -423,7 +565,6 @@ export default {
                                 `
                 <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
                 &nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
               `
                             ),
                     },
@@ -454,16 +595,15 @@ export default {
                     url: 'http://localhost:8000/sgs/user_info',
                     then: (data) =>
                         data.results.map((card) => [
-                            card.store_id,
-                            card.store_id,
-                            card.store_name,
+                            card.user_id,
+                            card.user_id,
                             card.user_nik,
                             card.user_fullname,
                             card.user_type_id,
                             card.user_name,
                             card.user_phone,
-                            card.cabang_id,
                             card.status_ba,
+                            // card.cabang_id,
                             card.updated_at,
                         ]),
                     total: (data) => data.count,
@@ -512,8 +652,9 @@ export default {
                         Object.keys(res.data.data).forEach(function (key) {
                             mythis.todo2[key] = res.data.data[key];
                         });
-                        document.getElementById("inputA").focus(); // sets the focus on the input
-
+                        // document.getElementById("inputA").focus(); // sets the focus on the input
+                        mythis.cboUserStatusVal2 = res.data.data.user_status;
+                        mythis.cboStatusBaVal2 = res.data.data.status_ba;
                         mythis.$root.loader = false;
                     });
             });

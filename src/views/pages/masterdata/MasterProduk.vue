@@ -65,11 +65,12 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="row">
+                                    <!-- <pre>{{todo2}}</pre> -->
                                     <div class="col-md-2">
                                         <label for="">Prod Base Price</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input id="inputA" :value="todo2.prod_base_price" type="number" pattern="[0-9]" style="width: 20em" min="0" />
+                                        <input id="inputA" v-model="todo2.prod_base_price"  type="number" pattern="[0-9]" style="width: 20em" min="0" />
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +80,7 @@
                                         <label for="">Prod Unit Price</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input :id="'txt_1'" :value="todo2.prod_unit_price" type="number" pattern="[0-9]" style="width: 20em" min="0" />
+                                        <input :id="'txt_1'" v-model="todo2.prod_unit_price" type="number" pattern="[0-9]" style="width: 20em" min="0" />
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +91,7 @@
                                         <label for="">Prod Special Offer</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input :id="'txt_1'" :value="todo2.prod_special_offer" type="number" pattern="[0-9]" style="width: 20em" min="0" />
+                                        <input :id="'txt_1'" v-model="todo2.prod_special_offer"  type="number" pattern="[0-9]" style="width: 20em" min="0" />
                                     </div>
                                 </div>
                             </div>
@@ -500,7 +501,7 @@ export default {
                             },
                         })
                         .then((res) => {
-                            //console.log(res.data.data);
+                            console.log(res.data.data);
                             Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
                             mythis.$root.loader = false;
                             mythis.refreshTable();

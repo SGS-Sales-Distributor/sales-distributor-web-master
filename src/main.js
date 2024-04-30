@@ -12,12 +12,15 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.min";
 import '@coreui/coreui/dist/css/coreui.min.css';
 
+import vSelect from "vue-select"; //import vue-select
+import "vue-select/dist/vue-select.css"; //import css vue-select
+import "@/assets/css/custom-vue-select.css";
 
 
 import axios from "axios";
 
 const app = createApp(App);
-
+app.component("v-select", vSelect);
 // provide global properties
 app.config.globalProperties.$axios = axios;
 

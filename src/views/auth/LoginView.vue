@@ -37,8 +37,8 @@
     data() {
       return {
         title: "Login Page",
-        username: "",
-        password: "",
+        username: "jenyta",
+        password: "jenyta",
         showPassword: false,
       };
     },

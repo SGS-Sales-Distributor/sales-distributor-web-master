@@ -34,9 +34,16 @@ export default {
     data() {
         return {
             menu: [
+                // {
+                //     name: 'Profile',
+                //     menu: 'DashboardView',
+                //     sub_menu_id: null,
+                //     sub_menu: [
+                //     ],
+                // },
                 {
                     name: 'Profile',
-                    menu: 'DashboardView',
+                    menu: 'ProfileView',
                     sub_menu_id: null,
                     sub_menu: [
                     ],
