@@ -600,6 +600,7 @@ export default {
 
                 mythis.$root.loader = true;
 
+                
                 axios
                     .get('http://localhost:8000/sgs/profil_visit/' + id)
                     .then(async (res) => {
