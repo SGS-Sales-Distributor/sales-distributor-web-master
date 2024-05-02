@@ -99,7 +99,7 @@ export default {
     background-color: var(--vt-color-step-950);
     padding: .5em;
     border-radius: .8em;
-    /* box-shadow: 0 .5em 1em var(--vt-color-step-800); */
+    box-shadow: 0 .5em 1em var(--vt-color-step-800);
     /* overflow: auto; */
     z-index: 100;
 }

@@ -261,109 +261,36 @@ export default {
                     {
                         id: "prod_number",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Prod Number</b></div>'
-                        ),
-                    },
-
-                    // {
-                    //     id: "prod_barcode_number",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Prod Barcode Number</b></div>'
-                    //     ),
-                    // },
-                    // {
-                    //     id: "prod_sai_number",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Prod Sai Number</b></div>'
-                    //     ),
-                    // },
-                    {
-                        id: "prod_universal_number",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Prod Universal</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>MTG CODE</b></div>'
                         ),
                     },
                     {
                         id: "prod_name",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Prod Name</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>PRODUK NAME</b></div>'
                         ),
                     },
                     {
                         id: "prod_base_price",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Prod Base Price</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>PRODUK BASE PRICE</b></div>'
                         ),
                     },
                     {
                         id: "prod_special_offer",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Diskon Regular</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>DISKON REGULAR</b></div>'
                         ),
                     },
-                    // {
-                    //     id: "prod_base_price_offer",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Prod Base Price Offer</b></div>'
-                    //     ),
-                    // },
-                    // {
-                    //     id: "prod_special_offer_unit",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Prod Special Offer Unit</b></div>'
-                    //     ),
-                    // },
                     {
                         id: "brand_id",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Brand ID</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>BRAND ID</b></div>'
                         ),
                     },
-                    // {
-                    //     id: "category_id",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Category ID</b></div>'
-                    //     ),
-                    // },
-                    // {
-                    //     id: "category_sub_id",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Category Sub ID</b></div>'
-                    //     ),
-                    // },
-                    // {
-                    //     id: "prod_type_id",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Prod Type ID</b></div>'
-                    //     ),
-                    // },
-                    // {
-                    //     id: "function_id",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Function ID</b></div>'
-                    //     ),
-                    // },
-                    // {
-                    //     id: "supplier_id",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Supplier ID</b></div>'
-                    //     ),
-                    // },
-                    // {
-                    //     id: "prod_status_id",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Prod Status ID</b></div>'
-                    //     ),
-                    // },
-                    // {
-                    //     id: "status_aktif",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Status Aktif</b></div>'
-                    //     ),
-                    // },
 
                     {
-                        name: "---- # ----",
+                        name: "AKSI",
                         formatter: (_, row) =>
                             html(
                                 `
@@ -404,7 +331,7 @@ export default {
                             card.prod_number,
                             // card.prod_barcode_number,
                             // card.prod_sai_number,
-                            card.prod_universal_number,
+                            // card.prod_universal_number,
                             card.prod_name,
                             card.prod_base_price,
                             card.prod_special_offer,

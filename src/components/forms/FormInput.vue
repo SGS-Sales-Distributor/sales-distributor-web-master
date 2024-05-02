@@ -85,7 +85,7 @@ input {
     color: var(--vt-color-step-300);
     vertical-align: middle;
     line-height: 2em;
-    width: 100%;
+    width: 113%;
     /* min-width: 240px; */
 }
 
