@@ -1,93 +1,91 @@
 <template>
 <Pages :title="title">
-     <div class="container-fluid">
-            <div class="mb-4">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="">NIK</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <FormInput v-model="user_nik"></FormInput>
-                                </div>
+    <div class="container-fluid">
+        <div class="mb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="">NIK</label>
+                            </div>
+                            <div class="col-md-6">
+                                <FormInput v-model="user_nik"></FormInput>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="">Nama Lengkap</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <FormInput v-model="user_fullname"></FormInput>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="">Username</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <FormInput v-model="user_name" readonly></FormInput>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="">Email</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <FormInput v-model="user_email" readonly></FormInput>
-                                </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="">Nama Lengkap</label>
+                            </div>
+                            <div class="col-md-6">
+                                <FormInput v-model="user_fullname"></FormInput>
                             </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="">Telepon</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <FormInput v-model="user_phone"></FormInput>
-                                </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="">Username</label>
+                            </div>
+                            <div class="col-md-6">
+                                <FormInput v-model="user_name" readonly></FormInput>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="">Ubah Password</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <FormInput v-model="user_password"></FormInput>
-                                    <span style="font-size: 11px; color: red;">*abaikan jika tidak mengubah password</span>
-                                </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="">Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <FormInput v-model="user_email" readonly></FormInput>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="">Telepon</label>
+                            </div>
+                            <div class="col-md-6">
+                                <FormInput v-model="user_phone"></FormInput>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="">Ubah Password</label>
+                            </div>
+                            <div class="col-md-6">
+                                <FormInput v-model="user_password"></FormInput>
+                                <span style="font-size: 11px; color: red;">*abaikan jika tidak mengubah password</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-3">
-                                <Button type="button" @click="update">Perbarui</Button>
-                            </div>
-                        </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-3">
+                        <Button type="button" @click="update">Perbarui</Button>
                     </div>
                 </div>
+            </div>
         </div>
+    </div>
 </Pages>
 </template>
 
-  
-  
 <script>
 import Pages from "@/components/template/Pages.vue";
 import FormInput from "@/components/forms/FormInput.vue";
@@ -379,8 +377,7 @@ export default {
     },
 };
 </script>
-  
-  
+
 <style scoped>
 .input-error {
     border: red 1px solid;

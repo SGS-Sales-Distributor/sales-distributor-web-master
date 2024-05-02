@@ -1,17 +1,16 @@
 <template>
 <Pages :title="title">
     <div class="container-fluid">
-        <div class="mb-2">
+        <div class="mb-4">
             <div class="row">
-                <div class="col-md-12">
-                    <!-- <pre>{{todo}}</pre> -->
+                <div class="col-md-6">
+
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="">Cabang</label>
-                
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <v-select :options="cboCabang" v-model="cboCabangVal" @update:modelValue="mySelectEvent()" :clearable="false"></v-select>
                             </div>
                         </div>
@@ -19,11 +18,11 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="">Outlet</label>
                                 <!-- {{todo}} -->
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <v-select :options="cboOutlet" v-model="cboOutletVal" @update:modelValue="mySelectEvent2()" :clearable="false"></v-select>
                             </div>
                         </div>
@@ -31,11 +30,11 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="">Penempatan Salesman</label>
                                 <!-- {{todo}} -->
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <v-select :options="cboPenempatan" v-model="cboPenempatanVal" @update:modelValue="mySelectEvent3()" :clearable="false"></v-select>
                             </div>
                         </div>
@@ -43,10 +42,10 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="">NIK</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <FormInput :class="errorField.user_nik ? 'input-error' : ''" v-model="todo.user_nik" @input="
                       (val) => 
                         (todo.user_nik = todo.user_nik.trim())
@@ -57,10 +56,10 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="">Username</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <FormInput :class="errorField.user_name ? 'input-error' : ''" v-model="todo.user_name" @input="
                       (val) => 
                         (todo.user_name = todo.user_name.trim())
@@ -71,10 +70,10 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="">Fullname</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <FormInput :class="errorField.user_fullname ? 'input-error' : ''" v-model="todo.user_fullname" @input="
                       (val) => 
                         (todo.user_fullname = todo.user_fullname.trim())
@@ -83,12 +82,14 @@
                         </div>
                     </div>
 
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="">Phone</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <FormInput :class="errorField.user_phone ? 'input-error' : ''" v-model="todo.user_phone" @input="
                     (val) => 
                         (todo.user_phone = todo.user_phone.trim())
@@ -99,10 +100,10 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="">Email</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <FormInput :class="errorField.user_email ? 'input-error' : ''" v-model="todo.user_email" @input="
                       (val) => 
                         (todo.user_email = todo.user_email.trim())
@@ -113,11 +114,11 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="">User Status</label>
                                 <!-- {{todo}} -->
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <v-select :options="cboUserStatus" v-model="cboUserStatusVal" @update:modelValue="mySelectEvent4()" :clearable="false"></v-select>
                             </div>
                         </div>
@@ -125,11 +126,11 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="">User Tipe</label>
                                 <!-- {{todo}} -->
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <v-select :options="cboUserTipeId" v-model="cboUserTipeIdVal" @update:modelValue="mySelectEvent5()" :clearable="false"></v-select>
                             </div>
                         </div>
@@ -137,17 +138,20 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="">Status</label>
                                 <!-- {{todo}} -->
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <v-select :options="cboStatusBa" v-model="cboStatusBaVal" @update:modelValue="mySelectEvent6()" :clearable="false"></v-select>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <div class="form-group">
+        <div class="form-group">
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-3">
@@ -155,10 +159,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <hr />
+<hr />
         <!------------------------>
         <div class="block-content">
             <div id="wrapper2"></div>
@@ -167,7 +168,6 @@
 
         <!------------------------>
     </div>
-
     <!-- modals -->
     <Teleport to="body">
         <!-- use the modal component, pass in the prop -->
@@ -840,4 +840,14 @@ export default {
 .input-error {
     border: red 1px solid;
 }
+.label-spacing {
+      margin-right: 20px; /* add some spacing between label and input/select */
+    }
+    .form-group {
+      margin-bottom: 20px; /* add some spacing between form elements */
+    }
+    .col-md-3, .col-md-7 {
+      padding-right: 10px; /* reduce padding between columns */
+      padding-left: 10px; /* reduce padding between columns */
+    }
 </style>

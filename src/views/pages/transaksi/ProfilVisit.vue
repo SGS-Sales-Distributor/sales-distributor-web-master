@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="mb-2">
             <div class="row">
-                <div class="col-md-12">
+                <!-- <div class="col-md-12">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-2">
@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <hr />
@@ -95,6 +95,148 @@
             </template>
         </FormModal>
     </Teleport>
+
+    <Teleport to="body">
+        <!-- use the modal component, pass in the prop -->
+
+        <!-- Modal Detail Check IN -->
+        <FormModal :show="showModal_check_in" :style="showmodal_zindex" @close="showModal_check_in = false">
+            <template #header>
+                <h3>Detail Status Check IN</h3>
+            </template>
+            <template #body>
+                <div style="width: 90vw">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="">Check IN Time</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ var_check_in.tanggal_visit }} {{ var_check_in.time_in }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="">Maps Location</label>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <iframe width="600" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" :src="var_check_in.location">
+                                        </iframe>
+                                        <br />
+                                        <small>
+                                            <a :href="var_check_in.location" style="color:#0000FF;text-align:left" target="_blank">
+                                                See map bigger
+                                            </a>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="">Addres</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ alamat }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="">Photo</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img width="600" height="450" style="border:0" :src="var_check_in.photo" />
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                </div>
+            </template>
+            <template #footer>
+                <button class="modal-default-button btn btn-secondary btn-sm me-1" @click="close_check_in">
+                    Tutup
+                </button>
+            </template>
+        </FormModal>
+
+        <!-- Modal Detail Check OUT -->
+        <FormModal :show="showModal_check_out" :style="showmodal_zindex" @close="showModal_check_out = false">
+            <template #header>
+                <h3>Detail Status Check OUT</h3>
+            </template>
+            <template #body>
+                <div style="width: 90vw">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="">Check OUT Time</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ var_check_out.tanggal_visit }} {{ var_check_out.time_out }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="">Maps Location</label>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <iframe width="600" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" :src="var_check_out.location">
+                                        </iframe>
+                                        <br />
+                                        <small>
+                                            <a :href="var_check_out.location" style="color:#0000FF;text-align:left" target="_blank">
+                                                See map bigger
+                                            </a>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="">Photo</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img width="600" height="450" style="border:0" :src="var_check_out.photo" />
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                </div>
+            </template>
+            <template #footer>
+                <button class="modal-default-button btn btn-secondary btn-sm me-1" @click="close_check_out">
+                    Tutup
+                </button>
+            </template>
+        </FormModal>
+    </Teleport>
 </Pages>
 </template>
 
@@ -137,7 +279,7 @@ export default {
     },
     data() {
         return {
-            title: "Master Tipe Program",
+            title: "Profil Visit",
             showModal: false,
             showmodal_zindex: "z-index:1000",
             grid2: new Grid(),
@@ -153,7 +295,7 @@ export default {
 
             todo2: {
                 type: "",
-                id_type: "",
+                id: "",
             },
 
             errorList: "",
@@ -161,9 +303,15 @@ export default {
                 type: false,
             },
 
+            alamat: "",
+
             userid: "",
 
             uObject: "",
+            var_check_in: {},
+            var_check_out: {},
+            showModal_check_in: false,
+            showModal_check_out: false,
         };
     },
     mounted() {
@@ -175,6 +323,29 @@ export default {
         this.userid = this.uObject.id;
     },
     methods: {
+        async sleep(ms) {
+            return new Promise((resolve) => setTimeout(resolve, ms));
+        },
+        getAlamat(long, lat) {
+            var mythis = this;
+            axios
+                .get(
+                    "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" +
+                    lat +
+                    "&lon=" +
+                    long +
+                    ""
+                )
+                .then((res) => {
+                    mythis.alamat = res.data.display_name;
+                });
+        },
+        modal_check_in() {
+            this.showModal_check_in = true;
+        },
+        modal_check_out() {
+            this.showModal_check_out = true;
+        },
         mySelectEvent() {
             this.todo.whsCodeType = this.tmp_whsCodeType.code;
         },
@@ -225,17 +396,122 @@ export default {
                         hidden: true
                     },
 
+                    // {
+                    //     id: "id",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID</b></div>'
+                    //     ),
+                    // },
+
                     {
-                        id: "id_type",
+                        id: "store_id",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID TYPE</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>STORE NAME</b></div>'
                         ),
                     },
 
                     {
-                        id: "type",
+                        id: "user",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>TYPE</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>USER</b></div>'
+                        ),
+                    },
+
+                    {
+                        id: "photo_visit",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>CHECK IN STATUS</b></div>'
+                        ),
+                    },
+
+                    {
+                        id: "photo_visit_out",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>CHECK OUT STATUS</b></div>'
+                        ),
+                    },
+
+                    // {
+                    //     id: "tanggal_visit",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Tanggal Visit</b></div>'
+                    //     ),
+                    // },
+
+                    // {
+                    //     id: "time_in",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Time In</b></div>'
+                    //     ),
+                    // },
+
+                    // {
+                    //     id: "time_out",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Time Out</b></div>'
+                    //     ),
+                    // },
+
+                    // {
+                    //     id: "purchase_order_in",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Purchase Order In</b></div>'
+                    //     ),
+                    // },
+
+                    // {
+                    //     id: "condit_owner",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Condit Owner</b></div>'
+                    //     ),
+                    // },
+
+                    // {
+                    //     id: "ket",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Keterangan</b></div>'
+                    //     ),
+                    // },
+
+                    // {
+                    //     id: "comment_appr",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Komentar Approval</b></div>'
+                    //     ),
+                    // },
+
+                    // {
+                    //     id: "lat_in",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Latitude In</b></div>'
+                    //     ),
+                    // },
+
+                    // {
+                    //     id: "long_in",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Longitude In</b></div>'
+                    //     ),
+                    // },
+
+                    // {
+                    //     id: "lat_out",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Latitude Out</b></div>'
+                    //     ),
+                    // },
+
+                    // {
+                    //     id: "long_out",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Longitude Out</b></div>'
+                    //     ),
+                    // },
+
+                    {
+                        id: "approval",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>APPROVAL</b></div>'
                         ),
                     },
 
@@ -246,7 +522,6 @@ export default {
                                 `
                 <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
                 &nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
               `
                             ),
                     },
@@ -274,12 +549,14 @@ export default {
                     },
                 },
                 server: {
-                    url: 'http://localhost:8000/sgs/master_type_program_x',
+                    url: 'http://localhost:8000/sgs/profil_visit',
                     then: (data) =>
                         data.results.map((card) => [
-                            card.id_type,
-                            card.id_type,
-                            card.type,
+                            card.id,
+                            card.store_id,
+                            card.user,
+                            (card.status_check_in == 1) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_in" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-thumbs-up"></i></button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-x"></i></button>`),
+                            (card.status_check_out == 1) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_out" data-toggle="tooltip" title="Status Check OUT" ><i class="fa-solid fa-thumbs-up"></i></button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check OUT" ><i class="fa-solid fa-x"></i></button>`), card.approval,
                         ]),
                     total: (data) => data.count,
                     handle: (res) => {
@@ -314,6 +591,56 @@ export default {
 
         jqueryDelEdit() {
             const mythis = this;
+
+            $(document).on("click", "#status_check_out", function () {
+                let id = $(this).data("id");
+                // alert(id);
+                mythis.idRincian = id;
+                mythis.modal_check_out();
+
+                mythis.$root.loader = true;
+
+                
+                axios
+                    .get('http://localhost:8000/sgs/profil_visit/' + id)
+                    .then(async (res) => {
+                        mythis.acuanEdit = id;
+                        Object.keys(res.data.data).forEach(function (key) {
+                            mythis.var_check_out[key] = res.data.data[key];
+                        });
+                        // document.getElementById("inputA").focus(); // sets the focus on the input
+
+                        mythis.var_check_out.location = 'https://maps.google.com/maps?q=' + res.data.data.lat_out + ',' + res.data.data.long_out + '&hl=es&z=14&output=embed';
+                        mythis.var_check_out.photo = res.data.data.photo_visit;
+                        await mythis.getAlamat(res.data.data.long_out, res.data.data.lat_out);
+                        mythis.$root.loader = false;
+                    });
+            });
+
+            $(document).on("click", "#status_check_in", function () {
+                let id = $(this).data("id");
+                mythis.idRincian = id;
+                mythis.modal_check_in();
+
+                mythis.$root.loader = true;
+
+                axios
+                    .get('http://localhost:8000/sgs/profil_visit/' + id)
+                    .then(async (res) => {
+                        mythis.acuanEdit = id;
+                        Object.keys(res.data.data).forEach(function (key) {
+                            mythis.var_check_in[key] = res.data.data[key];
+                        });
+                        // document.getElementById("inputA").focus(); // sets the focus on the input
+                        // mythis.var_check_in.location = "https://maps.google.com/?q=" +  res.data.data.lat_in + "," +  res.data.data.long_in;
+
+                        mythis.var_check_in.location = 'https://maps.google.com/maps?q=' + res.data.data.lat_in + ',' + res.data.data.long_in + '&hl=es&z=14&output=embed';
+                        mythis.var_check_in.photo = res.data.data.photo_visit;
+                        await mythis.getAlamat(res.data.data.long_in, res.data.data.lat_in);
+                        await mythis.sleep(3000);
+                        mythis.$root.loader = false;
+                    });
+            });
 
             $(document).on("click", "#editData", function () {
                 let id = $(this).data("id");
@@ -439,7 +766,16 @@ export default {
                     }
                 });
         },
-
+        close_check_out: function () {
+            this.showModal_check_out = false;
+            this.todo = {};
+            this.todo2 = {};
+        },
+        close_check_in: function () {
+            this.showModal_check_in = false;
+            this.todo = {};
+            this.todo2 = {};
+        },
         close: function () {
             this.showModal = false;
             this.todo = {};

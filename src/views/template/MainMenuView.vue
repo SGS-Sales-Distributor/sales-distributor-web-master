@@ -119,43 +119,43 @@ export default {
           sub_menu_id: "all-menu-masterdata",
           sub_menu: [
             {
-              name: "Master Tipe Program",
+              name: "Tipe Program",
               menu: "MasterTipeProgram",
               sub_menu_id: null,
               sub_menu: [],
             },
             {
-              name: "Master Limit Credit",
+              name: "Limit Credit",
               menu: "MasterLimitCredit",
               sub_menu_id: null,
               sub_menu: [],
             },
             {
-              name: "Master Overdue",
+              name: "Overdue",
               menu: "MasterOverdue",
               sub_menu_id: null,
               sub_menu: [],
             },
             {
-              name: "Master Call Plan",
+              name: "Call Plan",
               menu: "MasterCallPlan",
               sub_menu_id: null,
               sub_menu: [],
             },
             {
-              name: "Master Produk",
+              name: "Produk",
               menu: "MasterProduk",
               sub_menu_id: null,
               sub_menu: [],
             },
             {
-              name: "Master Target NOO",
+              name: "Target NOO",
               menu: "MasterTargetNOO",
               sub_menu_id: null,
               sub_menu: [],
             },
             {
-              name: "Master Tipe Toko",
+              name: "Tipe Toko",
               menu: "MasterTipeToko",
               sub_menu_id: null,
               sub_menu: [],
@@ -188,6 +188,31 @@ export default {
           ]
         },
         {
+          name: "TRANSAKSI",
+          menu: "transaksi",
+          sub_menu_id: "all-menu-transaksi",
+          sub_menu: [
+            {
+              name: "Purchase Order",
+              menu: "PurchaseOrder",
+              sub_menu_id: null,
+              sub_menu: [],
+            },
+            {
+              name: "Retur Produk",
+              menu: "ReturProduk",
+              sub_menu_id: null,
+              sub_menu: [],
+            },
+            {
+              name: "Profil Visit",
+              menu: "ProfilVisit",
+              sub_menu_id: null,
+              sub_menu: [],
+            },
+          ]
+        },
+        {
           name: "SETTING",
           menu: "setting",
           sub_menu_id: "all-menu-setting",
@@ -212,25 +237,6 @@ export default {
             },
           ]
         },
-        {
-          name: "TRANSAKSI",
-          menu: "transaksi",
-          sub_menu_id: "all-menu-transaksi",
-          sub_menu: [
-            {
-              name: "Purchase Order",
-              menu: "PurchaseOrder",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
-              name: "Retur Produk",
-              menu: "ReturProduk",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-          ]
-        }
       ],
 
       isLogin:
