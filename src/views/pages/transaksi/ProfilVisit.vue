@@ -52,25 +52,12 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="">ID Type</label>
+                                        <label for="">Approval</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <FormInput id="inputA" :class="errorField.id_type ? 'input-error' : ''" v-model="todo2.id_type" @input="
+                                        <FormInput :class="errorField.type ? 'input-error' : ''" v-model="todo2.approval" @input="
                           (val) =>
-                            (todo2.id_type = todo2.id_type.trim())
-                        " readonly></FormInput>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">Type Program</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <FormInput :class="errorField.type ? 'input-error' : ''" v-model="todo2.type" @input="
-                          (val) =>
-                            (todo2.type = todo2.type.trim())
+                            (todo2.approval = todo2.approval.trim())
                         "></FormInput>
                                     </div>
                                 </div>
@@ -106,64 +93,93 @@
             </template>
             <template #body>
                 <div style="width: 90vw">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">Check IN Time</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        {{ var_check_in.tanggal_visit }} {{ var_check_in.time_in }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">Maps Location</label>
-                                    </div>
-                                    <div class="col-md-6">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
 
-                                        <iframe width="600" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" :src="var_check_in.location">
-                                        </iframe>
-                                        <br />
-                                        <small>
-                                            <a :href="var_check_in.location" style="color:#0000FF;text-align:left" target="_blank">
-                                                See map bigger
-                                            </a>
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
+                                <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">Addres</label>
+                                    <div class="col-md-3">
+                                        <label for="">User</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        {{ alamat }}
+                                    <div class="col-md-8">
+                                       {{userx}}
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">Photo</label>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="">Check IN Time</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            {{ var_check_in.tanggal_visit }} {{ var_check_in.time_in }}
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <img width="600" height="450" style="border:0" :src="var_check_in.photo" />
+                                </div>
 
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="">Maps Location</label>
+                                        </div>
+                                        <div class="col-md-8">
+
+                                            <iframe width="300" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" :src="var_check_in.location">
+                                            </iframe>
+                                            <br />
+                                            <small>
+                                                <a :href="var_check_in.location" style="color:#0000FF;text-align:left" target="_blank">
+                                                    See map bigger
+                                                </a>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">Store Name</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                       {{store_name}}
                                     </div>
                                 </div>
                             </div>
 
-                        </div>
-                    </div>
-                    <br />
-                    <br />
-                    <br />
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="">Addres</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            {{ alamat }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="">Photo</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <img width="300" height="250" style="border:0" :src="var_check_in.photo" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br />
+                            <br />
+                            <br />
+                       </div>
+                   </div>
                 </div>
             </template>
             <template #footer>
@@ -180,26 +196,40 @@
             </template>
             <template #body>
                 <div style="width: 90vw">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
+                                        <label for="">User</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                       {{userx}}
+                                    </div>
+                                </div>
+                            </div>
+
+                                <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
                                         <label for="">Check OUT Time</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-8">
                                         {{ var_check_out.tanggal_visit }} {{ var_check_out.time_out }}
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label for="">Maps Location</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-8">
 
-                                        <iframe width="600" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" :src="var_check_out.location">
+                                        <iframe width="300" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" :src="var_check_out.location">
                                         </iframe>
                                         <br />
                                         <small>
@@ -211,23 +241,48 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">Photo</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <img width="600" height="450" style="border:0" :src="var_check_out.photo" />
+                            </div>
 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">Store Name</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                       {{store_name}}
                                     </div>
                                 </div>
                             </div>
 
-                        </div>
-                    </div>
-                    <br />
-                    <br />
-                    <br />
+                                <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">Address</label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        {{ alamat }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">Photo</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <img width="300" height="250" style="border:0" :src="var_check_out.photo" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            </div>
+                            <br />
+                            <br />
+                            <br />
+                       </div>
+                   </div>
                 </div>
             </template>
             <template #footer>
@@ -304,6 +359,8 @@ export default {
             },
 
             alamat: "",
+            userx:"",
+            store_name:"",
 
             userid: "",
 
@@ -406,7 +463,7 @@ export default {
                     {
                         id: "store_id",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>STORE NAME</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>STORE ID</b></div>'
                         ),
                     },
 
@@ -600,7 +657,6 @@ export default {
 
                 mythis.$root.loader = true;
 
-                
                 axios
                     .get('http://localhost:8000/sgs/profil_visit/' + id)
                     .then(async (res) => {
@@ -611,8 +667,11 @@ export default {
                         // document.getElementById("inputA").focus(); // sets the focus on the input
 
                         mythis.var_check_out.location = 'https://maps.google.com/maps?q=' + res.data.data.lat_out + ',' + res.data.data.long_out + '&hl=es&z=14&output=embed';
-                        mythis.var_check_out.photo = res.data.data.photo_visit;
+                        mythis.var_check_out.photo = res.data.data.photo_visit_out;
                         await mythis.getAlamat(res.data.data.long_out, res.data.data.lat_out);
+                        mythis.userx = res.data.data.user;
+                        mythis.store_name = res.data.data.store_name;
+                        await mythis.sleep(3000);
                         mythis.$root.loader = false;
                     });
             });
@@ -627,16 +686,20 @@ export default {
                 axios
                     .get('http://localhost:8000/sgs/profil_visit/' + id)
                     .then(async (res) => {
+                        console.log(res);
                         mythis.acuanEdit = id;
                         Object.keys(res.data.data).forEach(function (key) {
                             mythis.var_check_in[key] = res.data.data[key];
                         });
                         // document.getElementById("inputA").focus(); // sets the focus on the input
                         // mythis.var_check_in.location = "https://maps.google.com/?q=" +  res.data.data.lat_in + "," +  res.data.data.long_in;
+                        
 
                         mythis.var_check_in.location = 'https://maps.google.com/maps?q=' + res.data.data.lat_in + ',' + res.data.data.long_in + '&hl=es&z=14&output=embed';
                         mythis.var_check_in.photo = res.data.data.photo_visit;
                         await mythis.getAlamat(res.data.data.long_in, res.data.data.lat_in);
+                        mythis.userx = res.data.data.user;
+                        mythis.store_name = res.data.data.store_name;
                         await mythis.sleep(3000);
                         mythis.$root.loader = false;
                     });
@@ -648,13 +711,15 @@ export default {
                 mythis.modal();
                 mythis.$root.loader = true;
                 axios
-                    .get('http://localhost:8000/sgs/master_type_program/' + id)
+                    .get('http://localhost:8000/sgs/profil_visit/' + id)
                     .then((res) => {
                         mythis.acuanEdit = id;
                         Object.keys(res.data.data).forEach(function (key) {
                             mythis.todo2[key] = res.data.data[key];
                         });
                         document.getElementById("inputA").focus(); // sets the focus on the input
+
+                        mythis
 
                         mythis.$root.loader = false;
                     });
