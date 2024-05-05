@@ -7,7 +7,7 @@
                     
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="">Nama Outlet</label>
                             </div>
                             <div class="col-md-8">
@@ -21,7 +21,7 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="">ID Cabang</label>
                                 <!-- {{todo}} -->
                             </div>
@@ -33,7 +33,7 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="">Alamat</label>
                             </div>
                             <div class="col-md-8">
@@ -50,8 +50,8 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
-                                <label for="">Store ID</label>
+                            <div class="col-md-3">
+                                <label for="">Store Type ID</label>
                                 <!-- {{todo}} -->
                             </div>
                             <div class="col-md-9">
@@ -62,7 +62,7 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="">Status</label>
                                 <!-- {{todo}} -->
                             </div>
