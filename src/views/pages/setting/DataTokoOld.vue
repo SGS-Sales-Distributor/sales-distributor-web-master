@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <strong>Data User</strong>
+                <strong>Data Toko</strong>
             </div>
             <div class="btn" style="display: flex; justify-content: flex-end;">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#StoreNewUserModal">
@@ -20,8 +20,8 @@
                 </div>
             </div>
 
-            <div class="card-body"  style="overflow-x: auto;">
-                <table id="dtBasicExample" class="table table-bordered table-hover table-responsive">
+            <div class="card-body">
+                <table id="dtBasicExample" class="table table-bordered table-hover table-responsive" style="overflow-x: auto;">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -42,33 +42,33 @@
                         </tr>
                     </thead>
                     <!-- <tbody>
-                                        <tr v-for="(item, idx) in salesman.data" :key="idx">
-                                            <td>{{ idx + 1 }}</td>
-                                            <td>{{ item.user_number }}</td>
-                                            <td>{{ item.user_nik }}</td>
-                                            <td>{{ item.user_fullname }}</td>
-                                            <td>{{ item.user_phone }}</td>
-                                            <td>{{ item.user_email }}</td>
-                                            <td>{{ item.user_name }}</td>
-                                            <td>{{ item.user_password }}</td>
-                                            <td>{{ item.user_type_id }}</td>
-                                            <td>{{ item.user_status }}</td>
-                                            <td>{{ item.cabang_id }}</td>
-                                            <td>{{ item.store_id }}</td>
-                                            <td>{{ item.status_ba }}</td>
-                                            <td>{{ item.modtime }}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-secondary mx-1" data-bs-toggle="modal" data-bs-target="#editModal" @click="editData(item)">Edit</button>
-                                                <button type="button" class="btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#deleteModal" @click="selectId(item.id)">Delete</button>
-                                            </td>
-                                        </tr>
-                                    </tbody> -->
+                            <tr v-for="(item, idx) in salesman.data" :key="idx">
+                                <td>{{ idx + 1 }}</td>
+                                <td>{{ item.user_number }}</td>
+                                <td>{{ item.user_nik }}</td>
+                                <td>{{ item.user_fullname }}</td>
+                                <td>{{ item.user_phone }}</td>
+                                <td>{{ item.user_email }}</td>
+                                <td>{{ item.user_name }}</td>
+                                <td>{{ item.user_password }}</td>
+                                <td>{{ item.user_type_id }}</td>
+                                <td>{{ item.user_status }}</td>
+                                <td>{{ item.cabang_id }}</td>
+                                <td>{{ item.store_id }}</td>
+                                <td>{{ item.status_ba }}</td>
+                                <td>{{ item.modtime }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-secondary mx-1" data-bs-toggle="modal" data-bs-target="#editModal" @click="editData(item)">Edit</button>
+                                    <button type="button" class="btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#deleteModal" @click="selectId(item.id)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody> -->
                 </table>
                 <!-- <CRow>
-                                    <CCol>
-                                        <CPagination :activePage.sync="currentPage" :pages="totalPages" @update:activePage="fetchDataUser"></CPagination>
-                                    </CCol>
-                                </CRow> -->
+                        <CCol>
+                            <CPagination :activePage.sync="currentPage" :pages="totalPages" @update:activePage="fetchDataUser"></CPagination>
+                        </CCol>
+                    </CRow> -->
                 <nav aria-label="...">
                     <ul class="pagination">
                         <li class="page-item disabled">
@@ -299,7 +299,7 @@ const schema = yup.object().shape({
 export default {
     data() {
         return {
-            title: 'Data User',
+            title: 'Data Toko',
             schema,
             items: [],
             salesman: {
