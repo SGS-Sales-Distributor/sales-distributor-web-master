@@ -148,7 +148,7 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label for="">Penempatan Salesman</label>
-                                {{todo}}
+                                <!-- {{todo}} -->
                             </div>
                             <div class="col-md-8">
                                 <v-select :options="cboPenempatan" v-model="cboPenempatanVal" @update:modelValue="mySelectEvent3()" :clearable="false"></v-select>
@@ -186,6 +186,7 @@
             </template>
             <template #body>
                 <div style="width: 90vw">
+                    <!-- <pre>{{todo2}}</pre> -->
                     <div class="mb-6">
                         <div class="row">
                             <div class="col-md-6">
@@ -196,7 +197,7 @@
                                             <label for="">NIK</label>
                                         </div>
                                         <div class="col-md-7">
-                                            <FormInput :class="errorField.user_nik ? 'input-error' : ''" v-model="todo.user_nik" @input="
+                                            <FormInput :class="errorField.user_nik ? 'input-error' : ''" v-model="todo2.user_nik" @input="
                       (val) => 
                         (todo.user_nik = todo.user_nik.trim())
                     "></FormInput>
@@ -210,7 +211,7 @@
                                             <label for="">Nama Lengkap</label>
                                         </div>
                                         <div class="col-md-7">
-                                            <FormInput :class="errorField.user_fullname ? 'input-error' : ''" v-model="todo.user_fullname" @input="
+                                            <FormInput :class="errorField.user_fullname ? 'input-error' : ''" v-model="todo2.user_fullname" @input="
                       (val) => 
                         (todo.user_fullname = todo.user_fullname.trim())
                     "></FormInput>
@@ -224,7 +225,7 @@
                                             <label for="">Username</label>
                                         </div>
                                         <div class="col-md-7">
-                                            <FormInput :class="errorField.user_name ? 'input-error' : ''" v-model="todo.user_name" @input="
+                                            <FormInput :class="errorField.user_name ? 'input-error' : ''" v-model="todo2.user_name" @input="
                       (val) => 
                         (todo.user_name = todo.user_name.trim())
                     "></FormInput>
@@ -238,10 +239,35 @@
                                             <label for="">Email</label>
                                         </div>
                                         <div class="col-md-7">
-                                            <FormInput :class="errorField.user_email ? 'input-error' : ''" v-model="todo.user_email" @input="
+                                            <FormInput :class="errorField.user_email ? 'input-error' : ''" v-model="todo2.user_email" @input="
                       (val) => 
                         (todo.user_email = todo.user_email.trim())
                     "></FormInput>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <!-- {{todo}} -->
+                                            <label for="">Cabang</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <v-select :options="cboCabang" v-model="cboCabangVal2" @update:modelValue="mySelectEvent11_2()" :clearable="false"></v-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <!-- {{todo}} -->
+                                            <label for="">Outlet</label>
+                                            <!-- {{todo}} -->
+                                        </div>
+                                        <div class="col-md-8">
+                                            <v-select :options="cboOutlet" v-model="cboOutletVal2" @update:modelValue="mySelectEvent22_2()" :clearable="false"></v-select>
                                         </div>
                                     </div>
                                 </div>
@@ -255,7 +281,7 @@
                                             <label for="">Phone</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <FormInput :class="errorField.user_phone ? 'input-error' : ''" v-model="todo.user_phone" @input="
+                                            <FormInput :class="errorField.user_phone ? 'input-error' : ''" v-model="todo2.user_phone" @input="
                     (val) => 
                         (todo.user_phone = todo.user_phone.trim())
                     "></FormInput>
@@ -270,7 +296,7 @@
                                             <!-- {{todo}} -->
                                         </div>
                                         <div class="col-md-9">
-                                            <v-select :options="cboUserTipeId" v-model="cboUserTipeIdVal" @update:modelValue="mySelectEvent5()" :clearable="false"></v-select>
+                                            <v-select :options="cboUserTipeId" v-model="cboUserTipeIdVal2" @update:modelValue="mySelectEvent33_2()" :clearable="false"></v-select>
                                         </div>
                                     </div>
                                 </div>
@@ -282,7 +308,19 @@
                                             <!-- {{todo}} -->
                                         </div>
                                         <div class="col-md-9">
-                                            <v-select :options="cboStatusBa" v-model="cboStatusBaVal" @update:modelValue="mySelectEvent6()" :clearable="false"></v-select>
+                                            <v-select :options="cboStatusBa" v-model="cboStatusBaVal2" @update:modelValue="mySelectEvent44_2()" :clearable="false"></v-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="">Penempatan Salesman</label>
+                                            <!-- {{todo}} -->
+                                        </div>
+                                        <div class="col-md-9">
+                                            <v-select :options="cboPenempatan" v-model="cboPenempatanVal2" @update:modelValue="mySelectEvent55_2()" :clearable="false"></v-select>
                                         </div>
                                     </div>
                                 </div>
@@ -417,9 +455,27 @@ export default {
             cboUserStatusVal2: [],
             cboStatusBaVal2: [],
 
+            // cboCabangVal2: [],
+            // cboOutletVal2: [],
+            // cboPenempatanVal2: [],
+            // cboUserStatusVal2: [],
+            // cboUserTipeIdVal2: [],
+            // cboStatusBaVal2: [],
+
+
             todo2: {
+                user_nik: "",
+                user_fullname: "",
+                user_name: "",
+                user_email: "",
+                user_phone: "",
                 user_status: "",
+                user_type_id: "",
                 status_ba: "",
+
+                nama_cabang: "",
+                store_id: "",
+                cabang_id: "",
             },
 
             errorList: "",
@@ -427,11 +483,17 @@ export default {
                 type: false,
             },
             cboCabangVal: null,
+            cboCabangVal2: null,
             cboOutletVal: null,
+            cboOutletVal2: null,
             cboPenempatanVal: null,
+            cboPenempatanVal2: null,
             cboUserStatusVal: null,
+            cboUserStatusVal2: null,
             cboUserTipeIdVal: null,
+            cboUserTipeIdVal2: null,
             cboStatusBaVal: null,
+            cboStatusBaVal2: null,
             select2Id1: "select2Id1",
             userid: "",
 
@@ -502,15 +564,28 @@ export default {
         mySelectEvent() {
             this.todo.cabang_id = this.cboCabangVal.code;
         },
+        mySelectEvent11_2() {
+            this.todo2.cabang_id = this.cboCabangVal2.code;
+        },
         mySelectEvent2() {
             // this.todo2.whsCodeType = this.tmp_whsCodeType2.code;
             this.todo.store_id = this.cboOutletVal.code;
         },
+        mySelectEvent22_2() {
+            // this.todo2.whsCodeType = this.tmp_whsCodeType2.code;
+            this.todo2.store_id = this.cboOutletVal2.code;
+        },
         mySelectEvent3() {
             this.todo.nama_cabang = this.cboPenempatanVal.code;
         },
+        mySelectEvent33_2() {
+            this.todo2.nama_cabang = this.cboPenempatanVal2.code;
+        },
         mySelectEvent4() {
             this.todo.user_status = this.cboUserStatusVal.code;
+        },
+        mySelectEvent44_2() {
+            this.todo2.user_status = this.cboUserStatusVal2.code;
         },
         mySelectEvent4_2() {
             this.todo2.user_status = this.cboUserStatusVal2.code;
@@ -523,14 +598,31 @@ export default {
             if (
                 this.todo.user_type_id != 10
             ) {
-                this.todo.nama_cabang= "0";
-                this.todo.store_id= "1";
-                this.todo.cabang_id="0";
+                this.todo.nama_cabang = "0";
+                this.todo.store_id = "1";
+                this.todo.cabang_id = "0";
+            }
+
+        },
+        mySelectEvent55_2() {
+            this.todo2.user_type_id = this.cboUserTipeIdVal2.code;
+
+            // alert(this.todo.user_type_id);
+            this.muncul = (this.todo2.user_type_id == 10) ? true : false;
+            if (
+                this.todo2.user_type_id != 10
+            ) {
+                this.todo2.nama_cabang = "0";
+                this.todo2.store_id = "1";
+                this.todo2.cabang_id = "0";
             }
 
         },
         mySelectEvent6() {
             this.todo.status_ba = this.cboStatusBaVal.label;
+        },
+        mySelectEvent66() {
+            this.todo2.status_ba = this.cboStatusBaVal2.label;
         },
         mySelectEvent6_2() {
             this.todo2.status_ba = this.cboStatusBaVal2.label;
@@ -549,6 +641,13 @@ export default {
             mythis.cboUserStatusVal = "";
             mythis.cboStatusBaVal = "";
             mythis.cboPenempatanVal = "";
+
+            // mythis.cboCabangVal2 = "";
+            // mythis.cboOutletVal2 = "";
+            // mythis.cboUserTipeIdVal2 = "";
+            // mythis.cboUserStatusVal2 = "";
+            // mythis.cboStatusBaVal2 = "";
+            // mythis.cboPenempatanVal2 = "";
         },
         getCbowhsCodeType() {
             var mythis = this;
@@ -592,6 +691,13 @@ export default {
                     },
 
                     {
+                        id: "user_nik",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>NIK</b></div>'
+                        ),
+                    },
+
+                    {
                         id: "user_fullname",
                         name: html(
                             '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>FULLNAME</b></div>'
@@ -602,13 +708,6 @@ export default {
                         id: "user_name",
                         name: html(
                             '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>USERNAME</b></div>'
-                        ),
-                    },
-
-                    {
-                        id: "user_nik",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>NIK</b></div>'
                         ),
                     },
 
@@ -690,8 +789,8 @@ export default {
                             card.user_nik,
                             card.user_fullname,
                             card.user_name,
-                            card.user_email,
                             card.user_phone,
+                            card.user_email,
                             card.user_type_id,
                             card.status_ba,
                             // card.cabang_id,
@@ -734,6 +833,7 @@ export default {
             $(document).on("click", "#editData", function () {
                 let id = $(this).data("id");
                 mythis.idRincian = id;
+                // alert(id);
                 mythis.modal();
                 mythis.$root.loader = true;
                 axios
@@ -744,7 +844,14 @@ export default {
                             mythis.todo2[key] = res.data.data[key];
                         });
                         // document.getElementById("inputA").focus(); // sets the focus on the input
-                        mythis.cboUserStatusVal2 = res.data.data.user_status;
+                        // mythis.cboUserStatusVal2 = res.data.data.user_status;
+                        // mythis.cboStatusBaVal2 = res.data.data.status_ba;
+                        mythis.cboCabangVal2 = res.data.data.nama_cabang;
+                        mythis.cboOutletVal2 = res.data.data.store_name;
+                        //mythis.cboPenempatanVal2 = res.data.data.kode_lokasi;
+                        mythis.cboUserTipeIdVal2 = res.data.data.user_type_name;
+                        
+                        // mythis.cboUserStatusVal2 = res.data.data.user_type_id;
                         mythis.cboStatusBaVal2 = res.data.data.status_ba;
                         mythis.$root.loader = false;
                     });

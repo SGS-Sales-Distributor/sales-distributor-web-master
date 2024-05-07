@@ -3,76 +3,20 @@
     <div class="container-fluid">
         <div class="mb-2">
             <div class="row">
-                <div class="col-md-6">
-                    
+                <div class="col-md-12">
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-3">
-                                <label for="">Nama Outlet</label>
+                            <div class="col-md-2">
+                                <label for="">Type Toko</label>
                             </div>
-                            <div class="col-md-8">
-                                <FormInput :class="errorField.store_name ? 'input-error' : ''" v-model="todo.store_name" @input="
+                            <div class="col-md-6">
+                                <FormInput :class="errorField.store_type_name ? 'input-error' : ''" v-model="todo.store_type_name" @input="
                       (val) => 
-                        (todo.store_name = todo.store_name.trim())
+                        (todo.store_type_name = todo.store_type_name.toUpperCase().trim())
                     "></FormInput>
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="">ID Cabang</label>
-                                <!-- {{todo}} -->
-                            </div>
-                            <div class="col-md-9">
-                                <v-select :options="cboIDCabang" v-model="cboIDCabangVal" @update:modelValue="mySelectEvent7_2()" :clearable="false"></v-select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="">Alamat</label>
-                            </div>
-                            <div class="col-md-8">
-                                <FormInput :class="errorField.store_address ? 'input-error' : ''" v-model="todo.store_address" @input="
-                      (val) => 
-                        (todo.store_address = todo.store_address.trim())
-                    "></FormInput>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="">Store Type ID</label>
-                                <!-- {{todo}} -->
-                            </div>
-                            <div class="col-md-9">
-                                <v-select :options="cboIDStore" v-model="cboIDStoreVal" @update:modelValue="mySelectEvent8_2()" :clearable="false"></v-select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="">Status</label>
-                                <!-- {{todo}} -->
-                            </div>
-                            <div class="col-md-9">
-                                <v-select :options="cboStatusStore" v-model="cboStatusStoreVal" @update:modelValue="mySelectEvent12_2()" :clearable="false"></v-select>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-2"></div>
@@ -81,6 +25,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
         <hr />
@@ -105,67 +50,31 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="">Nama Outlet</label>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="">ID Toko</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <FormInput id="inputA" :class="errorField.store_type_id ? 'input-error' : ''" v-model="todo2.store_type_id" @input="
+                          (val) =>
+                            (todo2.store_type_id = todo2.store_type_id.trim())
+                        " readonly></FormInput>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-8">
-                                <FormInput :class="errorField.store_name ? 'input-error' : ''" v-model="todo.store_name" @input="
-                      (val) => 
-                        (todo.store_name = todo.store_name.trim())
-                    "></FormInput>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="">Type Toko</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <FormInput :class="errorField.store_type_name ? 'input-error' : ''" v-model="todo2.store_type_name" @input="
+                          (val) =>
+                            (todo2.store_type_name = todo2.store_type_name.toUpperCase().trim())
+                        "></FormInput>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="">ID Cabang</label>
-                            </div>
-                            <div class="col-md-9">
-                                <v-select :options="cboIDCabang" v-model="cboIDCabangVal" @update:modelValue="mySelectEvent9_2()" :clearable="false"></v-select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="">Alamat</label>
-                            </div>
-                            <div class="col-md-8">
-                                <FormInput :class="errorField.store_address ? 'input-error' : ''" v-model="todo.store_address" @input="
-                      (val) => 
-                        (todo.store_address = todo.store_address.trim())
-                    "></FormInput>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="">Store ID</label>
-                                <!-- {{todo}} -->
-                            </div>
-                            <div class="col-md-9">
-                                <v-select :options="cboIDStore" v-model="cboIDStoreVal" @update:modelValue="mySelectEvent10_2()" :clearable="false"></v-select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="">Status</label>
-                                <!-- {{todo}} -->
-                            </div>
-                            <div class="col-md-9">
-                                <v-select :options="cboStatusStore" v-model="cboStatusStoreVal" @update:modelValue="mySelectEvent11_2()" :clearable="false"></v-select>
-                            </div>
-                        </div>
-                    </div>
 
                         </div>
                     </div>
@@ -235,7 +144,7 @@ export default {
             acuanEdit: null,
 
             todo: {
-                type: "",
+                store_type_name: "",
             },
 
             tipeWarehouseOptions: [],
@@ -243,49 +152,14 @@ export default {
             tmp_whsCodeType2: [],
 
             todo2: {
-                type: "",
-                id_type: "",
+                store_type_name: "",
+                store_type_id: "",
             },
 
             errorList: "",
             errorField: {
-                type: false,
+                store_type_name: false,
             },
-
-            cboIDCabang: 
-            [{
-                    code: 0,
-                    label: "0"
-                },
-                {
-                    code: 1,
-                    label: "1"
-                },
-            ],
-            cboIDStore: 
-            [{
-                    code: 0,
-                    label: "0"
-                },
-                {
-                    code: 1,
-                    label: "1"
-                },
-            ],
-            cboStatusStore: 
-            [{
-                    code: 0,
-                    label: "Aktif"
-                },
-                {
-                    code: 1,
-                    label: "Tidak Aktif"
-                },
-            ],
-
-            cboIDCabangVal: null,
-            cboIDStoreVal: null,
-            cboStatusStoreVal: null,
 
             userid: "",
 
@@ -294,71 +168,18 @@ export default {
     },
     mounted() {
         this.getTable();
-        // this.getNamaCabang();
+        //this.getCbowhsCodeType();
         //this.userid = "9999";
-        this.getcboIDCabang();
-        this.getcboIDStore();
 
         this.uObject = JSON.parse(localStorage.getItem("auth"));
         this.userid = this.uObject.id;
     },
     methods: {
-        // getNamaCabang() {
-        //     var mythis = this;
-        //     mythis.$root.loader = true;
-        //     axios
-        //         .get("http://localhost:8000/sgs/getNamaCabang")
-        //         .then((res) => {
-        //             mythis.nama_cabang = res.data.data;
-        //             //console.log(res.data.data);
-        //             mythis.$root.loader = false;
-        //         });
-        // },
-        getcboIDCabang() {
-            var mythis = this;
-            mythis.$root.loader = true;
-            axios
-                .get("http://localhost:8000/sgs/getcboIDCabang")
-                .then((res) => {
-                    mythis.cboIDCabang = res.data.data;
-                    //console.log(res.data.data);
-                    mythis.$root.loader = false;
-                });
-        },
-        getcboIDStore() {
-            var mythis = this;
-            mythis.$root.loader = true;
-            axios
-                .get("http://localhost:8000/sgs/getcboIDStore")
-                .then((res) => {
-                    mythis.cboIDStore = res.data.data;
-                    //console.log(res.data.data);
-                    mythis.$root.loader = false;
-                });
-        },
         mySelectEvent() {
             this.todo.whsCodeType = this.tmp_whsCodeType.code;
         },
         mySelectEvent2() {
             this.todo2.whsCodeType = this.tmp_whsCodeType2.code;
-        },
-        mySelectEvent7_2() {
-            this.todo2.nama_cabang = this.cboIDCabangVal.code;
-        },
-        mySelectEvent8_2() {
-            this.todo2.store_type_name = this.cboIDStoreVal.code;
-        },
-        mySelectEvent9_2() {
-            this.todo2.nama_cabang = this.cboIDStoreVal.code;
-        },
-        mySelectEvent10_2() {
-            this.todo2.store_type_name = this.cboIDStoreVal.code;
-        },
-        mySelectEvent11_2() {
-            this.todo2.cboStatusStore = this.cboStatusStoreVal.code;
-        },
-        mySelectEvent12_2() {
-            this.todo2.cboStatusStore = this.cboStatusStoreVal.code;
         },
         resetForm() {
             var mythis = this;
@@ -405,56 +226,21 @@ export default {
                     },
 
                     {
-                        id: "store_id",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID</b></div>'
-                        ),
-                    },
-
-                    {
-                        id: "store_name",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Nama Outlet</b></div>'
-                        ),
-                    },
-
-                    {
-                        id: "subcabang_id",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID Cabang</b></div>'
-                        ),
-                    },
-
-                    {
-                        id: "store_address",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Alamat</b></div>'
-                        ),
-                    },
-
-                    {
                         id: "store_type_id",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Tipe Store ID</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID TOKO</b></div>'
                         ),
                     },
 
                     {
-                        id: "created_by",
+                        id: "store_type_name",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Created By</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>TOKO</b></div>'
                         ),
                     },
 
                     {
-                        id: "active",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Status</b></div>'
-                        ),
-                    },
-
-                    {
-                        name: "---- # ----",
+                        name: "AKSI",
                         formatter: (_, row) =>
                             html(
                                 `
@@ -488,17 +274,12 @@ export default {
                     },
                 },
                 server: {
-                    url: 'http://localhost:8000/sgs/store_info_distri',
+                    url: 'http://localhost:8000/sgs/store_type',
                     then: (data) =>
                         data.results.map((card) => [
-                            card.store_id,
-                            card.store_id,
-                            card.store_name,
-                            card.subcabang_id,
-                            card.store_address,
                             card.store_type_id,
-                            card.created_by,
-                            card.active,
+                            card.store_type_id,
+                            card.store_type_name,
                         ]),
                     total: (data) => data.count,
                     handle: (res) => {
@@ -540,7 +321,7 @@ export default {
                 mythis.modal();
                 mythis.$root.loader = true;
                 axios
-                    .get('http://localhost:8000/sgs/store_info_distri/' + id)
+                    .get('http://localhost:8000/sgs/store_type/' + id)
                     .then((res) => {
                         mythis.acuanEdit = id;
                         Object.keys(res.data.data).forEach(function (key) {
@@ -572,7 +353,7 @@ export default {
                 if (result.isConfirmed) {
                     mythis.$root.loader = true;
                     axios
-                        .delete('http://localhost:8000/sgs/store_info_distri/' + id, {
+                        .delete('http://localhost:8000/sgs/store_type/' + id, {
                             data: {
                                 fileUpload: "form satuan",
                                 userid: mythis.userid,
@@ -616,7 +397,7 @@ export default {
             mythis.$root.loader = true;
 
             axios
-                .post('http://localhost:8000/sgs/store_info_distri', {
+                .post('http://localhost:8000/sgs/store_type', {
                     data: mythis.todo,
                     fileUpload: "form satuan",
                     userid: mythis.userid,
@@ -676,7 +457,7 @@ export default {
             mythis.$root.loader = true;
             axios
                 .put(
-                    "http://localhost:8000/sgs/store_info_distri/" + mythis.acuanEdit, {
+                    "http://localhost:8000/sgs/store_type/" + mythis.acuanEdit, {
                         data: mythis.todo2,
                         fileUpload: "form satuan",
                         userid: mythis.userid,

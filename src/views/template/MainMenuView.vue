@@ -168,20 +168,8 @@ export default {
           sub_menu_id: "all-menu-admin",
           sub_menu: [
             {
-              name: "Login User Web",
-              menu: "LoginUserWeb",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
               name: "Data User",
               menu: "DataUser",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
-              name: "Profil User",
-              menu: "ProfilUser",
               sub_menu_id: null,
               sub_menu: [],
             },
