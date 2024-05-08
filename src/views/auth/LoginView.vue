@@ -31,9 +31,17 @@
   
   <script>
   import axios from "axios";
+  import Input from '@/components/forms/FormInput.vue';
+  import Button from '@/components/forms/FormButton.vue';
   import toast from "@/assets/js/toast"; // Import the toast library for displaying messages
   
   export default {
+    components: {
+        Input,
+        Button,
+    },
+    setup() {
+    },
     data() {
       return {
         title: "Login Page",
