@@ -1,97 +1,16 @@
 <template>
-  <component :is="activeRoute" :params="params"></component>
+  <header>
+    <RouterView />
+  </header>
+  <!-- <component :is="activeRoute" :params="params"></component>
   <component :is="mainMenu" :menu="menus"></component>
   <component :is="configMenu" :menu="configMenus"></component>
-  <FormLoader :active="loader" />
-  <notifications position="bottom right" width="500" />
+  <FormLoader :active="loader" /> -->
+  <!-- <notifications position="bottom right" width="500" /> -->
 </template>
 
-<script>
-import { markRaw } from "vue";
-import FormLoader from "@/components/template/FormLoader.vue";
-import MainMenu from "@/views/template/MainMenuView.vue";
-import ConfigMenu from "@/views/template/ConfigMenuView.vue";
-
-const componentViews = import.meta.globEager("@/views/*.vue");
-const componentPages = import.meta.globEager("@/views/pages/**/*.vue");
-const componentAuth = import.meta.globEager("@/views/auth/*.vue");
-
-let routeComponent = {};
-Object.entries(componentViews).forEach((path, i) => {
-  let name = path[0].split("/").pop().replace(".vue", "");
-  routeComponent[name] = path[1].default;
-});
-Object.entries(componentPages).forEach((path, i) => {
-  let name = path[0].split("/").pop().replace(".vue", "");
-  routeComponent[name] = path[1].default;
-});
-Object.entries(componentAuth).forEach((path, i) => {
-  let name = path[0].split("/").pop().replace(".vue", "");
-  routeComponent[name] = path[1].default;
-});
-
-const currentUrl = window.location.pathname;
-
-export default {
-  components: {
-    FormLoader,
-  },
-  data() {
-    let routes = "";
-    if (
-      sessionStorage.getItem("page") != null &&
-      localStorage.getItem("auth") != null
-    ) {
-      routes = markRaw(routeComponent[sessionStorage.getItem("page")]);
-    } else if (
-      sessionStorage.getItem("page") == null &&
-      localStorage.getItem("auth") != null
-    ) {
-      routes = markRaw(routeComponent["DashboardView"]);
-    } else if (
-      localStorage.getItem("token") == null &&
-      currentUrl == "/verify"
-    ) {
-      routes = markRaw(routeComponent["VerifyView"]);
-    } else if (currentUrl == "/privacy-policy") {
-      routes = markRaw(routeComponent["PrivacyAndPolicy"]);
-    } else {
-      routes = markRaw(routeComponent["LoginView"]);
-    }
-
-    const auth = JSON.parse(localStorage.getItem("auth"));
-
-    return {
-      activeRoute: routes,
-      mainMenu: markRaw(MainMenu),
-      configMenu: markRaw(ConfigMenu),
-      params: null,
-      menus: routeComponent,
-      loader: false,
-      configMenus: routeComponent,
-      APP_URL: 'http://localhost:8000'
-    };
-  },
-
-  mounted() {
-
-  },
-  created() {
-
-  },
-  methods: {
-    goto: function (comp, p) {
-      if (typeof p != "undefined") {
-        this.params = p;
-      }
-
-      this.activeRoute = markRaw(routeComponent[comp]);
-      sessionStorage.setItem("page", comp);
-    },
-
-
-  },
-};
+<script setup>
+import { RouterView } from 'vue-router';
 </script>
 
 <style scoped>

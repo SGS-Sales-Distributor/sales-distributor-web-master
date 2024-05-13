@@ -2,7 +2,7 @@
     <div id="container">
       <div class="body-container">
         <div class="verify-title center">
-          <img src="@/assets/img/LOGO_TPSMTG.png" />
+          <!-- <img src="@/assets/img/LOGO_TPSMTG.png" /> -->
         </div>
         <!-- Display a message if the user's email is already verified or a link to verify it if not -->
         <div class="form-group" v-if="verified == null">

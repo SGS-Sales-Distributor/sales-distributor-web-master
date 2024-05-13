@@ -1,83 +1,62 @@
 <template>
-<Pages :title="title">
+<Pages>
     <div class="container-fluid">
-        <div class="mb-4">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label for="">NIK</label>
+        <div class="row row-cols-1">
+            <!-- alert begin -->
+            <div id="liveAlert"></div>
+            <!-- alert end -->
+            <div class="col-lg-12 mb-4 mb-sm-5">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <vee-form
+                        novalidate
+                        @submit="updateProfileData"
+                        :validation-schema="formValidate">
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="flex-grow-1">
+                                    <div class="form-group py-1-9 px-1-9 px-sm-6 rounded">
+                                        <label for="fullname" class="form-label">Full Name</label>
+                                        <input 
+                                        v-model="formData.fullname" 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="fullname"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input 
+                                        v-model="formData.email" 
+                                        type="email" 
+                                        class="form-control" 
+                                        id="email"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nik" class="form-label">NIK (Nomor Induk Kependudukan)</label>
+                                        <input 
+                                        v-model="formData.nik" 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="nik"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone" class="form-label">Phone</label>
+                                        <input 
+                                        v-model="formData.phone" 
+                                        type="tel" 
+                                        class="form-control" 
+                                        id="phone"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <img src="/public/uknown-profile.jpg" alt="Profile Image">
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <FormInput v-model="user_nik"></FormInput>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label for="">Nama Lengkap</label>
-                            </div>
-                            <div class="col-md-6">
-                                <FormInput v-model="user_fullname"></FormInput>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label for="">Username</label>
-                            </div>
-                            <div class="col-md-6">
-                                <FormInput v-model="user_name" readonly></FormInput>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label for="">Email</label>
-                            </div>
-                            <div class="col-md-6">
-                                <FormInput v-model="user_email" readonly></FormInput>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label for="">Telepon</label>
-                            </div>
-                            <div class="col-md-6">
-                                <FormInput v-model="user_phone"></FormInput>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label for="">Ubah Password</label>
-                            </div>
-                            <div class="col-md-6">
-                                <FormInput v-model="user_password"></FormInput>
-                                <span style="font-size: 11px; color: red;">*abaikan jika tidak mengubah password</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-3">
-                        <Button type="button" @click="update">Perbarui</Button>
+                            <button type="submit" class="btn btn-primary" id="change-profile-submit-btn">Ubah Profile</button>
+                        </vee-form>
                     </div>
                 </div>
             </div>
@@ -86,300 +65,119 @@
 </Pages>
 </template>
 
-<script>
-import Pages from "@/components/template/Pages.vue";
-import FormInput from "@/components/forms/FormInput.vue";
-import Button from "@/components/forms/FormButton.vue";
-import FormModal from "@/components/forms/FormModal.vue";
-import axios from "axios";
-import {
-    ref
-} from "vue";
-import toast from "@/assets/js/toast";
+<script setup>
+import * as Yup from 'yup';
+import { onMounted, ref, shallowRef } from 'vue';
+import Pages from '../components/template/Pages.vue';
+import axios from 'axios';
 
-import $ from "jquery";
+const API_URL = `${import.meta.env.VITE_API_HOST}:${parseInt(import.meta.env.VITE_API_PORT)}`;
 
-import Swal from "sweetalert2";
+const user = shallowRef(null);
 
-export default {
-    components: {
-        Pages,
-        FormInput,
-        Button,
-        FormModal
-    },
-    props: {
-        params: {
-            default: null,
-        },
-    },
-    data() {
-        return {
-            title: "Profile",
-            showModal: false,
-            showmodal_zindex: "z-index:1000",
-            acuanEdit: null,
+const formValidate = Yup.object().shape({
+    nik: Yup.string()
+        .max(20, 'NIK tidak boleh lebih dari 20 karakter.')
+        .nullable(),
+    fullname: Yup.string()
+        .max(200, 'Nama lengkap tidak boleh lebih dari 200 karaketer.')
+        .nullable(),
+    phone: Yup.string()
+        .max(20, 'Nomor handphone tidak boleh lebih dari 20 karakter.')
+        .nullable(),
+    email: Yup.string()
+        .max(255, 'Email tidak boleh lebih dari 255 karakter')
+        .email('Email tidak valid, gunakan format email yang resmi!')
+        .nullable(),
+    name: Yup.string()
+        .max(50, 'Username tidak boleh lebih dari 50 karaketer')
+        .nullable(),
+    password: Yup.string()
+        .required('Password diperlukan, tidak dapat kosong!')
+        .max(100, 'Password tidak boleh lebih dari 100 karakter')
+        .min(8, 'Password harus minimal memiliki 8 karakter')
+    // .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/),
+});
 
-            todo: {
-                type: "",
-            },
+const formData = ref({
+    nik: null,
+    fullname: null,
+    email: null,
+    phone: null,
+});
 
-            tipeWarehouseOptions: [],
-            tmp_whsCodeType: [],
-            tmp_whsCodeType2: [],
+function fetchUserData() {
+    const userData = localStorage.getItem("user");
 
-            todo2: {
-                type: "",
-                id_type: "",
-            },
+    if (userData) {
+        user.value = JSON.parse(userData);
 
-            errorList: "",
-            errorField: {
-                type: false,
-            },
+        formData.value.email = user.value.email;
+        formData.value.fullname = user.value.fullname;
+        formData.value.nik = user.value.nik;
+        formData.value.phone = user.value.phone;
+    } else {
+        redirectToLoginPage();
+    }
+}
 
-            userid: "",
+async function updateProfileData(userNumber) {
+    try {
+        const response = await axios.patch(`${API_URL}/api/v1/salesmen/${userNumber}/profiles`, {
+            nik: formData.value.nik,
+            fullname: formData.value.fullname,
+            email: formData.value.email,
+            phone: formData.value.phone,
+        });
 
-            uObject: "",
-        };
-    },
-    mounted() {
-        // this.getTable();
-        //this.getCbowhsCodeType();
-        //this.userid = "9999";
+        console.log("Successfully update profile: ", response);
 
-        this.uObject = JSON.parse(localStorage.getItem("auth"));
-        this.userid = this.uObject.id;
-    },
-    methods: {
-        mySelectEvent() {
-            this.todo.whsCodeType = this.tmp_whsCodeType.code;
-        },
-        mySelectEvent2() {
-            this.todo2.whsCodeType = this.tmp_whsCodeType2.code;
-        },
-        resetForm() {
-            var mythis = this;
-            Object.keys(mythis.errorField).forEach(function (key) {
-                mythis.errorField[key] = false;
-                mythis.todo[key] = "";
-                mythis.todo2[key] = "";
-            });
-            mythis.errorList = "";
-            mythis.tmp_whsCodeType = "";
-        },
-        getCbowhsCodeType() {
-            var mythis = this;
-            mythis.$root.loader = true;
-            axios
-                .get(this.$root.apiHostWmsTPS + "wms/getCbowhsCodeType")
-                .then((res) => {
-                    this.tipeWarehouseOptions = res.data.data;
-                    //console.log(res.data.data);
-                    mythis.$root.loader = false;
-                });
-        },
+        triggerAlert(response.data.message, 'success');
+    } catch (error) {
+        console.error("Failed to update profile: ", error);
+        
+        triggerAlert(error.message, 'danger');
+    }
+}
 
-        jqueryDelEdit() {
-            const mythis = this;
+function triggerAlert(message, type) {
+    const customAlert = document.getElementById("liveAlert");
 
-            $(document).on("click", "#editData", function () {
-                let id = $(this).data("id");
-                mythis.idRincian = id;
-                mythis.modal();
-                mythis.$root.loader = true;
-                axios
-                    .get('http://localhost:8000/sgs/master_type_program/' + id)
-                    .then((res) => {
-                        mythis.acuanEdit = id;
-                        Object.keys(res.data.data).forEach(function (key) {
-                            mythis.todo2[key] = res.data.data[key];
-                        });
-                        document.getElementById("inputA").focus(); // sets the focus on the input
+    const appendAlert = (message, type) => {
+        const wrapper = document.createElement("div");
 
-                        mythis.$root.loader = false;
-                    });
-            });
-            $(document).on("click", "#deleteData", function () {
-                let id = $(this).data("id");
-                mythis.deleteTodo(id);
-            });
-        },
+        wrapper.innerHTML = [
+            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `<div>${message}</div>`,
+                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+        ].join('');
 
-        deleteTodo(id) {
-            var mythis = this;
-            Swal.fire({
-                title: "Menghapus Data",
-                text: "Apakah kamu yakin?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Ya",
-                cancelButtonText: "Batal",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    mythis.$root.loader = true;
-                    axios
-                        .delete('http://localhost:8000/sgs/master_type_program/' + id, {
-                            data: {
-                                fileUpload: "form satuan",
-                                userid: mythis.userid,
-                            },
-                        })
-                        .then((res) => {
-                            //console.log(res.data.data);
-                            Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
-                            mythis.$root.loader = false;
-                            mythis.refreshTable();
-                            mythis.resetForm();
-                        });
-                    //     .catch(function (error) {
-                    //   if (error.response) {
-                    //     if (error.response.status == 422) {
-                    //       mythis.errorList = error.response.data;
-                    //       mythis.$root.loader = false;
-                    //       if (Object.keys(mythis.errorList).length > 0) {
-                    //         Object.keys(mythis.errorField).forEach(function (key) {
-                    //           mythis.errorField[key] = false;
-                    //         });
-                    //         Object.keys(mythis.errorList).forEach(function (key) {
-                    //           toast.error(mythis.errorList[key], { theme: 'colored' });
-                    //           const myArray = key.split(".");
-                    //           mythis.errorField[myArray[1]] = true;
-                    //         });
-                    //       }
-                    //     }
-                    //   } else if (error.request) {
-                    //     console.log(error.request);
-                    //   } else {
-                    //     console.log('Error', error.message);
-                    //   }
-                    // });
-                }
-            });
-        },
+        customAlert.append(wrapper);
+    }
 
-        saveTodo() {
-            var mythis = this;
-            mythis.$root.loader = true;
+    const alertTrigger = document.getElementById('change-profile-submit-btn')
+    
+    if (alertTrigger) {
+        alertTrigger.addEventListener('click', () => {
+            appendAlert(message, type)
+        });
+    }
+}
 
-            axios
-                .post('http://localhost:8000/sgs/master_type_program', {
-                    data: mythis.todo,
-                    fileUpload: "form satuan",
-                    userid: mythis.userid,
-                })
-                .then((res) => {
-                    Swal.fire("Created!", res.data.message, "success");
-                    mythis.$root.loader = false;
+function redirectToLoginPage() {
+  setTimeout(() => {
+    router.push({ path: '/login' });
+  }, 1000);
+}
 
-                    mythis.refreshTable();
-                    mythis.resetForm();
-                    mythis.close();
-                })
-                .catch(function (error) {
-                    if (error.response) {
-                        //console.log(error.response.data);
-                        if (error.response.status == 422) {
-                            mythis.errorList = error.response.data;
-                            mythis.$root.loader = false;
-                            if (Object.keys(mythis.errorList).length > 0) {
-                                //refresh semua menjadi false
-                                Object.keys(mythis.errorField).forEach(function (key) {
-                                    mythis.errorField[key] = false;
-                                });
-                                //membuat jika error jadi true
-                                Object.keys(mythis.errorList).forEach(function (key) {
-                                    toast.error(mythis.errorList[key], {
-                                        theme: "colored"
-                                    });
 
-                                    const myArray = key.split(".");
-                                    mythis.errorField[myArray[1]] = true;
-                                });
-                            }
-                        }
-                    } else if (error.request) {
-                        console.log(error.request);
-                    } else {
-                        console.log("Error", error.message);
-                    }
-                });
-        },
+onMounted(() => {
+    fetchUserData();
+})
 
-        close: function () {
-            this.showModal = false;
-            this.todo = {};
-            this.todo2 = {};
-            this.resetForm();
-        },
-        modal() {
-            // binding data to form modal
-            this.showModal = true;
-            this.resetForm();
-        },
-
-        editTodo() {
-            var mythis = this;
-            mythis.$root.loader = true;
-            axios
-                .put(
-                    "http://localhost:8000/sgs/master_type_program/" + mythis.acuanEdit, {
-                        data: mythis.todo2,
-                        fileUpload: "form satuan",
-                        userid: mythis.userid,
-                    }
-                )
-                .then((res) => {
-                    //console.log(res);
-                    //alert(res.data.message);
-                    Swal.fire("Updated!", res.data.message, "success");
-                    mythis.$root.loader = false;
-
-                    mythis.close();
-                    mythis.refreshTable();
-                })
-                .catch(function (error) {
-                    if (error.response) {
-                        //console.log(error.response.data);
-                        if (error.response.status == 422) {
-                            mythis.errorList = error.response.data;
-                            mythis.$root.loader = false;
-                            if (Object.keys(mythis.errorList).length > 0) {
-                                //refresh semua menjadi false
-                                Object.keys(mythis.errorField).forEach(function (key) {
-                                    mythis.errorField[key] = false;
-                                });
-                                //membuat jika error jadi true
-                                Object.keys(mythis.errorList).forEach(function (key) {
-                                    toast.error(mythis.errorList[key], {
-                                        theme: "colored"
-                                    });
-
-                                    const myArray = key.split(".");
-                                    mythis.errorField[myArray[1]] = true;
-                                });
-                            }
-                        }
-                    } else if (error.request) {
-                        console.log(error.request);
-                    } else {
-                        console.log("Error", error.message);
-                    }
-                });
-        },
-
-        /////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////
-    },
-};
 </script>
 
 <style scoped>
-.input-error {
-    border: red 1px solid;
-}
+
 </style>
