@@ -1,18 +1,64 @@
-import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
-import AboutView from "@/views/AboutView.vue";
-import StudentView from "@/views/StudentView.vue";
-import StudentDetailView from "@/views/StudentDetailView.vue";
-import StudentObsoleteView from "@/views/StudentObsoleteView.vue";
+import { createRouter, createWebHistory } from 'vue-router';
+import { isAuthenticated } from '../services/auth';
+
+const routes = [
+    {
+      path: '/',
+      redirect: '/login',
+      meta: {
+          title: 'Login',
+      }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import("../views/auth/LoginView.vue"),
+      meta: {
+        title: 'Login',
+      },
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import("../views/DashboardView.vue"),
+      meta: {
+          requiresAuth: true,
+          title: 'Dashboard',
+      },
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import("../views/ProfileView.vue"),
+      meta: {
+        requiresAuth: true,
+        title: 'Profile',
+      },
+    },
+    // {
+    //   path: '/program',
+    //   name: 'program',
+    //   component: () => import("../views/ProgramView.vue"),
+    //   meta: {
+    //     requiresAuth: true,
+    //     title: 'Program',
+    //   },
+    // },
+];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [],
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes
 });
-
+  
 router.beforeEach((to, from, next) => {
-  document.title = `${to.meta.title} - PT. Sinergi Global Service`;
-  next();
+    document.title = `${to.meta.title} - PT. Sinergi Global Service`;
+
+    if (to.meta.requiresAuth && !isAuthenticated()) {
+      next({ name: 'login' });
+    } else {
+      next();
+    }
 });
 
 export default router;
