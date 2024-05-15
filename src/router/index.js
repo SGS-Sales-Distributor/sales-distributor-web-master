@@ -35,6 +35,7 @@ const routes = [
         title: 'Profile',
       },
     },
+<<<<<<< HEAD
     {
       path: '/program',
       name: 'program',
@@ -44,6 +45,17 @@ const routes = [
         title: 'Program',
       },
     },
+=======
+    // {
+    //   path: '/program',
+    //   name: 'program',
+    //   component: () => import("../views/ProgramView.vue"),
+    //   meta: {
+    //     requiresAuth: true,
+    //     title: 'Program',
+    //   },
+    // },
+>>>>>>> feature/add-router-system
 ];
 
 const router = createRouter({
@@ -52,6 +64,11 @@ const router = createRouter({
 });
   
 router.beforeEach((to, from, next) => {
+<<<<<<< HEAD
+=======
+    document.title = `${to.meta.title} - PT. Sinergi Global Service`;
+
+>>>>>>> feature/add-router-system
     if (to.meta.requiresAuth && !isAuthenticated()) {
       next({ name: 'login' });
     } else {

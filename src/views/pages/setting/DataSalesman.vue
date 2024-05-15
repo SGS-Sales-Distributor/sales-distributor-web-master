@@ -10,7 +10,7 @@
                             <div class="col-md-3">
                                 <label for="">Cabang</label>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-8">
                                 <v-select :options="cboCabang" v-model="cboCabangVal" @update:modelValue="mySelectEvent()" :clearable="false"></v-select>
                             </div>
                         </div>
@@ -22,7 +22,7 @@
                                 <label for="">Outlet</label>
                                 <!-- {{todo}} -->
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-8">
                                 <v-select :options="cboOutlet" v-model="cboOutletVal" @update:modelValue="mySelectEvent2()" :clearable="false"></v-select>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                 <label for="">Penempatan Salesman</label>
                                 <!-- {{todo}} -->
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-8">
                                 <v-select :options="cboPenempatan" v-model="cboPenempatanVal" @update:modelValue="mySelectEvent3()" :clearable="false"></v-select>
                             </div>
                         </div>
@@ -42,14 +42,28 @@
 
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
+                                <!-- {{todo}} -->
                                 <label for="">NIK</label>
                             </div>
-                            <div class="col-md-7">
-                                <FormInput :class="errorField.user_nik ? 'input-error' : ''" v-model="todo.user_nik" @input="
+                            <div class="col-md-2">
+                                <FormInput v-model="todo3.nomor_tetap" placeholder="12" disabled="disabled"></FormInput>
+                            </div>
+                            <div class="col-md-2">
+                                <FormInput v-model="todo3.kode_lokasi" disabled="disabled"></FormInput>
+                            </div>
+                            <div class="col-md-2">
+                                <FormInput  v-model="todo3.tahun_ini"
+                                disabled="disabled"></FormInput>
+                            </div>
+                            <div class="col-md-2">
+                                <FormInput v-model="todo3.bulan_ini" disabled="disabled"></FormInput>
+                            </div>
+                            <div class="col-md-2">
+                                <FormInput :class="errorField.user_id ? 'input-error' : ''" v-model="todo3.user_id" @input="
                       (val) => 
-                        (todo.user_nik = todo.user_nik.trim())
-                    "></FormInput>
+                        (todo3.user_id = todo3.user_id.trim())
+                    " placeholder="Auto" disabled="disabled"></FormInput>
                             </div>
                         </div>
                     </div>
@@ -118,7 +132,7 @@
                                 <label for="">User Status</label>
                                 <!-- {{todo}} -->
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-8">
                                 <v-select :options="cboUserStatus" v-model="cboUserStatusVal" @update:modelValue="mySelectEvent4()" :clearable="false"></v-select>
                             </div>
                         </div>
@@ -130,7 +144,7 @@
                                 <label for="">User Tipe</label>
                                 <!-- {{todo}} -->
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-8">
                                 <v-select :options="cboUserTipeId" v-model="cboUserTipeIdVal" @update:modelValue="mySelectEvent5()" :clearable="false"></v-select>
                             </div>
                         </div>
@@ -142,24 +156,27 @@
                                 <label for="">Status</label>
                                 <!-- {{todo}} -->
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-8">
                                 <v-select :options="cboStatusBa" v-model="cboStatusBaVal" @update:modelValue="mySelectEvent6()" :clearable="false"></v-select>
                             </div>
                         </div>
                     </div>
+
                 </div>
+
             </div>
+
         </div>
 
         <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-3">
-                                <Button type="button" @click="saveTodo">Simpan</Button>
-                            </div>
-                        </div>
-                    </div>
-<hr />
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <Button type="button" @click="saveTodo">Simpan</Button>
+                </div>
+            </div>
+        </div>
+        <hr />
         <!------------------------>
         <div class="block-content">
             <div id="wrapper2"></div>
@@ -193,28 +210,28 @@
                                 </div>
                             </div> -->
                             <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="">User Status</label>
-                                <!-- {{todo}} -->
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="">User Status</label>
+                                        <!-- {{todo}} -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <v-select :options="cboUserStatus" v-model="cboUserStatusVal2" @update:modelValue="mySelectEvent4_2()" :clearable="false"></v-select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <v-select :options="cboUserStatus" v-model="cboUserStatusVal2" @update:modelValue="mySelectEvent4_2()" :clearable="false"></v-select>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="">Status</label>
-                                <!-- {{todo}} -->
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="">Status</label>
+                                        <!-- {{todo}} -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <v-select :options="cboStatusBa" v-model="cboStatusBaVal2" @update:modelValue="mySelectEvent6_2()" :clearable="false"></v-select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <v-select :options="cboStatusBa" v-model="cboStatusBaVal2" @update:modelValue="mySelectEvent6_2()" :clearable="false"></v-select>
-                            </div>
-                        </div>
-                    </div>
 
                         </div>
                     </div>
@@ -282,12 +299,15 @@ export default {
             showmodal_zindex: "z-index:1000",
             grid2: new Grid(),
             acuanEdit: null,
-
+            todo3: {
+                nomor_tetap: 12,
+                user_id: "",
+            },
             todo: {
                 cabang_id: "",
                 store_id: "",
                 nama_cabang: "",
-                user_nik: "",
+                gabungan_nik: "",
                 user_name: "",
                 user_fullname: "",
                 user_phone: "",
@@ -342,12 +362,14 @@ export default {
             ],
 
             tmp_whsCodeType2: [],
-            cboUserStatusVal2:[],
-            cboStatusBaVal2:[],
+            cboUserStatusVal2: [],
+            cboStatusBaVal2: [],
 
             todo2: {
                 user_status: "",
                 status_ba: "",
+                // cboUserStatus: "",
+                // cboStatusBa: "",
             },
 
             errorList: "",
@@ -373,10 +395,16 @@ export default {
         this.getCboStoreCabang();
         this.getCboOutlet();
         this.getCboPenempatan();
+       
 
         this.uObject = JSON.parse(localStorage.getItem("auth"));
         this.userid = this.uObject.id;
     },
+    computed: {
+    tahun_ini() {
+      return new Date().getFullYear();
+    }
+  },
     methods: {
         getCboOutlet() {
             var mythis = this;
@@ -426,6 +454,23 @@ export default {
                 });
         },
 
+        getKodeLokasi(id) {
+            var mythis = this;
+            //mythis.$root.loader = true;
+            axios
+                .get("http://localhost:8000/sgs/getKodeLokasi/" + id)
+                .then((res) => {
+                    mythis.todo3.kode_lokasi = res.data.data[0].kode_lokasi;
+                    mythis.todo3.tahun_ini = res.data.tahun;
+                    mythis.todo3.bulan_ini = res.data.bulan;
+                    mythis.todo3.user_id = res.data.urutan;
+                    //console.log(res.data.data);
+                   // mythis.$root.loader = false;
+                   mythis.todo.gabungan_nik = mythis.todo3.kode_lokasi+mythis.todo3.tahun_ini+mythis.todo3.bulan_ini+mythis.todo3.user_id;
+                });
+        },
+        
+
         mySelectEvent() {
             this.todo.cabang_id = this.cboCabangVal.code;
         },
@@ -435,6 +480,8 @@ export default {
         },
         mySelectEvent3() {
             this.todo.nama_cabang = this.cboPenempatanVal.code;
+            // this.todo3.kode_lokasi = this.cboPenempatanVal.code;
+            this.getKodeLokasi(this.cboPenempatanVal.code);
         },
         mySelectEvent4() {
             this.todo.user_status = this.cboUserStatusVal.code;
@@ -840,14 +887,22 @@ export default {
 .input-error {
     border: red 1px solid;
 }
+
 .label-spacing {
-      margin-right: 20px; /* add some spacing between label and input/select */
-    }
-    .form-group {
-      margin-bottom: 20px; /* add some spacing between form elements */
-    }
-    .col-md-3, .col-md-7 {
-      padding-right: 10px; /* reduce padding between columns */
-      padding-left: 10px; /* reduce padding between columns */
-    }
+    margin-right: 20px;
+    /* add some spacing between label and input/select */
+}
+
+.form-group {
+    margin-bottom: 20px;
+    /* add some spacing between form elements */
+}
+
+.col-md-3,
+.col-md-7 {
+    padding-right: 10px;
+    /* reduce padding between columns */
+    padding-left: 10px;
+    /* reduce padding between columns */
+}
 </style>

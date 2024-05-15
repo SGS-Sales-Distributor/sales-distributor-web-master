@@ -1,575 +1,1059 @@
 <template>
 <Pages :title="title">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <strong>Data User</strong>
-            </div>
-            <div class="btn" style="display: flex; justify-content: flex-end;">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#StoreNewUserModal">
-                    Tambah User
-                </button>
-            </div>
+    <div class="container-fluid">
+        <div class="mb-6">
+            <div class="row">
+                <div class="col-md-6">
 
-            <div class="row p-3">
-                <div class="col-12">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" aria-label="Text input with dropdown button">
-                        <button class="btn btn-outline-secondary" @click="getSalesman()" type="button">Search</button>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <!-- {{todo}} -->
+                                <label for="">NIK</label>
+                            </div>
+                            <div class="col-md-7">
+                                <FormInput :class="errorField.user_nik ? 'input-error' : ''" v-model="todo.user_nik" @input="
+                      (val) => 
+                        (todo.user_nik = todo.user_nik.trim())
+                    "></FormInput>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <!-- {{todo}} -->
+                                <label for="">Nama Lengkap</label>
+                            </div>
+                            <div class="col-md-7">
+                                <FormInput :class="errorField.user_fullname ? 'input-error' : ''" v-model="todo.user_fullname" @input="
+                      (val) => 
+                        (todo.user_fullname = todo.user_fullname.trim())
+                    "></FormInput>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <!-- {{todo}} -->
+                                <label for="">Username</label>
+                            </div>
+                            <div class="col-md-7">
+                                <FormInput :class="errorField.user_name ? 'input-error' : ''" v-model="todo.user_name" @input="
+                      (val) => 
+                        (todo.user_name = todo.user_name.trim())
+                    "></FormInput>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <!-- {{todo}} -->
+                                <label for="">Email</label>
+                            </div>
+                            <div class="col-md-7">
+                                <FormInput :class="errorField.user_email ? 'input-error' : ''" v-model="todo.user_email" @input="
+                      (val) => 
+                        (todo.user_email = todo.user_email.trim())
+                    "></FormInput>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" v-if="muncul">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <!-- {{todo}} -->
+                                <label for="">Cabang</label>
+                            </div>
+                            <div class="col-md-8">
+                                <v-select :options="cboCabang" v-model="cboCabangVal" @update:modelValue="mySelectEvent()" :clearable="false"></v-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" v-if="muncul">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <!-- {{todo}} -->
+                                <label for="">Outlet</label>
+                                <!-- {{todo}} -->
+                            </div>
+                            <div class="col-md-8">
+                                <v-select :options="cboOutlet" v-model="cboOutletVal" @update:modelValue="mySelectEvent2()" :clearable="false"></v-select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="">Phone</label>
+                                <!-- {{todo}} -->
+                            </div>
+                            <div class="col-md-7">
+                                <FormInput :class="errorField.user_phone ? 'input-error' : ''" v-model="todo.user_phone" @input="
+                    (val) => 
+                        (todo.user_phone = todo.user_phone.trim())
+                    "></FormInput>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="">User Tipe</label>
+                                <!-- {{todo}} -->
+                            </div>
+                            <div class="col-md-8">
+                                <v-select :options="cboUserTipeId" v-model="cboUserTipeIdVal" @update:modelValue="mySelectEvent5()" :clearable="false"></v-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="">User Status</label>
+                                <!-- {{todo}} -->
+                            </div>
+                            <div class="col-md-8">
+                                <v-select :options="cboUserStatus" v-model="cboUserStatusVal" @update:modelValue="mySelectEvent4()" :clearable="false"></v-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="">Status</label>
+                                <!-- {{todo}} -->
+                            </div>
+                            <div class="col-md-8">
+                                <v-select :options="cboStatusBa" v-model="cboStatusBaVal" @update:modelValue="mySelectEvent6()" :clearable="false"></v-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" v-if="muncul">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="">Penempatan Salesman</label>
+                                <!-- {{todo}} -->
+                            </div>
+                            <div class="col-md-8">
+                                <v-select :options="cboPenempatan" v-model="cboPenempatanVal" @update:modelValue="mySelectEvent3()" :clearable="false"></v-select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3">
+                    <Button type="button" @click="saveTodo">Simpan</Button>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <!------------------------>
+        <div class="block-content">
+            <div id="wrapper2"></div>
+            <div id="box"></div>
+        </div>
+
+        <!------------------------>
+    </div>
+    <!-- modals -->
+    <Teleport to="body">
+        <!-- use the modal component, pass in the prop -->
+        <FormModal :show="showModal" :style="showmodal_zindex" @close="showModal = false">
+            <template #header>
+                <h3>Edit Form</h3>
+            </template>
+            <template #body>
+                <div style="width: 90vw">
+                    <!-- <pre>{{todo2}}</pre> -->
+                    <div class="mb-6">
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="">NIK</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <FormInput :class="errorField.user_nik ? 'input-error' : ''" v-model="todo2.user_nik" @input="
+                      (val) => 
+                        (todo.user_nik = todo.user_nik.trim())
+                    "></FormInput>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="">Nama Lengkap</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <FormInput :class="errorField.user_fullname ? 'input-error' : ''" v-model="todo2.user_fullname" @input="
+                      (val) => 
+                        (todo.user_fullname = todo.user_fullname.trim())
+                    "></FormInput>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="">Username</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <FormInput :class="errorField.user_name ? 'input-error' : ''" v-model="todo2.user_name" @input="
+                      (val) => 
+                        (todo.user_name = todo.user_name.trim())
+                    "></FormInput>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="">Email</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <FormInput :class="errorField.user_email ? 'input-error' : ''" v-model="todo2.user_email" @input="
+                      (val) => 
+                        (todo.user_email = todo.user_email.trim())
+                    "></FormInput>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <!-- {{todo}} -->
+                                            <label for="">Cabang</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <v-select :options="cboCabang" v-model="cboCabangVal2" @update:modelValue="mySelectEvent11_2()" :clearable="false"></v-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <!-- {{todo}} -->
+                                            <label for="">Outlet</label>
+                                            <!-- {{todo}} -->
+                                        </div>
+                                        <div class="col-md-8">
+                                            <v-select :options="cboOutlet" v-model="cboOutletVal2" @update:modelValue="mySelectEvent22_2()" :clearable="false"></v-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="">Phone</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <FormInput :class="errorField.user_phone ? 'input-error' : ''" v-model="todo2.user_phone" @input="
+                    (val) => 
+                        (todo.user_phone = todo.user_phone.trim())
+                    "></FormInput>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="">User Tipe</label>
+                                            <!-- {{todo}} -->
+                                        </div>
+                                        <div class="col-md-9">
+                                            <v-select :options="cboUserTipeId" v-model="cboUserTipeIdVal2" @update:modelValue="mySelectEvent33_2()" :clearable="false"></v-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="">Status</label>
+                                            <!-- {{todo}} -->
+                                        </div>
+                                        <div class="col-md-9">
+                                            <v-select :options="cboStatusBa" v-model="cboStatusBaVal2" @update:modelValue="mySelectEvent44_2()" :clearable="false"></v-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="">Penempatan Salesman</label>
+                                            <!-- {{todo}} -->
+                                        </div>
+                                        <div class="col-md-9">
+                                            <v-select :options="cboPenempatan" v-model="cboPenempatanVal2" @update:modelValue="mySelectEvent55_2()" :clearable="false"></v-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="text-center">
+                        <button class="btn btn-success btn-sm me-1" @click="editTodo()">
+                            Ubah Data
+                        </button>
                     </div>
                 </div>
-            </div>
-
-            <div class="card-body"  style="overflow-x: auto;">
-                <table id="dtBasicExample" class="table table-bordered table-hover table-responsive">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>User Number</th>
-                            <th>User NIK</th>
-                            <th>User Fullname</th>
-                            <th>User Phone</th>
-                            <th>User Email</th>
-                            <th>Username</th>
-                            <th>User Password</th>
-                            <th>User Type ID</th>
-                            <th>User Status</th>
-                            <th>Cabang ID</th>
-                            <th>Store ID</th>
-                            <th>Status BA</th>
-                            <th>Modtime</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <!-- <tbody>
-                                        <tr v-for="(item, idx) in salesman.data" :key="idx">
-                                            <td>{{ idx + 1 }}</td>
-                                            <td>{{ item.user_number }}</td>
-                                            <td>{{ item.user_nik }}</td>
-                                            <td>{{ item.user_fullname }}</td>
-                                            <td>{{ item.user_phone }}</td>
-                                            <td>{{ item.user_email }}</td>
-                                            <td>{{ item.user_name }}</td>
-                                            <td>{{ item.user_password }}</td>
-                                            <td>{{ item.user_type_id }}</td>
-                                            <td>{{ item.user_status }}</td>
-                                            <td>{{ item.cabang_id }}</td>
-                                            <td>{{ item.store_id }}</td>
-                                            <td>{{ item.status_ba }}</td>
-                                            <td>{{ item.modtime }}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-secondary mx-1" data-bs-toggle="modal" data-bs-target="#editModal" @click="editData(item)">Edit</button>
-                                                <button type="button" class="btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#deleteModal" @click="selectId(item.id)">Delete</button>
-                                            </td>
-                                        </tr>
-                                    </tbody> -->
-                </table>
-                <!-- <CRow>
-                                    <CCol>
-                                        <CPagination :activePage.sync="currentPage" :pages="totalPages" @update:activePage="fetchDataUser"></CPagination>
-                                    </CCol>
-                                </CRow> -->
-                <nav aria-label="...">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">2 <span class="sr-only"></span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
+            </template>
+            <template #footer>
+                <button class="modal-default-button btn btn-secondary btn-sm me-1" @click="close">
+                    Tutup
+                </button>
+            </template>
+        </FormModal>
+    </Teleport>
 </Pages>
-
-<!-- Modal tambah data-->
-<div class="modal fade" id="StoreNewUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah User</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <!-- <Form novalidate @submit="storeNewData" :validation-schema="schema" method="post"> -->
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="user_number" class="form-label">User Number <span class="form-required">*</span></label>
-                    <Field name="user_number" type="text" v-model="formData.user_number" class="form-control" id="user_number" placeholder="Masukkan Number" />
-                    <ErrorMessage class="form-required" name="user_number" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_nik" class="form-label">NIK <span class="form-required">*</span></label>
-                    <Field name="user_nik" type="text" v-model="formData.user_nik" class="form-control" id="user_nik" placeholder="Masukkan NIK" />
-                    <ErrorMessage class="form-required" name="user_nik" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_fullname" class="form-label">Fullname <span class="form-required">*</span></label>
-                    <Field name="user_fullname" type="text" v-model="formData.user_fullname" class="form-control" id="user_fullname" placeholder="Masukkan Nama Lengkap" />
-                    <ErrorMessage class="form-required" name="user_fullname" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_phone" class="form-label">Phone <span class="form-required">*</span></label>
-                    <Field name="user_phone" type="text" v-model="formData.user_phone" class="form-control" id="user_phone" placeholder="Masukkan No. Telp" />
-                    <ErrorMessage class="form-required" name="user_phone" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_email" class="form-label">User Email <span class="form-required">*</span></label>
-                    <Field name="user_email" type="text" v-model="formData.user_email" class="form-control" id="user_email" placeholder="Masukkan User Email" />
-                    <ErrorMessage class="form-required" name="user_email" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_name" class="form-label">Username <span class="form-required">*</span></label>
-                    <Field name="user_name" type="text" v-model="formData.user_name" class="form-control" id="user_name" placeholder="Masukkan Username" />
-                    <ErrorMessage class="form-required" name="user_name" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_password" class="form-label">Password <span class="form-required">*</span></label>
-                    <Field name="user_password" type="text" v-model="formData.user_password" class="form-control" id="user_password" placeholder="Masukkan Password" />
-                    <ErrorMessage class="form-required" name="user_password" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_type_id" class="form-label">User Type ID<span class="form-required">*</span></label>
-                    <Field name="user_type_id" type="text" v-model="formData.user_type_id" class="form-control" id="user_type_id" placeholder="Masukkan User Type ID" />
-                    <ErrorMessage class="form-required" name="user_type_id" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_status" class="form-label">Status <span class="form-required">*</span></label>
-                    <Field name="user_status" type="text" v-model="formData.user_status" class="form-control" id="user_status" placeholder="Masukkan Status" />
-                    <ErrorMessage class="form-required" name="user_status" />
-                </div>
-                <div class="mb-3">
-                    <label for="cabang_id" class="form-label">Cabang ID <span class="form-required">*</span></label>
-                    <Field name="cabang_id" type="text" v-model="formData.cabang_id" class="form-control" id="cabang_id" placeholder="Masukkan Cabang ID" />
-                    <ErrorMessage class="form-required" name="cabang_id" />
-                </div>
-                <div class="mb-3">
-                    <label for="store_id" class="form-label">Store ID <span class="form-required">*</span></label>
-                    <Field name="store_id" type="text" v-model="formData.store_id" class="form-control" id="store_id" placeholder="Masukkan Store ID" />
-                    <ErrorMessage class="form-required" name="store_id" />
-                </div>
-                <div class="mb-3">
-                    <label for="status_ba" class="form-label">status BA <span class="form-required">*</span></label>
-                    <Field name="status_ba" type="text" v-model="formData.status_ba" class="form-control" id="status_ba" placeholder="Masukkan Status BA" />
-                    <ErrorMessage class="form-required" name="status_ba" />
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" @click="storeNewData()">Submit</button>
-            </div>
-            <!-- </Form> -->
-        </div>
-    </div>
-</div>
-
-<!-- Modal edit data -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
-                <button type="button" id="closeEditModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <!-- <form @submit.prevent="updateData"> -->
-            <div class="modal-body" v-if="selectedData != null">
-                <div class="mb-3">
-                    <label for="user_number" class="form-label">User Number <span class="form-required">*</span></label>
-                    <Field name="user_number" type="text" v-model="selectedData.user_number" class="form-control" id="user_number" placeholder="Masukkan Number" />
-                    <ErrorMessage class="form-required" name="user_number" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_nik" class="form-label">NIK <span class="form-required">*</span></label>
-                    <Field name="user_nik" type="text" v-model="selectedData.user_nik" class="form-control" id="user_nik" placeholder="Masukkan NIK" />
-                    <ErrorMessage class="form-required" name="user_nik" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_fullname" class="form-label">Fullname <span class="form-required">*</span></label>
-                    <Field name="user_fullname" type="text" v-model="selectedData.user_fullname" class="form-control" id="user_fullname" placeholder="Masukkan Nama Lengkap" />
-                    <ErrorMessage class="form-required" name="user_fullname" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_phone" class="form-label">Phone <span class="form-required">*</span></label>
-                    <Field name="user_phone" type="text" v-model="selectedData.user_phone" class="form-control" id="user_phone" placeholder="Masukkan No. Telp" />
-                    <ErrorMessage class="form-required" name="user_phone" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_email" class="form-label">User Email <span class="form-required">*</span></label>
-                    <Field name="user_email" type="text" v-model="selectedData.user_email" class="form-control" id="user_email" placeholder="Masukkan User Email" />
-                    <ErrorMessage class="form-required" name="user_email" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_name" class="form-label">Username <span class="form-required">*</span></label>
-                    <Field name="user_name" type="text" v-model="selectedData.user_name" class="form-control" id="user_name" placeholder="Masukkan Username" />
-                    <ErrorMessage class="form-required" name="user_name" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_password" class="form-label">Password <span class="form-required">*</span></label>
-                    <Field name="user_password" type="text" v-model="selectedData.user_password" class="form-control" id="user_password" placeholder="Masukkan Password" />
-                    <ErrorMessage class="form-required" name="user_password" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_type_id" class="form-label">User Type ID<span class="form-required">*</span></label>
-                    <Field name="user_type_id" type="text" v-model="selectedData.user_type_id" class="form-control" id="user_type_id" placeholder="Masukkan User Type ID" />
-                    <ErrorMessage class="form-required" name="user_type_id" />
-                </div>
-                <div class="mb-3">
-                    <label for="user_status" class="form-label">Status <span class="form-required">*</span></label>
-                    <Field name="user_status" type="text" v-model="selectedData.user_status" class="form-control" id="user_status" placeholder="Masukkan Status" />
-                    <ErrorMessage class="form-required" name="user_status" />
-                </div>
-                <div class="mb-3">
-                    <label for="cabang_id" class="form-label">Cabang ID <span class="form-required">*</span></label>
-                    <Field name="cabang_id" type="text" v-model="selectedData.cabang_id" class="form-control" id="cabang_id" placeholder="Masukkan Cabang ID" />
-                    <ErrorMessage class="form-required" name="cabang_id" />
-                </div>
-                <div class="mb-3">
-                    <label for="store_id" class="form-label">Store ID <span class="form-required">*</span></label>
-                    <Field name="store_id" type="text" v-model="selectedData.store_id" class="form-control" id="store_id" placeholder="Masukkan Store ID" />
-                    <ErrorMessage class="form-required" name="store_id" />
-                </div>
-                <div class="mb-3">
-                    <label for="status_ba" class="form-label">status BA <span class="form-required">*</span></label>
-                    <Field name="status_ba" type="text" v-model="selectedData.status_ba" class="form-control" id="status_ba" placeholder="Masukkan Status BA" />
-                    <ErrorMessage class="form-required" name="status_ba" />
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" @click="updateData()">Save changes</button>
-            </div>
-            <!-- </form> -->
-        </div>
-    </div>
-</div>
-
-<!-- Modal hapus data -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Hapus User</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Yakin ingin menghapus data ini?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" @click="deleteData(selectedData.id)">Hapus</button>
-            </div>
-        </div>
-    </div>
-</div>
 </template>
 
-    
 <script>
+import Pages from "@/components/template/Pages.vue";
+import FormInput from "@/components/forms/FormInput.vue";
+import Button from "@/components/forms/FormButton.vue";
+import FormModal from "@/components/forms/FormModal.vue";
+import axios from "axios";
 import {
-    Form,
-    Field,
-    ErrorMessage
-} from 'vee-validate';
-import * as yup from 'yup';
-import Swal from 'sweetalert2';
-import Pages from '@/components/template/Pages.vue';
-import axios from 'axios';
+    ref
+} from "vue";
+import toast from "@/assets/js/toast";
 
-const schema = yup.object().shape({
-    user_number: yup.string().required('Number is required'),
-    user_nik: yup.string().required('NIK is required'),
-    user_fullname: yup.string().required('Fullname is required'),
-    user_phone: yup.string().required('Phone is required'),
-    user_email: yup.string().required('Email User is required'),
-    user_name: yup.string().required('Username is required'),
-    user_password: yup.string().required('Password is required'),
-    user_type_id: yup.string().required('User Type ID is required'),
-    user_status: yup.string().required('User Status is required'),
-    cabang_id: yup.string().required('Cabang ID is required'),
-    store_id: yup.string().required('Store ID is required'),
-    status_ba: yup.string().required('Status BA is required'),
-});
+import {
+    Grid,
+    h,
+    html
+} from "gridjs";
+import "gridjs/dist/theme/mermaid.css";
+import {
+    idID
+} from "gridjs/l10n";
+
+import $ from "jquery";
+
+import Swal from "sweetalert2";
 
 export default {
-    data() {
-        return {
-            title: 'Data User',
-            schema,
-            items: [],
-            salesman: {
-                data: []
-            },
-            searchTerm: '',
-            formData: {
-                cabang_id: '',
-                status_ba: '',
-                store_id: '',
-                user_fullname: '',
-                // user_id: '',
-                user_name: '',
-                user_nik: '',
-                user_number: '',
-                user_password: '',
-                user_phone: '',
-                user_status: '',
-                user_type_id: '',
-            },
-            selectedData: {
-                cabang_id: '',
-                status_ba: '',
-                store_id: '',
-                user_fullname: '',
-                user_id: '',
-                user_name: '',
-                user_nik: '',
-                user_number: '',
-                user_password: '',
-                user_phone: '',
-                user_status: '',
-                user_type_id: '',
-            },
-            selectedId: null,
-            deleteData: null,
-            currentPage: 1,
-            totalPages: 0,
-            isLoading: false,
-        };
-    },
-    computed: {
-        filteredData() {
-            return this.items.filter((item) => {
-                return item.nama.toLowerCase().includes(this.searchTerm.toLowerCase());
-            });
-        },
-    },
-    mounted() {
-        this.fetchDataUser();
-
-        $(document).ready(() => {
-            const table = $('#dtBasicExample').DataTable({
-                searching: true,
-                initComplete: () => {
-                    const searchBox = $('.dataTables_filter input');
-                    searchBox.on('keyup', () => {
-                        this.searchTerm = searchBox.val();
-                        table.search(this.searchTerm).draw();
-                    });
-                },
-            });
-            $('.dataTables_length').addClass('bs-select');
-        });
-    },
-    methods: {
-        async fetchDataUser() {
-            this.isLoading = true;
-            try {
-                const response = await axios.get(`http://localhost:8000/sgs/user_info`);
-                if (response) {
-                    this.salesman.data = response.data.data;
-                    console.log(response.data.data);
-                } else {
-                    console.log('Gagal Menambah Data', response);
-                }
-            } catch (error) {
-                console.error(error);
-                this.isLoading = false;
-            };
-        },
-        async storeNewData() {
-            try {
-                this.isLoading = true;
-                await axios.post(`http://localhost:8000/sgs/user_info`, this.formData);
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil',
-                    text: 'Data berhasil disimpan',
-                });
-                this.fetchDataUser();
-                this.resetForm();
-            } catch (error) {
-                console.error(error);
-                this.isLoading = false;
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal',
-                    text: 'Data gagal disimpan',
-                });
-            }
-        },
-        // async editData(data) {
-        //     // this.selectedData = {
-        //     //     ...data
-        //     // };
-        //     this.resetSelectedData();
-        //     try {
-        //         const response = await axios.get(`http:localhost:8000/sgs/user_info/${data}`);
-        //         this.selectedData = response.data.data;
-        //         this.selectedId = data;
-        //         console.log(this.selectedData);
-        //     } catch (error) {
-        //         console.log('Gagal Memuat Data', error);
-        //     }
-        // },
-        // editData(item) {
-        //     this.selectedData = { ...item };
-        //     console.log(this.selectedData);
-        // },
-        async editData(data) {
-            this.selectedData = {
-                ...data
-            };
-            try {
-                const response = await axios.get(`http://localhost:8000/sgs/user_info/${data.id}`);
-                this.selectedData = response.data.data;
-                this.selectedId = data.id;
-                console.log(this.selectedData);
-            } catch (error) {
-                console.log('Gagal Memuat Data', error);
-            }
-        },
-        async updateData() {
-            console.log(this.selectedId);
-            try {
-                await axios.put(`http://localhost:8000/sgs/user_info/${this.selectedData}`, this.selectedData);
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil',
-                    text: 'Data berhasil diupdate',
-                });
-                this.fetchDataUser();
-                document.getElementById('closeEditModal').click();
-                this.resetSelectedData();
-            } catch (error) {
-                console.error(error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal',
-                    text: 'Data gagal diupdate',
-                });
-            }
-        },
-        selectId(id) {
-            this.selectedId = id;
-            console.log(this.selectedId);
-            // this.deleteData = id;
-        },
-        async deleteData() {
-            Swal.fire({
-                title: 'Apakah anda yakin?',
-                text: 'Data yang dihapus tidak dapat dikembalikan!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, hapus!',
-                cancelButtonText: 'Tidak, batalkan!',
-                reverseButtons: true,
-            }).then(async (result) => {
-                if (result.isConfirmed) {
-                    try {
-                        await axios.delete(`http://localhost:8000/sgs/user_info/${this.selectedId}`);
-                        Swal.fire(
-                            'Terhapus!',
-                            'Data berhasil dihapus.',
-                            'success'
-                        );
-                        this.fetchDataUser();
-                        this.resetSelectedId();
-                    } catch (error) {
-                        console.error(error);
-                        Swal.fire(
-                            'Gagal!',
-                            'Data gagal dihapus.',
-                            'error'
-                        );
-                    }
-                }
-            });
-        },
-        resetForm() {
-            this.formData = {
-                cabang_id: '',
-                modtime: '',
-                status_ba: '',
-                store_id: '',
-                user_fullname: '',
-                user_id: '',
-                user_name: '',
-                user_nik: '',
-                user_number: '',
-                user_password: '',
-                user_phone: '',
-                user_status: '',
-                user_type_id: '',
-            };
-        },
-        resetSelectedData() {
-            this.selectedData = {
-                cabang_id: '',
-                modtime: '',
-                status_ba: '',
-                store_id: '',
-                user_fullname: '',
-                user_id: '',
-                user_name: '',
-                user_nik: '',
-                user_number: '',
-                user_password: '',
-                user_phone: '',
-                user_status: '',
-                user_type_id: '',
-            };
-            this.selectedId = '';
-        },
-        resetSelectedId() {
-            this.selectedId = null;
-            console.log(this.selectedId);
-        },
-    },
     components: {
         Pages,
-        Form,
-        Field,
-        ErrorMessage,
+        FormInput,
+        Button,
+        FormModal
+    },
+    props: {
+        params: {
+            default: null,
+        },
+    },
+    data() {
+        return {
+            title: "Data User",
+            showModal: false,
+            showmodal_zindex: "z-index:1000",
+            grid2: new Grid(),
+            acuanEdit: null,
+
+            todo: {
+                user_nik: "",
+                user_fullname: "",
+                user_name: "",
+                user_email: "",
+                user_phone: "",
+                user_status: "",
+                user_type_id: "",
+                status_ba: "",
+
+                nama_cabang: "",
+                store_id: "",
+                cabang_id: "",
+            },
+
+            // tipeCabangOptions: [],
+            // tmp_cabang: [],
+
+            cboCabang: [{
+                    code: 0,
+                    label: "PUSAT"
+                },
+                // {
+                //     code: 0,
+                //     label: "Not Active"
+                // },
+            ],
+            cboOutlet: [{
+                code: 1,
+                label: "ALL OUTLET"
+            }, ],
+            cboPenempatan: [{
+                code: 1,
+                label: "dari lokasi"
+            }, ],
+            cboUserStatus: [{
+                    code: 0,
+                    label: "0"
+                },
+                {
+                    code: 1,
+                    label: "1"
+                },
+            ],
+            cboUserTipeId: [{
+                code: 1,
+                label: "dari db user_type"
+            }, ],
+            cboStatusBa: [{
+                    // code: 0,
+                    label: "Tidak Aktif"
+                },
+                {
+                    // code: 1,
+                    label: "Aktif"
+                },
+            ],
+
+            tmp_whsCodeType2: [],
+            cboUserStatusVal2: [],
+            cboStatusBaVal2: [],
+
+            // cboCabangVal2: [],
+            // cboOutletVal2: [],
+            // cboPenempatanVal2: [],
+            // cboUserStatusVal2: [],
+            // cboUserTipeIdVal2: [],
+            // cboStatusBaVal2: [],
+
+
+            todo2: {
+                user_nik: "",
+                user_fullname: "",
+                user_name: "",
+                user_email: "",
+                user_phone: "",
+                user_status: "",
+                user_type_id: "",
+                status_ba: "",
+
+                nama_cabang: "",
+                store_id: "",
+                cabang_id: "",
+            },
+
+            errorList: "",
+            errorField: {
+                type: false,
+            },
+            cboCabangVal: null,
+            cboCabangVal2: null,
+            cboOutletVal: null,
+            cboOutletVal2: null,
+            cboPenempatanVal: null,
+            cboPenempatanVal2: null,
+            cboUserStatusVal: null,
+            cboUserStatusVal2: null,
+            cboUserTipeIdVal: null,
+            cboUserTipeIdVal2: null,
+            cboStatusBaVal: null,
+            cboStatusBaVal2: null,
+            select2Id1: "select2Id1",
+            userid: "",
+
+            uObject: "",
+            muncul: false,
+        };
+    },
+    mounted() {
+        this.getTable();
+
+        this.getCboUserType();
+        this.getCboStoreCabang();
+        this.getCboOutlet();
+        this.getCboPenempatan();
+
+        this.uObject = JSON.parse(localStorage.getItem("auth"));
+        this.userid = this.uObject.id;
+    },
+    methods: {
+        getCboOutlet() {
+            var mythis = this;
+            mythis.$root.loader = true;
+            axios
+                .get("http://localhost:8000/sgs/getCboOutlet")
+                .then((res) => {
+                    mythis.cboOutlet = res.data.data;
+                    //console.log(res.data.data);
+                    mythis.$root.loader = false;
+                });
+        },
+
+        getCboUserType() {
+            var mythis = this;
+            mythis.$root.loader = true;
+            axios
+                .get("http://localhost:8000/sgs/getCboUserType")
+                .then((res) => {
+                    mythis.cboUserTipeId = res.data.data;
+                    //console.log(res.data.data);
+                    mythis.$root.loader = false;
+                });
+        },
+
+        getCboStoreCabang() {
+            var mythis = this;
+            mythis.$root.loader = true;
+            axios
+                .get("http://localhost:8000/sgs/getCboStoreCabang")
+                .then((res) => {
+                    mythis.cboCabang = res.data.data;
+                    //console.log(res.data.data);
+                    mythis.$root.loader = false;
+                });
+        },
+
+        getCboPenempatan() {
+            var mythis = this;
+            mythis.$root.loader = true;
+            axios
+                .get("http://localhost:8000/sgs/getCboPenempatan")
+                .then((res) => {
+                    mythis.cboPenempatan = res.data.data;
+                    //console.log(res.data.data);
+                    mythis.$root.loader = false;
+                });
+        },
+
+        mySelectEvent() {
+            this.todo.cabang_id = this.cboCabangVal.code;
+        },
+        mySelectEvent11_2() {
+            this.todo2.cabang_id = this.cboCabangVal2.code;
+        },
+        mySelectEvent2() {
+            // this.todo2.whsCodeType = this.tmp_whsCodeType2.code;
+            this.todo.store_id = this.cboOutletVal.code;
+        },
+        mySelectEvent22_2() {
+            // this.todo2.whsCodeType = this.tmp_whsCodeType2.code;
+            this.todo2.store_id = this.cboOutletVal2.code;
+        },
+        mySelectEvent3() {
+            this.todo.nama_cabang = this.cboPenempatanVal.code;
+        },
+        mySelectEvent33_2() {
+            this.todo2.nama_cabang = this.cboPenempatanVal2.code;
+        },
+        mySelectEvent4() {
+            this.todo.user_status = this.cboUserStatusVal.code;
+        },
+        mySelectEvent44_2() {
+            this.todo2.user_status = this.cboUserStatusVal2.code;
+        },
+        mySelectEvent4_2() {
+            this.todo2.user_status = this.cboUserStatusVal2.code;
+        },
+        mySelectEvent5() {
+            this.todo.user_type_id = this.cboUserTipeIdVal.code;
+
+            // alert(this.todo.user_type_id);
+            this.muncul = (this.todo.user_type_id == 10) ? true : false;
+            if (
+                this.todo.user_type_id != 10
+            ) {
+                this.todo.nama_cabang = "0";
+                this.todo.store_id = "1";
+                this.todo.cabang_id = "0";
+            }
+
+        },
+        mySelectEvent55_2() {
+            this.todo2.user_type_id = this.cboUserTipeIdVal2.code;
+
+            // alert(this.todo.user_type_id);
+            this.muncul = (this.todo2.user_type_id == 10) ? true : false;
+            if (
+                this.todo2.user_type_id != 10
+            ) {
+                this.todo2.nama_cabang = "0";
+                this.todo2.store_id = "1";
+                this.todo2.cabang_id = "0";
+            }
+
+        },
+        mySelectEvent6() {
+            this.todo.status_ba = this.cboStatusBaVal.label;
+        },
+        mySelectEvent66() {
+            this.todo2.status_ba = this.cboStatusBaVal2.label;
+        },
+        mySelectEvent6_2() {
+            this.todo2.status_ba = this.cboStatusBaVal2.label;
+        },
+        resetForm() {
+            var mythis = this;
+            Object.keys(mythis.errorField).forEach(function (key) {
+                mythis.errorField[key] = false;
+                mythis.todo[key] = "";
+                mythis.todo2[key] = "";
+            });
+            mythis.errorList = "";
+            mythis.cboCabangVal = "";
+            mythis.cboOutletVal = "";
+            mythis.cboUserTipeIdVal = "";
+            mythis.cboUserStatusVal = "";
+            mythis.cboStatusBaVal = "";
+            mythis.cboPenempatanVal = "";
+
+            // mythis.cboCabangVal2 = "";
+            // mythis.cboOutletVal2 = "";
+            // mythis.cboUserTipeIdVal2 = "";
+            // mythis.cboUserStatusVal2 = "";
+            // mythis.cboStatusBaVal2 = "";
+            // mythis.cboPenempatanVal2 = "";
+        },
+        getCbowhsCodeType() {
+            var mythis = this;
+            mythis.$root.loader = true;
+            axios
+                .get('http://localhost:8000/sgs/user_info/' + "wms/getCbowhsCodeType")
+                .then((res) => {
+                    this.tipeCabangOptions = res.data.data;
+                    //console.log(res.data.data);
+                    mythis.$root.loader = false;
+                });
+        },
+        getTable() {
+            var mythis = this;
+            this.grid2.updateConfig({
+                language: idID,
+                pagination: {
+                    limit: 10,
+                    server: {
+                        url: (prev, page, limit) =>
+                            `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${
+                page * limit
+              }`,
+                    },
+                },
+                search: {
+                    server: {
+                        url: (prev, keyword) => `${prev}?search=${keyword}`,
+                    },
+                },
+                columns: [{
+                        name: "ID",
+                        hidden: true
+                    },
+
+                    {
+                        id: "user_id",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID USER</b></div>'
+                        ),
+                    },
+
+                    {
+                        id: "user_nik",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>NIK</b></div>'
+                        ),
+                    },
+
+                    {
+                        id: "user_fullname",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>FULLNAME</b></div>'
+                        ),
+                    },
+
+                    {
+                        id: "user_name",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>USERNAME</b></div>'
+                        ),
+                    },
+
+                    {
+                        id: "user_phone",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>PHONE</b></div>'
+                        ),
+                    },
+
+                    {
+                        id: "user_email",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>EMAIL</b></div>'
+                        ),
+                    },
+
+                    // {
+                    //     id: "password",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>PASSWORD</b></div>'
+                    //     ),
+                    // },
+
+                    {
+                        id: "user_type_id",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Tipe User</b></div>'
+                        ),
+                    },
+
+                    {
+                        id: "status_ba",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>USER STATUS</b></div>'
+                        ),
+                    },
+
+                    {
+                        name: "---- # ----",
+                        formatter: (_, row) =>
+                            html(
+                                `
+                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
+                &nbsp;&nbsp;&nbsp;
+                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
+              `
+                            ),
+                    },
+                ],
+                style: {
+                    container: {
+                        "font-size": "12px",
+                    },
+                    table: {
+                        border: "1px solid #ccc",
+                        "font-size": "12px",
+                        margin: "0",
+                        padding: "0",
+                    },
+                    th: {
+                        "background-color": "rgb(111, 71, 189)",
+                        color: "#FFFFFF",
+                        border: "1px solid #ccc",
+                        "text-align": "center",
+                    },
+                    td: {
+                        "text-align": "center",
+                        border: "1px solid #ccc",
+                        padding: "5px 10px",
+                    },
+                },
+                server: {
+                    url: 'http://localhost:8000/sgs/user_info',
+                    then: (data) =>
+                        data.results.map((card) => [
+                            card.user_id,
+                            card.user_id,
+                            card.user_nik,
+                            card.user_fullname,
+                            card.user_name,
+                            card.user_phone,
+                            card.user_email,
+                            card.user_type_id,
+                            card.status_ba,
+                            // card.cabang_id,
+                            card.updated_at,
+                        ]),
+                    total: (data) => data.count,
+                    handle: (res) => {
+                        // no matching records found
+                        if (res.status === 404) return {
+                            data: []
+                        };
+                        if (res.ok) return res.json();
+
+                        throw Error("oh no :(");
+                    },
+                },
+            });
+            // DOM instead of vue selector because we are using vanilla JS
+            this.grid2.render(document.getElementById("wrapper2"));
+            this.number = 0;
+
+            $(document).off("click", "#editData");
+            $(document).off("click", "#deleteData");
+            mythis.jqueryDelEdit();
+        },
+
+        refreshTable() {
+            var mythis = this;
+            //////////////////////////////
+            $("#wrapper2").remove();
+            var e = $('<div id="wrapper2"></div>');
+            $("#box").append(e);
+            this.getTable();
+            //////////////////////////////
+        },
+
+        jqueryDelEdit() {
+            const mythis = this;
+
+            $(document).on("click", "#editData", function () {
+                let id = $(this).data("id");
+                mythis.idRincian = id;
+                // alert(id);
+                mythis.modal();
+                mythis.$root.loader = true;
+                axios
+                    .get('http://localhost:8000/sgs/user_info/' + id)
+                    .then((res) => {
+                        mythis.acuanEdit = id;
+                        Object.keys(res.data.data).forEach(function (key) {
+                            mythis.todo2[key] = res.data.data[key];
+                        });
+                        // document.getElementById("inputA").focus(); // sets the focus on the input
+                        // mythis.cboUserStatusVal2 = res.data.data.user_status;
+                        // mythis.cboStatusBaVal2 = res.data.data.status_ba;
+                        mythis.cboCabangVal2 = res.data.data.nama_cabang;
+                        mythis.cboOutletVal2 = res.data.data.store_name;
+                        //mythis.cboPenempatanVal2 = res.data.data.kode_lokasi;
+                        mythis.cboUserTipeIdVal2 = res.data.data.user_type_name;
+                        
+                        // mythis.cboUserStatusVal2 = res.data.data.user_type_id;
+                        mythis.cboStatusBaVal2 = res.data.data.status_ba;
+                        mythis.$root.loader = false;
+                    });
+            });
+            $(document).on("click", "#deleteData", function () {
+                let id = $(this).data("id");
+                mythis.deleteTodo(id);
+            });
+        },
+
+        deleteTodo(id) {
+            var mythis = this;
+            Swal.fire({
+                title: "Menghapus Data",
+                text: "Apakah kamu yakin?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya",
+                cancelButtonText: "Batal",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    mythis.$root.loader = true;
+                    axios
+                        .delete('http://localhost:8000/sgs/user_info/' + id, {
+                            data: {
+                                fileUpload: "form satuan",
+                                userid: mythis.userid,
+                            },
+                        })
+                        .then((res) => {
+                            //console.log(res.data.data);
+                            Swal.fire("Terhapus!", "Data telah sukses dihapus", "success");
+                            mythis.$root.loader = false;
+                            mythis.refreshTable();
+                            mythis.resetForm();
+                        });
+                    //     .catch(function (error) {
+                    //   if (error.response) {
+                    //     if (error.response.status == 422) {
+                    //       mythis.errorList = error.response.data;
+                    //       mythis.$root.loader = false;
+                    //       if (Object.keys(mythis.errorList).length > 0) {
+                    //         Object.keys(mythis.errorField).forEach(function (key) {
+                    //           mythis.errorField[key] = false;
+                    //         });
+                    //         Object.keys(mythis.errorList).forEach(function (key) {
+                    //           toast.error(mythis.errorList[key], { theme: 'colored' });
+                    //           const myArray = key.split(".");
+                    //           mythis.errorField[myArray[1]] = true;
+                    //         });
+                    //       }
+                    //     }
+                    //   } else if (error.request) {
+                    //     console.log(error.request);
+                    //   } else {
+                    //     console.log('Error', error.message);
+                    //   }
+                    // });
+                }
+            });
+        },
+
+        saveTodo() {
+            var mythis = this;
+            mythis.$root.loader = true;
+
+            axios
+                .post('http://localhost:8000/sgs/user_info', {
+                    data: mythis.todo,
+                    fileUpload: "form satuan",
+                    userid: mythis.userid,
+                })
+                .then((res) => {
+                    Swal.fire("Created!", res.data.message, "success");
+                    mythis.$root.loader = false;
+
+                    mythis.refreshTable();
+                    mythis.resetForm();
+                    mythis.close();
+                })
+                .catch(function (error) {
+                    if (error.response) {
+                        //console.log(error.response.data);
+                        if (error.response.status == 422) {
+                            mythis.errorList = error.response.data;
+                            mythis.$root.loader = false;
+                            if (Object.keys(mythis.errorList).length > 0) {
+                                //refresh semua menjadi false
+                                Object.keys(mythis.errorField).forEach(function (key) {
+                                    mythis.errorField[key] = false;
+                                });
+                                //membuat jika error jadi true
+                                Object.keys(mythis.errorList).forEach(function (key) {
+                                    toast.error(mythis.errorList[key], {
+                                        theme: "colored"
+                                    });
+
+                                    const myArray = key.split(".");
+                                    mythis.errorField[myArray[1]] = true;
+                                });
+                            }
+                        }
+                    } else if (error.request) {
+                        console.log(error.request);
+                    } else {
+                        console.log("Error", error.message);
+                    }
+                });
+        },
+
+        close: function () {
+            this.showModal = false;
+            this.todo = {};
+            this.todo2 = {};
+            this.resetForm();
+        },
+        modal() {
+            // binding data to form modal
+            this.showModal = true;
+            this.resetForm();
+        },
+
+        editTodo() {
+            var mythis = this;
+            mythis.$root.loader = true;
+            axios
+                .put(
+                    "http://localhost:8000/sgs/user_info/" + mythis.acuanEdit, {
+                        data: mythis.todo2,
+                        fileUpload: "form satuan",
+                        userid: mythis.userid,
+                    }
+                )
+                .then((res) => {
+                    //console.log(res);
+                    //alert(res.data.message);
+                    Swal.fire("Updated!", res.data.message, "success");
+                    mythis.$root.loader = false;
+
+                    mythis.close();
+                    mythis.refreshTable();
+                })
+                .catch(function (error) {
+                    if (error.response) {
+                        //console.log(error.response.data);
+                        if (error.response.status == 422) {
+                            mythis.errorList = error.response.data;
+                            mythis.$root.loader = false;
+                            if (Object.keys(mythis.errorList).length > 0) {
+                                //refresh semua menjadi false
+                                Object.keys(mythis.errorField).forEach(function (key) {
+                                    mythis.errorField[key] = false;
+                                });
+                                //membuat jika error jadi true
+                                Object.keys(mythis.errorList).forEach(function (key) {
+                                    toast.error(mythis.errorList[key], {
+                                        theme: "colored"
+                                    });
+
+                                    const myArray = key.split(".");
+                                    mythis.errorField[myArray[1]] = true;
+                                });
+                            }
+                        }
+                    } else if (error.request) {
+                        console.log(error.request);
+                    } else {
+                        console.log("Error", error.message);
+                    }
+                });
+        },
+
+        /////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////
     },
 };
 </script>
 
-    
-<style>
-.ct-table {
-    overflow-x: auto;
+<style scoped>
+.input-error {
+    border: red 1px solid;
 }
 
-@media (max-width: 768px) {
-    .ct-table {
-        overflow-x: scroll;
-    }
+.label-spacing {
+    margin-right: 20px;
+    /* add some spacing between label and input/select */
 }
 
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+.form-group {
+    margin-bottom: 20px;
+    /* add some spacing between form elements */
 }
 
-.form-required {
-    color: red;
-}
-
-.mb-4 {
-    justify-content: center;
-    display: flex;
+.col-md-3,
+.col-md-7 {
+    padding-right: 10px;
+    /* reduce padding between columns */
+    padding-left: 10px;
+    /* reduce padding between columns */
 }
 </style>
