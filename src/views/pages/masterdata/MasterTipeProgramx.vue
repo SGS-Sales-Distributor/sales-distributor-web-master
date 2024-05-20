@@ -350,7 +350,7 @@ export default {
         async fetchDataUser() {
             this.isLoading = true;
             try {
-                const response = await axios.get(`http://localhost:8000/sgs/user_info`);
+                const response = await axios.get(this.$root.API_URL +`sgs/user_info`);
                 if (response) {
                     this.salesman.data = response.data.data;
                     console.log(response.data.data);
@@ -365,7 +365,7 @@ export default {
         async storeNewData() {
             try {
                 this.isLoading = true;
-                await axios.post(`http://localhost:8000/sgs/user_info`, this.formData);
+                await axios.post(this.$root.API_URL +`sgs/user_info`, this.formData);
                 Swal.fire({
                     icon: 'success',
                     title: 'Berhasil',
@@ -406,7 +406,7 @@ export default {
                 ...data
             };
             try {
-                const response = await axios.get(`http://localhost:8000/sgs/user_info/${data.id}`);
+                const response = await axios.get(this.$root.API_URL +`sgs/user_info/${data.id}`);
                 this.selectedData = response.data.data;
                 this.selectedId = data.id;
                 console.log(this.selectedData);
@@ -417,7 +417,7 @@ export default {
         async updateData() {
             console.log(this.selectedId);
             try {
-                await axios.put(`http://localhost:8000/sgs/user_info/${this.selectedData}`, this.selectedData);
+                await axios.put(this.$root.API_URL +`sgs/user_info/${this.selectedData}`, this.selectedData);
                 Swal.fire({
                     icon: 'success',
                     title: 'Berhasil',
@@ -452,7 +452,7 @@ export default {
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
-                        await axios.delete(`http://localhost:8000/sgs/user_info/${this.selectedId}`);
+                        await axios.delete(this.$root.API_URL +`sgs/user_info/${this.selectedId}`);
                         Swal.fire(
                             'Terhapus!',
                             'Data berhasil dihapus.',

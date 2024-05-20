@@ -144,7 +144,7 @@
                                 <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label for="">Store Name</label>
+                                        <label for="">Nama Toko</label>
                                     </div>
                                     <div class="col-md-8">
                                        {{store_name}}
@@ -247,7 +247,7 @@
                                 <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label for="">Store Name</label>
+                                        <label for="">Nama Toko</label>
                                     </div>
                                     <div class="col-md-8">
                                        {{store_name}}
@@ -425,7 +425,7 @@ export default {
             axios
                 .get(this.$root.apiHostWmsTPS + "wms/getCbowhsCodeType")
                 .then((res) => {
-                    this.tipeWarehouseOptions = res.data.data;
+                    this.tipeWarehouseOptions = res.data.resource;
                     //console.log(res.data.data);
                     mythis.$root.loader = false;
                 });
@@ -453,17 +453,17 @@ export default {
                         hidden: true
                     },
 
-                    // {
-                    //     id: "id",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID</b></div>'
-                    //     ),
-                    // },
+                    {
+                        id: "id",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>NO</b></div>'
+                        ),
+                    },
 
                     {
-                        id: "store_id",
+                        id: "store",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>STORE ID</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>NAMA TOKO</b></div>'
                         ),
                     },
 
@@ -606,14 +606,16 @@ export default {
                     },
                 },
                 server: {
-                    url: 'http://localhost:8000/sgs/profil_visit',
+                    url: 'http://178.1.32.224:2022/api/sgs/profil_visit',
                     then: (data) =>
-                        data.results.map((card) => [
-                            card.id,
-                            card.store_id,
-                            card.user,
-                            (card.status_check_in == 1) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_in" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-thumbs-up"></i></button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-x"></i></button>`),
-                            (card.status_check_out == 1) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_out" data-toggle="tooltip" title="Status Check OUT" ><i class="fa-solid fa-thumbs-up"></i></button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check OUT" ><i class="fa-solid fa-x"></i></button>`), card.approval,
+                        data.resource.data.map((card, index) => [
+                            index+1,
+                            index+1,
+                            card.store.store_name,
+                            card.user.fullname,
+                            (card.photo_visit) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_in" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-thumbs-up"></i></button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-x"></i></button>`),
+                            (card.photo_visit_out) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_out" data-toggle="tooltip" title="Status Check OUT" ><i class="fa-solid fa-thumbs-up"></i></button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check OUT" ><i class="fa-solid fa-x"></i></button>`), 
+                            (card.approval === 1) ? html(`<span class="btn btn-sm btn-success text-white">Disetujui</span>`) : html(`<span class="btn btn-sm btn-danger text-white">Tidak Disetujui</span>`),
                         ]),
                     total: (data) => data.count,
                     handle: (res) => {
@@ -658,19 +660,19 @@ export default {
                 mythis.$root.loader = true;
 
                 axios
-                    .get('http://localhost:8000/sgs/profil_visit/' + id)
+                    .get('http://178.1.32.224:2022/api/sgs/profil_visit/' + id)
                     .then(async (res) => {
                         mythis.acuanEdit = id;
-                        Object.keys(res.data.data).forEach(function (key) {
-                            mythis.var_check_out[key] = res.data.data[key];
+                        Object.keys(res.data.resource).forEach(function (key) {
+                            mythis.var_check_out[key] = res.data.resource[key];
                         });
                         // document.getElementById("inputA").focus(); // sets the focus on the input
 
-                        mythis.var_check_out.location = 'https://maps.google.com/maps?q=' + res.data.data.lat_out + ',' + res.data.data.long_out + '&hl=es&z=14&output=embed';
-                        mythis.var_check_out.photo = res.data.data.photo_visit_out;
-                        await mythis.getAlamat(res.data.data.long_out, res.data.data.lat_out);
-                        mythis.userx = res.data.data.user;
-                        mythis.store_name = res.data.data.store_name;
+                        mythis.var_check_out.location = 'https://maps.google.com/maps?q=' + res.data.resource.lat_out + ',' + res.data.resource.long_out + '&hl=es&z=14&output=embed';
+                        mythis.var_check_out.photo = 'http://178.1.32.224:2022/images/' + res.data.resource.photo_visit_out;
+                        await mythis.getAlamat(res.data.resource.long_out, res.data.resource.lat_out);
+                        mythis.userx = res.data.resource.fullname;
+                        mythis.store_name = res.data.resource.store_name;
                         await mythis.sleep(3000);
                         mythis.$root.loader = false;
                     });
@@ -684,22 +686,22 @@ export default {
                 mythis.$root.loader = true;
 
                 axios
-                    .get('http://localhost:8000/sgs/profil_visit/' + id)
+                    .get('http://178.1.32.224:2022/api/sgs/profil_visit/' + id)
                     .then(async (res) => {
                         console.log(res);
                         mythis.acuanEdit = id;
-                        Object.keys(res.data.data).forEach(function (key) {
-                            mythis.var_check_in[key] = res.data.data[key];
+                        Object.keys(res.data.resource).forEach(function (key) {
+                            mythis.var_check_in[key] = res.data.resource[key];
                         });
                         // document.getElementById("inputA").focus(); // sets the focus on the input
                         // mythis.var_check_in.location = "https://maps.google.com/?q=" +  res.data.data.lat_in + "," +  res.data.data.long_in;
                         
 
-                        mythis.var_check_in.location = 'https://maps.google.com/maps?q=' + res.data.data.lat_in + ',' + res.data.data.long_in + '&hl=es&z=14&output=embed';
-                        mythis.var_check_in.photo = res.data.data.photo_visit;
-                        await mythis.getAlamat(res.data.data.long_in, res.data.data.lat_in);
-                        mythis.userx = res.data.data.user;
-                        mythis.store_name = res.data.data.store_name;
+                        mythis.var_check_in.location = 'https://maps.google.com/maps?q=' + res.data.resource.lat_in + ',' + res.data.resource.long_in + '&hl=es&z=14&output=embed';
+                        mythis.var_check_in.photo = 'http://178.1.32.224:2022/images/' + res.data.resource.photo_visit;
+                        await mythis.getAlamat(res.data.resource.long_in, res.data.resource.lat_in);
+                        mythis.userx = res.data.resource.fullname;
+                        mythis.store_name = res.data.user.resource.store_name;
                         await mythis.sleep(3000);
                         mythis.$root.loader = false;
                     });
@@ -711,11 +713,11 @@ export default {
                 mythis.modal();
                 mythis.$root.loader = true;
                 axios
-                    .get('http://localhost:8000/sgs/profil_visit/' + id)
+                    .get('http://178.1.32.224:2022/api/sgs/profil_visit/' + id)
                     .then((res) => {
                         mythis.acuanEdit = id;
-                        Object.keys(res.data.data).forEach(function (key) {
-                            mythis.todo2[key] = res.data.data[key];
+                        Object.keys(res.data.resource).forEach(function (key) {
+                            mythis.todo2[key] = res.data.resource[key];
                         });
                         document.getElementById("inputA").focus(); // sets the focus on the input
 
@@ -745,7 +747,7 @@ export default {
                 if (result.isConfirmed) {
                     mythis.$root.loader = true;
                     axios
-                        .delete('http://localhost:8000/sgs/master_type_program/' + id, {
+                        .delete('http://178.1.32.224:2022/api/sgs/profil_visit/' + id, {
                             data: {
                                 fileUpload: "form satuan",
                                 userid: mythis.userid,
@@ -789,7 +791,7 @@ export default {
             mythis.$root.loader = true;
 
             axios
-                .post('http://localhost:8000/sgs/master_type_program', {
+                .post('', {
                     data: mythis.todo,
                     fileUpload: "form satuan",
                     userid: mythis.userid,
@@ -858,7 +860,7 @@ export default {
             mythis.$root.loader = true;
             axios
                 .put(
-                    "http://localhost:8000/sgs/master_type_program/" + mythis.acuanEdit, {
+                    "" + mythis.acuanEdit, {
                         data: mythis.todo2,
                         fileUpload: "form satuan",
                         userid: mythis.userid,
@@ -914,5 +916,30 @@ export default {
 <style scoped>
 .input-error {
     border: red 1px solid;
+}
+
+.badge-danger{
+  background-color: red;
+  color: white;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.badge-success{
+  background-color: green;
+  color: white;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+
+.badge-warning{
+  background-color: rgb(255,193,7);
+  color: white;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px;
 }
 </style>

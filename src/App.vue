@@ -7,6 +7,7 @@
 </template>
 
 <script>
+// import { RouterView } from 'vue-router';
 import { markRaw } from "vue";
 import FormLoader from "@/components/template/FormLoader.vue";
 import MainMenu from "@/views/template/MainMenuView.vue";
@@ -15,6 +16,8 @@ import ConfigMenu from "@/views/template/ConfigMenuView.vue";
 const componentViews = import.meta.globEager("@/views/*.vue");
 const componentPages = import.meta.globEager("@/views/pages/**/*.vue");
 const componentAuth = import.meta.globEager("@/views/auth/*.vue");
+
+const API_URL = import.meta.env.VITE_API_PATH;
 
 let routeComponent = {};
 Object.entries(componentViews).forEach((path, i) => {
@@ -57,6 +60,7 @@ export default {
       routes = markRaw(routeComponent["PrivacyAndPolicy"]);
     } else {
       routes = markRaw(routeComponent["LoginView"]);
+
     }
 
     const auth = JSON.parse(localStorage.getItem("auth"));
@@ -69,12 +73,12 @@ export default {
       menus: routeComponent,
       loader: false,
       configMenus: routeComponent,
-      APP_URL: 'http://localhost:8000'
+      API_URL: API_URL
     };
   },
 
   mounted() {
-
+    
   },
   created() {
 
@@ -84,7 +88,7 @@ export default {
       if (typeof p != "undefined") {
         this.params = p;
       }
-
+console.log(comp+'aaaaaaaaaa');
       this.activeRoute = markRaw(routeComponent[comp]);
       sessionStorage.setItem("page", comp);
     },

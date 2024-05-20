@@ -279,7 +279,7 @@ export default {
     logout() {
       localStorage.clear();
       window.location.reload()
-    }
+    },
   },
 };
 </script>

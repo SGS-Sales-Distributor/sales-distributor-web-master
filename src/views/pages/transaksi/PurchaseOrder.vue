@@ -26,6 +26,9 @@
                             </div>
                         </div>
                     </div> -->
+                <div class="col-md-3">
+                    <button class="btn btn-sm btn-warning text-white" data-toggle="tooltip" @click="exportDetailData()"><i class="fa-solid fa-file-excel"></i></button>
+                </div>
             </div>
         </div>
         <hr />
@@ -50,99 +53,124 @@
                     <div class="row">
                         <div class="col-md-6">
 
-                            <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">NO ORDER</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            {{ noorder }}
-                                        </div>
-                                    </div>
-                                </div>
+                            <br>
+
+                            <h6>ORDER INFORMATION</h6>
 
                             <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">CUSTOMER CODE</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            {{ custcode }}
-                                        </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">NO ORDER</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        {{ noorder }}
                                     </div>
                                 </div>
-
-                            <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">QUANTITY</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            {{ totOrderQtyx }}
-                                        </div>
-                                    </div>
-                                </div>
-                            
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">TIPE</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            {{ tipex }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">TOP</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            {{ topx }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">COMPANY</label>
-                                        </div>
-                                        <div class="col-md-7">
-                                            {{ companyx }}
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
 
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">STORE NAME</label>
-                                        </div>
-                                        <div class="col-md-7">
-                                            {{ storename }}
-                                        </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">TANGGAL ORDER</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        {{ tglorder }}
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">TANGGAL ORDER</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            {{ tglorder }}
-                                        </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">STATUS ORDER</label>
+                                    </div>
+                                    <div class="col-md-7">
+
+                                        <span :class="`${orderstsClassx}`">{{ ordersts }}</span>
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- <div class="form-group">
+                            <br>
+                            <br>
+
+                            <h6>CUSTOMER INFORMATION</h6>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">CUSTOMER CODE</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        {{ custcode }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">COMPANY</label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        {{ companyx }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">STORE NAME</label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        {{ storename }}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <br>
+
+                            <h6>ORDER DETAILS</h6>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">QUANTITY</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        {{ totOrderQtyx }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">TIPE</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        {{ tipex }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">TOP</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        {{ topx }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label for="">UPLOAD BY</label>
@@ -153,51 +181,45 @@
                                     </div>
                                 </div> -->
 
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">UPLOAD AT</label>
-                                        </div>
-                                        <div class="col-md-7">
-                                            {{ uploadedat }}
-                                        </div>
+                            <br>
+                            <br>
+
+                            <h6>UPLOAD INFORMATION</h6>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">UPLOAD AT</label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        {{ uploadedat }}
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">STATUS ORDER</label>
-                                        </div>
-                                        <div class="col-md-7">
-                                            {{ ordersts }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">IP UPLOADED</label>
-                                        </div>
-                                        <div class="col-md-7">
-                                            {{ uploadedip }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">MODIFIED AT</label>
-                                        </div>
-                                        <div class="col-md-7">
-                                            {{ modifiedat }}
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">IP UPLOADED</label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        {{ uploadedip }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="">MODIFIED AT</label>
+                                    </div>
+                                    <div class="col-md-7">
+                                        {{ modifiedat }}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                     <br />
                     <br />
@@ -319,7 +341,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <label for="">No Order</label>
+                                            <label for="">NO ORDER</label>
                                         </div>
                                         <div class="col-md-8">
                                             {{ no_order }}
@@ -330,7 +352,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <label for="">Tipe</label>
+                                            <label for="">TIPE</label>
                                         </div>
                                         <div class="col-md-8">
                                             {{ tipex }}
@@ -367,7 +389,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <label for="">Gabungan Status</label>
+                                            <label for="">GABUNGAN STATUS</label>
                                         </div>
                                         <div class="col-md-7">
                                             {{ llbgabungansts }}
@@ -378,7 +400,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <label for="">Upload By</label>
+                                            <label for="">UPLOAD BY</label>
                                         </div>
                                         <div class="col-md-7">
                                             {{ uploaded_by }}
@@ -396,7 +418,7 @@
             </template>
             <template #footer>
                 <button class="modal-default-button btn btn-secondary btn-sm me-1" @click="close_whs_code">
-                    Tutup
+                    TUTUP
                 </button>
             </template>
         </FormModal>
@@ -404,8 +426,8 @@
 </Pages>
 </template>
 
-    
 <script>
+import * as XLSX from "xlsx";
 import Pages from "@/components/template/Pages.vue";
 import FormInput from "@/components/forms/FormInput.vue";
 import Button from "@/components/forms/FormButton.vue";
@@ -489,10 +511,11 @@ export default {
             uploadedby: "",
             uploadedat: "",
             ordersts: "",
+            orderstsClassx:"",
             storename: "",
             uploadedip: "",
             modifiedat: "",
-            
+
             whscode: "",
 
             alamat: "",
@@ -517,6 +540,18 @@ export default {
         this.userid = this.uObject.id;
     },
     methods: {
+        orderstsClass(ordersts) {
+            switch (ordersts) {
+                case 'Draft':
+                    return 'badge-danger';
+                case 'Delivered':
+                    return 'badge-success';
+                case 'Approved':
+                    return 'badge-success';
+                // default:
+                //     return 'badge-warning';
+            }
+        },
         getIDstore() {
             var mythis = this;
             mythis.$root.loader = true;
@@ -619,11 +654,39 @@ export default {
                             '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID</b></div>'
                         ),
                     },
-                    
+
                     {
-                        id: "cust_code",
+                        id: "order",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>NO ORDER</b></div>'
+                        ),
+                    },
+
+                    {
+                        id: "customer",
                         name: html(
                             '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>CODE CUSTOMER</b></div>'
+                        ),
+                    },
+
+                    {
+                        id: "limitcre",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>LIMIT CREDIT</b></div>'
+                        ),
+                    },
+
+                    {
+                        id: "cabang",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>CABANG</b></div>'
+                        ),
+                    },
+
+                    {
+                        id: "tgl_order",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>TANGGAL ORDER</b></div>'
                         ),
                     },
 
@@ -635,16 +698,37 @@ export default {
                     },
 
                     {
-                        id: "totOrderQty",
+                        id: "subtotal_qty",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>QUANTITY</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>SUBTOTAL QTY</b></div>'
                         ),
                     },
 
                     {
-                        id: "store_name",
+                        id: "total_val",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>STORE NAME</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>TOTAL VALUE</b></div>'
+                        ),
+                    },
+
+                    {
+                        id: "grandTotal_val",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>GRAND TOTAL VALUE</b></div>'
+                        ),
+                    },
+
+                    {
+                        id: "created_by",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>CREATED BY</b></div>'
+                        ),
+                    },
+
+                    {
+                        id: "updated_at",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>UPDATE TIME</b></div>'
                         ),
                     },
 
@@ -759,15 +843,23 @@ export default {
                     },
                 },
                 server: {
-                    url: 'http://localhost:8000/sgs/order_customer_sales',
+                    url: mythis.$root.API_URL + 'orders',
                     then: (data) =>
-                        data.results.map((card) => [
+                        data.resource.data.map((card) => [
                             card.id,
                             card.id,
+                            card.BELUM,
                             card.cust_code,
+                            card.BELUM,
+                            card.store.cabang.nama_cabang,
+                            card.created_at,
                             card.order_sts,
-                            card.totOrderQty,
-                            card.store_name,
+                            card.BELUM,
+                            card.BELUM,
+                            card.BELUM,
+                            card.created_by,
+                            card.updated_at,
+                            // card.store.store_name,
                         ]),
                     total: (data) => data.count,
                     handle: (res) => {
@@ -812,7 +904,7 @@ export default {
                 mythis.$root.loader = true;
 
                 axios
-                    .get('http://localhost:8000/sgs/order_customer_sales/' + id)
+                    .get('http://178.1.32.224:2022/api/sgs/order_customer_sales/' + id)
                     .then(async (res) => {
                         mythis.acuanEdit = id;
                         Object.keys(res.data.data).forEach(function (key) {
@@ -842,7 +934,7 @@ export default {
                 mythis.$root.loader = true;
 
                 axios
-                    .get('http://localhost:8000/sgs/order_customer_sales/' + id)
+                    .get('http://178.1.32.224:2022/api/sgs/order_customer_sales/' + id)
                     .then(async (res) => {
                         console.log(res);
                         mythis.acuanEdit = id;
@@ -869,7 +961,7 @@ export default {
                 mythis.modal();
                 mythis.$root.loader = true;
                 axios
-                    .get('http://localhost:8000/sgs/order_customer_sales/' + id)
+                    .get('http://178.1.32.224:2022/api/sgs/order_customer_sales/' + id)
                     .then((res) => {
                         mythis.acuanEdit = id;
                         Object.keys(res.data.data).forEach(function (key) {
@@ -892,6 +984,8 @@ export default {
                         mythis.storename = res.data.data.store_name;
                         mythis.modifiedat = res.data.data.modified_at;
 
+                        mythis.orderstsClassx = mythis.orderstsClass(mythis.ordersts);
+console.log("AA "+  mythis.orderstsClassx);
                         mythis.whscode = res.data.data.whs_code;
 
                         mythis.$root.loader = false;
@@ -918,7 +1012,7 @@ export default {
                 if (result.isConfirmed) {
                     mythis.$root.loader = true;
                     axios
-                        .delete('http://localhost:8000/sgs/order_customer_sales/' + id, {
+                        .delete('http://178.1.32.224:2022/api/sgs/order_customer_sales/' + id, {
                             data: {
                                 fileUpload: "form satuan",
                                 userid: mythis.userid,
@@ -962,7 +1056,7 @@ export default {
             mythis.$root.loader = true;
 
             axios
-                .post('http://localhost:8000/sgs/order_customer_sales', {
+                .post('http://178.1.32.224:2022/api/sgs/order_customer_sales', {
                     data: mythis.todo,
                     fileUpload: "form satuan",
                     userid: mythis.userid,
@@ -1031,7 +1125,7 @@ export default {
             mythis.$root.loader = true;
             axios
                 .put(
-                    "http://localhost:8000/sgs/order_customer_sales/" + mythis.acuanEdit, {
+                    "http://178.1.32.224:2022/api/sgs/order_customer_sales/" + mythis.acuanEdit, {
                         data: mythis.todo2,
                         fileUpload: "form satuan",
                         userid: mythis.userid,
@@ -1076,6 +1170,26 @@ export default {
                 });
         },
 
+        async exportDetailData() {
+            try {
+                this.$root.loader = true;
+
+                const data = await axios.get("http://localhost:8000/sgs/getPurchaseOrder");
+
+                // console.log(data.data.data);
+
+                const ws = XLSX.utils.json_to_sheet(data.data.data);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+                XLSX.writeFile(wb, "purchase_order.xls");
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
+                this.$root.loader = false;
+            }
+        },
+
         /////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////
@@ -1084,9 +1198,44 @@ export default {
 };
 </script>
 
-    
 <style scoped>
 .input-error {
     border: red 1px solid;
 }
+
+.badge-danger{
+  background-color: red;
+  color: white;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px;
+}
+/* 
+
+.badge-info{
+  background-color: blue;
+  color: white;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px;
+} */
+
+
+.badge-success{
+  background-color: green;
+  color: white;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+/* 
+.badge-warning{
+  background-color: rgb(255,193,7);
+  color: white;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px;
+} */
+
 </style>

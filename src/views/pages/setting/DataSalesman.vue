@@ -3,6 +3,7 @@
     <div class="container-fluid">
         <div class="mb-4">
             <div class="row">
+
                 <div class="col-md-6">
 
                     <div class="form-group">
@@ -53,8 +54,7 @@
                                 <FormInput v-model="todo3.kode_lokasi" disabled="disabled"></FormInput>
                             </div>
                             <div class="col-md-2">
-                                <FormInput  v-model="todo3.tahun_ini"
-                                disabled="disabled"></FormInput>
+                                <FormInput v-model="todo3.tahun_ini" disabled="disabled"></FormInput>
                             </div>
                             <div class="col-md-2">
                                 <FormInput v-model="todo3.bulan_ini" disabled="disabled"></FormInput>
@@ -97,7 +97,9 @@
                     </div>
 
                 </div>
+
                 <div class="col-md-6">
+
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-3">
@@ -173,6 +175,9 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-3">
                     <Button type="button" @click="saveTodo">Simpan</Button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-sm btn-warning text-white" data-toggle="tooltip" @click="exportDetailData()"><i class="fa-solid fa-floppy-disk"></i> PRINT</button>
                 </div>
             </div>
         </div>
@@ -256,6 +261,7 @@
 </template>
 
 <script>
+import * as XLSX from "xlsx";
 import Pages from "@/components/template/Pages.vue";
 import FormInput from "@/components/forms/FormInput.vue";
 import Button from "@/components/forms/FormButton.vue";
@@ -277,7 +283,7 @@ import {
 } from "gridjs/l10n";
 
 import $ from "jquery";
-
+// import * as XLSX from 'xlsx/xlsx.mjs';
 import Swal from "sweetalert2";
 
 export default {
@@ -395,16 +401,15 @@ export default {
         this.getCboStoreCabang();
         this.getCboOutlet();
         this.getCboPenempatan();
-       
 
         this.uObject = JSON.parse(localStorage.getItem("auth"));
         this.userid = this.uObject.id;
     },
     computed: {
-    tahun_ini() {
-      return new Date().getFullYear();
-    }
-  },
+        tahun_ini() {
+            return new Date().getFullYear();
+        }
+    },
     methods: {
         getCboOutlet() {
             var mythis = this;
@@ -465,11 +470,10 @@ export default {
                     mythis.todo3.bulan_ini = res.data.bulan;
                     mythis.todo3.user_id = res.data.urutan;
                     //console.log(res.data.data);
-                   // mythis.$root.loader = false;
-                   mythis.todo.gabungan_nik = mythis.todo3.kode_lokasi+mythis.todo3.tahun_ini+mythis.todo3.bulan_ini+mythis.todo3.user_id;
+                    // mythis.$root.loader = false;
+                    mythis.todo.gabungan_nik = mythis.todo3.kode_lokasi + mythis.todo3.tahun_ini + mythis.todo3.bulan_ini + mythis.todo3.user_id;
                 });
         },
-        
 
         mySelectEvent() {
             this.todo.cabang_id = this.cboCabangVal.code;
@@ -607,13 +611,12 @@ export default {
 
                     {
                         name: "---- # ----",
-                        formatter: (_, row) =>
-                            html(
-                                `
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
-                &nbsp;&nbsp;&nbsp;
-              `
-                            ),
+                        formatter: (_, row) => html(
+                            `
+                                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
+                                &nbsp;&nbsp;&nbsp;
+                            `
+                        ),
                     },
                 ],
                 style: {
@@ -672,6 +675,10 @@ export default {
             $(document).off("click", "#editData");
             $(document).off("click", "#deleteData");
             mythis.jqueryDelEdit();
+        },
+
+        changeSwitchDataSales() {
+            alert('123');
         },
 
         refreshTable() {
@@ -873,6 +880,26 @@ export default {
                         console.log("Error", error.message);
                     }
                 });
+        },
+
+        async exportDetailData() {
+            try {
+                this.$root.loader = true;
+
+                const data = await axios.get("http://localhost:8000/sgs/getUserInfo");
+
+                // console.log(data.data.data);
+
+                const ws = XLSX.utils.json_to_sheet(data.data.data);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+                XLSX.writeFile(wb, "data_salesman.xls");
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
+                this.$root.loader = false;
+            }
         },
 
         /////////////////////////////////////////////////////////////////////

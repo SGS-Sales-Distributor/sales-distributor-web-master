@@ -39,6 +39,9 @@
                         </div>
                     </div> -->
 
+                    <div class="col-md-3">
+                        <button  class="btn btn-sm btn-warning text-white" data-toggle="tooltip" @click="exportDetailData()"><i class="fa-solid fa-floppy-disk"></i> PRINT</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,7 +73,7 @@
                                         <label for="">Prod Base Price</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input id="inputA" v-model="todo2.prod_base_price"  type="number" pattern="[0-9]" style="width: 20em" min="0" />
+                                        <input id="inputA" v-model="todo2.prod_base_price" type="number" pattern="[0-9]" style="width: 20em" min="0" />
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +94,7 @@
                                         <label for="">Prod Special Offer</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input :id="'txt_1'" v-model="todo2.prod_special_offer"  type="number" pattern="[0-9]" style="width: 20em" min="0" />
+                                        <input :id="'txt_1'" v-model="todo2.prod_special_offer" type="number" pattern="[0-9]" style="width: 20em" min="0" />
                                     </div>
                                 </div>
                             </div>
@@ -119,6 +122,7 @@
 </template>
 
 <script>
+import * as XLSX from "xlsx";
 import Pages from "@/components/template/Pages.vue";
 import FormInput from "@/components/forms/FormInput.vue";
 import Button from "@/components/forms/FormButton.vue";
@@ -324,7 +328,7 @@ export default {
                     },
                 },
                 server: {
-                    url: 'http://localhost:8000/sgs/product_info_do',
+                    url: mythis.$root.API_URL + 'sgs/product_info_do',
                     then: (data) =>
                         data.results.map((card) => [
                             card.prod_number,
@@ -386,7 +390,7 @@ export default {
                 mythis.modal();
                 mythis.$root.loader = true;
                 axios
-                    .get('http://localhost:8000/sgs/product_info_do/' + id)
+                    .get(mythis.$root.API_URL + 'sgs/product_info_do/' + id)
                     .then((res) => {
                         mythis.acuanEdit = id;
                         Object.keys(res.data.data).forEach(function (key) {
@@ -420,8 +424,7 @@ export default {
                 if (result.isConfirmed) {
                     mythis.$root.loader = true;
                     axios
-                        .delete('http://localhost:8000/sgs/product_info_do/' + id, 
-                        {
+                        .delete(mythis.$root.API_URL + 'sgs/product_info_do/' + id, {
                             data: {
                                 fileUpload: "form satuan",
                                 userid: mythis.userid,
@@ -465,7 +468,7 @@ export default {
             mythis.$root.loader = true;
 
             axios
-                .post('http://localhost:8000/sgs/product_info_do', {
+                .post(mythis.$root.API_URL + 'sgs/product_info_do', {
                     data: mythis.todo,
                     fileUpload: "form satuan",
                     userid: mythis.userid,
@@ -525,7 +528,7 @@ export default {
             mythis.$root.loader = true;
             axios
                 .put(
-                    "http://localhost:8000/sgs/product_info_do/" + mythis.acuanEdit, {
+                    mythis.$root.API_URL + "sgs/product_info_do/" + mythis.acuanEdit, {
                         data: mythis.todo2,
                         fileUpload: "form satuan",
                         userid: mythis.userid,
@@ -568,6 +571,26 @@ export default {
                         console.log("Error", error.message);
                     }
                 });
+        },
+
+        async exportDetailData() {
+            try {
+                this.$root.loader = true;
+
+                const data = await axios.get(mythis.$root.API_URL + "sgs/getMasterProduk");
+
+                // console.log(data.data.data);
+
+                const ws = XLSX.utils.json_to_sheet(data.data.data);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+                XLSX.writeFile(wb, "master_produk.xls");
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
+                this.$root.loader = false;
+            }
         },
 
         /////////////////////////////////////////////////////////////////////
