@@ -113,7 +113,7 @@ export default {
 
         async login() {
             try {
-                const response = await axios.post(`http://178.1.32.224:2022/api/v2/auth/login`, this.formData);
+                const response = await axios.post(mythis.$root.API_URL + `v2/auth/login`, this.formData);
 
                 const tokens = JSON.stringify(response.data.resource.tokens);
 

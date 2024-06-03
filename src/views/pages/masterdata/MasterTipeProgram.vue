@@ -32,6 +32,7 @@
             </div>
         </div>
         <hr />
+
         <!------------------------>
         <div class="block-content">
             <div id="wrapper2"></div>
@@ -78,14 +79,13 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <br />
                     <br />
                     <br />
                     <div class="text-center">
-                        <button class="btn btn-success btn-sm me-1" @click="editTodo()">
+                        <button class="btn btn-success btn-sm me-1" @click="editTodo(todo2.id_type)">
                             Ubah Data
                         </button>
                     </div>
@@ -148,6 +148,7 @@ export default {
             acuanEdit: null,
 
             todo: {
+                id_type: 0,
                 type: "",
             },
 
@@ -156,8 +157,8 @@ export default {
             tmp_whsCodeType2: [],
 
             todo2: {
+                id_type: 0,
                 type: "",
-                id_type: "",
             },
 
             errorList: "",
@@ -166,12 +167,16 @@ export default {
             },
 
             userid: "",
+            typeId: 0,
 
             uObject: "",
+
+            typeProgram: null,
         };
     },
     mounted() {
         this.getTable();
+        this.getDetailData(3);
         //this.getCbowhsCodeType();
         //this.userid = "9999";
 
@@ -230,27 +235,30 @@ export default {
                     },
 
                     {
-                        id: "id_type",
+                        id: "nomor",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID TYPE</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>NO</b></div>'
                         ),
                     },
 
                     {
                         id: "type",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>TYPE</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>TYPE</b></div>'
                         ),
                     },
 
                     {
-                        name: "AKSI",
+                        id:"aksi",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>AKSI</b></div>'
+                        ),
                         formatter: (_, row) =>
                             html(
                                 `
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
+                <button data-id="${row.cells[1].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
                 &nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
+                <button data-id="${row.cells[1].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
               `
                             ),
                     },
@@ -269,10 +277,10 @@ export default {
                         "background-color": "rgb(111, 71, 189)",
                         color: "#FFFFFF",
                         border: "1px solid #ccc",
-                        "text-align": "center",
+                        "text-align": "left",
                     },
                     td: {
-                        "text-align": "center",
+                        "text-align": "left",
                         border: "1px solid #ccc",
                         padding: "5px 10px",
                     },
@@ -280,9 +288,11 @@ export default {
                 server: {
                     url: mythis.$root.API_URL + 'sgs/master_type_program_x',
                     then: (data) =>
-                        data.results.map((card) => [
+                        data.original.results.map((card,index) => [
+                            index+1,
+                            // index+1,
                             card.id_type,
-                            card.id_type,
+                            // card.id_type,
                             card.type,
                         ]),
                     total: (data) => data.count,
@@ -291,7 +301,10 @@ export default {
                         if (res.status === 404) return {
                             data: []
                         };
-                        if (res.ok) return res.json();
+
+                        if (res.ok) {
+                            return res.json()
+                        }
 
                         throw Error("oh no :(");
                     },
@@ -316,6 +329,16 @@ export default {
             //////////////////////////////
         },
 
+        async getDetailData(id_type) {
+            try {
+                const response = await axios.get(`${this.$root.API_URL}sgs/master_type_program/${id_type}`);
+
+                console.log(response);
+            } catch (error) {
+                console.error("Gagal memuat data detail Tipe Program: ", error);
+            }
+        },
+
         jqueryDelEdit() {
             const mythis = this;
 
@@ -336,6 +359,7 @@ export default {
                         mythis.$root.loader = false;
                     });
             });
+
             $(document).on("click", "#deleteData", function () {
                 let id = $(this).data("id");
                 mythis.deleteTodo(id);
@@ -357,10 +381,9 @@ export default {
                 if (result.isConfirmed) {
                     mythis.$root.loader = true;
                     axios
-                        .delete(this.$root.API_URL +'sgs/master_type_program/' + id, {
+                        .delete(mythis.$root.API_URL +'sgs/master_type_program/' + id, {
                             data: {
                                 fileUpload: "form satuan",
-                                userid: mythis.userid,
                             },
                         })
                         .then((res) => {
@@ -457,15 +480,14 @@ export default {
             this.resetForm();
         },
 
-        editTodo() {
+        editTodo(id_type) {
             var mythis = this;
             mythis.$root.loader = true;
             axios
                 .put(
-                    mythis.$root.API_URL + "sgs/master_type_program/" + mythis.acuanEdit, {
+                    mythis.$root.API_URL + "sgs/master_type_program/" + id_type, {
                         data: mythis.todo2,
                         fileUpload: "form satuan",
-                        userid: mythis.userid,
                     }
                 )
                 .then((res) => {
@@ -511,7 +533,8 @@ export default {
             try {
                 this.$root.loader = true;
 
-                const data = await axios.get(mythis.$root.API_URL + "sgs/getTipeProgram");
+                const data = await axios.get(mythis.$root.API_URL + "sgs/getTipeProgram"); //jeny
+                // const data = await axios.get(mythis.$root.API_URL + "sgs/getTipeProgram"); //
 
                 // console.log(data.data.data);
 

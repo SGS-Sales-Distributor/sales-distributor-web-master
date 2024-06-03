@@ -40,7 +40,7 @@
                     </div> -->
 
                     <div class="col-md-3">
-                        <button  class="btn btn-sm btn-warning text-white" data-toggle="tooltip" @click="exportDetailData()"><i class="fa-solid fa-floppy-disk"></i> PRINT</button>
+                        <button class="btn btn-sm btn-warning text-white" data-toggle="tooltip" @click="exportDetailData()"><i class="fa-solid fa-floppy-disk"></i> PRINT</button>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                                         <label for="">Prod Base Price</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input id="inputA" v-model="todo2.prod_base_price" type="number" pattern="[0-9]" style="width: 20em" min="0" />
+                                        <input id="inputA" v-model="todo2.prod_base_price" type="number" style="width: 20em" min="0" />
                                     </div>
                                 </div>
                             </div>
@@ -212,6 +212,19 @@ export default {
         this.userid = this.uObject.id;
     },
     methods: {
+        // formatNumber(value) {
+        //     return new Intl.NumberFormat('id-ID', {
+        //         style: 'currency',
+        //         currency: 'IDR'
+        //     }).format(value);
+        // },
+        formatNumber(value) {
+            const formattedValue = new Intl.NumberFormat('id-ID', {
+                style: 'decimal',
+                minimumFractionDigits: 2
+            }).format(value / 1000000);
+            return formattedValue.replace(/\./g, ',') + '.00';
+        },
         mySelectEvent() {
             this.todo.whsCodeType = this.tmp_whsCodeType.code;
         },
@@ -258,49 +271,64 @@ export default {
                     },
                 },
                 columns: [{
-                        name: "ID",
-                        hidden: true
+                        id: "NO",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>NO</b></div>'
+                        ),
+                        // hidden: true
                     },
 
                     {
                         id: "prod_number",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>MTG CODE</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>MTG CODE</b></div>'
                         ),
                     },
                     {
                         id: "prod_name",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>PRODUK NAME</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>NAMA PRODUK</b></div>'
                         ),
                     },
                     {
                         id: "prod_base_price",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>PRODUK BASE PRICE</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>HARGA PRODUK</b></div>'
                         ),
+                        // formatter: (cell, row) => this.formatNumber(row.prod_base_price),
+                        formatter: (cell, row) => {
+                            const formattedValue = new Intl.NumberFormat('id-ID', {
+                                style: 'decimal',
+                                minimumFractionDigits: 2
+                            }).format(cell);
+                            return formattedValue.replace(/\./g, '.');
+                        }
                     },
                     {
                         id: "prod_special_offer",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>DISKON REGULAR</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>DISKON REGULAR</b></div>'
                         ),
                     },
                     {
                         id: "brand_id",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>BRAND ID</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>BRAND</b></div>'
                         ),
                     },
 
                     {
-                        name: "AKSI",
+                        id:"aksi",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>AKSI</b></div>'
+                        ),
+                        
                         formatter: (_, row) =>
                             html(
                                 `
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
+                <button data-id="${row.cells[1].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
                 &nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
+                <button data-id="${row.cells[1].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
               `
                             ),
                     },
@@ -319,29 +347,31 @@ export default {
                         "background-color": "rgb(111, 71, 189)",
                         color: "#FFFFFF",
                         border: "1px solid #ccc",
-                        "text-align": "center",
+                        "text-align": "left",
                     },
-                    td: {
-                        "text-align": "center",
+                    td:{
+                        "text-align": "left",
                         border: "1px solid #ccc",
                         padding: "5px 10px",
                     },
+                    
+                    
                 },
                 server: {
                     url: mythis.$root.API_URL + 'sgs/product_info_do',
                     then: (data) =>
-                        data.results.map((card) => [
-                            card.prod_number,
+                        data.results.map((card,index) => [
+                            index+1,
                             card.prod_number,
                             // card.prod_barcode_number,
                             // card.prod_sai_number,
                             // card.prod_universal_number,
                             card.prod_name,
                             card.prod_base_price,
-                            card.prod_special_offer,
+                            card.prod_special_offer + '%',
                             // card.prod_base_price_offer,
                             // card.prod_special_offer_unit,
-                            card.brand_id,
+                            card.brand.brand_name,
                             // card.category_id,
                             // card.category_sub_id,
                             // card.prod_type_id,
@@ -394,7 +424,7 @@ export default {
                     .then((res) => {
                         mythis.acuanEdit = id;
                         Object.keys(res.data.data).forEach(function (key) {
-                            mythis.todo2 = res.data.data[key];
+                            mythis.todo2 = res.data.data;
                         });
                         document.getElementById("inputA").focus(); // sets the focus on the input
 

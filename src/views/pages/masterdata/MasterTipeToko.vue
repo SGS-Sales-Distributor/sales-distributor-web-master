@@ -12,7 +12,7 @@
                             <div class="col-md-6">
                                 <FormInput :class="errorField.store_type_name ? 'input-error' : ''" v-model="todo.store_type_name" @input="
                       (val) => 
-                        (todo.store_type_name = todo.store_type_name.toUpperCase().trim())
+                        (todo.store_type_name = todo.store_type_name)
                     "></FormInput>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                                     <div class="col-md-6">
                                         <FormInput :class="errorField.store_type_name ? 'input-error' : ''" v-model="todo2.store_type_name" @input="
                           (val) =>
-                            (todo2.store_type_name = todo2.store_type_name.toUpperCase().trim())
+                            (todo2.store_type_name = todo2.store_type_name.trim())
                         "></FormInput>
                                     </div>
                                 </div>
@@ -172,6 +172,7 @@ export default {
     },
     mounted() {
         this.getTable();
+        this.getDetailData(3);
         //this.getCbowhsCodeType();
         //this.userid = "9999";
 
@@ -230,27 +231,37 @@ export default {
                     },
 
                     {
-                        id: "store_type_id",
+                        id: "nomor",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID TOKO</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>NO</b></div>'
                         ),
                     },
+
+                    // {
+                    //     id: "store_type_id",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID TOKO</b></div>'
+                    //     ),
+                    // },
 
                     {
                         id: "store_type_name",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>TOKO</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>TOKO</b></div>'
                         ),
                     },
 
                     {
-                        name: "AKSI",
+                        id:"aksi",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>AKSI</b></div>'
+                        ),
                         formatter: (_, row) =>
                             html(
                                 `
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
+                <button data-id="${row.cells[1].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
                 &nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
+                <button data-id="${row.cells[1].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
               `
                             ),
                     },
@@ -269,10 +280,10 @@ export default {
                         "background-color": "rgb(111, 71, 189)",
                         color: "#FFFFFF",
                         border: "1px solid #ccc",
-                        "text-align": "center",
+                        "text-align": "left",
                     },
                     td: {
-                        "text-align": "center",
+                        "text-align": "left",
                         border: "1px solid #ccc",
                         padding: "5px 10px",
                     },
@@ -280,9 +291,11 @@ export default {
                 server: {
                     url: mythis.$root.API_URL + 'sgs/store_type',
                     then: (data) =>
-                        data.results.map((card) => [
+                        data.original.results.map((card, index) => [
+                            index+1,
+                            // index+1,
                             card.store_type_id,
-                            card.store_type_id,
+                            // card.store_type_id,
                             card.store_type_name,
                         ]),
                     total: (data) => data.count,
@@ -291,8 +304,10 @@ export default {
                         if (res.status === 404) return {
                             data: []
                         };
-                        if (res.ok) return res.json();
-
+                        // if (res.ok) return res.json();
+                        if (res.ok) {
+                            return res.json()
+                        }
                         throw Error("oh no :(");
                     },
                 },
@@ -314,6 +329,16 @@ export default {
             $("#box").append(e);
             this.getTable();
             //////////////////////////////
+        },
+
+        async getDetailData(store_type_id) {
+            try {
+                const response = await axios.get(`${this.$root.API_URL}sgs/store_type/${store_type_id}`);
+
+                console.log(response);
+            } catch (error) {
+                console.error("Gagal memuat data detail Tipe Toko: ", error);
+            }
         },
 
         jqueryDelEdit() {
@@ -459,12 +484,14 @@ export default {
         editTodo() {
             var mythis = this;
             mythis.$root.loader = true;
+            const str_type_id = mythis.todo2.store_type_id;
+
+            console.log(str_type_id);
             axios
                 .put(
-                    mythis.$root.API_URL + "sgs/store_type/" + mythis.acuanEdit, {
+                    mythis.$root.API_URL + "sgs/store_type/" + str_type_id, {
                         data: mythis.todo2,
                         fileUpload: "form satuan",
-                        userid: mythis.userid,
                     }
                 )
                 .then((res) => {

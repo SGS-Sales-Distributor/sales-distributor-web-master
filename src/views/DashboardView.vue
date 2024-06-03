@@ -75,6 +75,9 @@
       // Fetch the user's data from local storage and assign it to the user property
       const user = JSON.parse(localStorage.getItem("auth"));
       //this.user = user;
+
+      //testing firestore
+      this.$root.sendNotifFirebase("ini adalah header", "ini adalah judul notif");
     },
   };
 </script>

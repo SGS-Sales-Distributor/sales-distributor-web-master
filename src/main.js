@@ -23,7 +23,18 @@ import "@/assets/css/custom-vue-select.css";
 // import router from './router';
 import axios from "axios";
 
+// export excel pembelajaran kak david
+import JsonExcel from "vue-json-excel3";
+
+// pembelajaran firestore kak kasino
+import Notifications from "@kyvg/vue3-notification";
+
 const app = createApp(App);
+
+// firestore
+app.use(Notifications);
+
+app.component("download excel", JsonExcel);
 app.component("v-select", vSelect);
 app.component("VueDatePicker", VueDatePicker);
 // provide global properties

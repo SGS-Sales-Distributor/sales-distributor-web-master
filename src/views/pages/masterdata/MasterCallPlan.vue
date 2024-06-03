@@ -170,13 +170,22 @@
                                             <label for="">Frekuensi</label>
                                         </div>
                                         <div class="col-md-8">
-
                                             <v-select :options="cboFrekuensiCallplan" v-model="cboFrekuensiCallplanVal2" @update:modelValue="mySelectEvent8()" :clearable="false" placeholder="Pilih Frekuensi"></v-select>
                                         </div>
                                     </div>
                                 </div>
+                                
 
-                                <div class="form-group">
+                                <div class="col-md-" v-for="(items, index) in todo2.details">
+                                    <input type="text" v-model="items.date">
+                                    <input type="text" v-model="items.store_id">
+
+                                    <v-select :options="cboCabangCallplan" v-model="data_cabang[index]" @update:modelValue="mySelectEvent9(idx)(index)" :clearable="false" placeholder="Pilih Cabang"></v-select>
+
+                                    <v-select :id="`data_toko_${index}`" :options="cboTokoCallplan2[index]" v-model="items.store_id" @update:modelValue="mySelectEvent12()" :clearable="false" placeholder="Pilih Toko"></v-select>
+                                </div>
+
+                                <!-- <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label for="">Daily Plan</label>
@@ -185,6 +194,35 @@
                                             <v-select :options="cboCabang" v-model="cboCabangVal" @update:modelValue="mySelectEvent()" :clearable="false"></v-select>
                                         </div>
                                     </div>
+                                </div> -->
+                                <div class="row">
+                                    <table border="1">
+
+                                        <div id="planDetail" class="col-md-20" v-if="cboFrekuensiCallplanVal"> Daily Call Plan
+                                            <template v-for="(x,idx) in cboFrekuensiCallplanVal">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <VueDatePicker v-model="data_tgl[idx]" :enableTimePicker="false" :format="format" placeholder="Pilih Tanggal">
+                                                            </VueDatePicker>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <v-select :options="cboCabangCallplan1" v-model="data_cabang[idx]" @update:modelValue="mySelectEvent11(idx)" :clearable="false" placeholder="Pilih Cabang"></v-select>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <v-select :id="`data_toko_${idx}`" :options="cboTokoCallplan2[idx]" v-model="data_toko[idx]" @update:modelValue="mySelectEvent12()" :clearable="false" placeholder="Pilih Toko" :disabled="!data_cabang[idx]"></v-select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+
+                                        </div>
+                                    </table>
+
                                 </div>
 
                             </div>
@@ -255,7 +293,7 @@ export default {
             return `${day}/${month}/${year}`;
         };
         return {
-            i : null ,
+            i: null,
             data_tgl: [],
             data_toko: [],
             data_cabang: [],
@@ -267,7 +305,7 @@ export default {
             acuanEdit: null,
 
             todo: {
-                user_fullname: "",
+                fullname: "",
                 month_plan: "",
                 year_plan: "",
                 data_toko: "",
@@ -284,9 +322,12 @@ export default {
             cboFrekuensiCallplanVal2: [],
 
             todo2: {
-                user_fullname: "",
+                fullname: "",
                 month_plan: "",
                 year_plan: "",
+                data_toko: "",
+                data_tgl: "",
+                frekuensi: "",
             },
 
             cboCabangCallplan: [{
@@ -389,6 +430,9 @@ export default {
                 type: false,
             },
 
+            cboTokoCallplanVal2: null,
+            cboCabangCallplanVal1: null,
+
             cboTokoCallplanVal: null,
             cboCabangCallplanVal: null,
             cboSalesmanCallplanVal: null,
@@ -476,7 +520,7 @@ export default {
                 .get(mythis.$root.API_URL + "sgs/getCboSalesmanCallplan")
                 .then((res) => {
                     mythis.cboSalesmanCallplan = res.data.data;
-                    //console.log(res.data.data);
+                    console.log(res.data.data);
                     mythis.$root.loader = false;
                 });
         },
@@ -514,13 +558,13 @@ export default {
         //         });
         // },
         mySelectEvent() {
-            this.todo.user_number = this.cboSalesmanCallplanVal.code;
+            this.todo.user_id = this.cboSalesmanCallplanVal.code;
             this.getCboCabangCallplan(this.cboSalesmanCallplanVal.label);
             this.data_cabang = [];
             this.data_toko = [];
         },
         mySelectEvent2() {
-            this.todo2.user_fullname = this.cboSalesmanCallplanVal2.label;
+            this.todo2.fullname = this.cboSalesmanCallplanVal2.label;
         },
         mySelectEvent3() {
             this.todo.month_plan = this.cboBulanCallplanVal.code;
@@ -546,13 +590,19 @@ export default {
             this.todo2.frekuensi = this.cboFrekuensiCallplanVal2.code;
         },
         mySelectEvent9(idx) {
-            console.log(this.data_cabang[idx]);
-            console.log(this.data_cabang[idx].code);
+            // console.log(this.data_cabang[idx]);
+            // console.log(this.data_cabang[idx].code);
             //this.todo.nama_cabang = this.data_cabang[idx].code;
             this.getCboTokoCallplan(idx, this.data_cabang[idx].code);
         },
         mySelectEvent10() {
-            //this.todo.store_name = this.cboTokoCallplanVal.code;
+            this.todo.store_name = this.cboTokoCallplanVal.code;
+        },
+        mySelectEvent11() {
+            this.todo.data_cabang = this.cboCabangCallplan1.code;
+        },
+        mySelectEvent12() {
+            this.todo.store_name = this.cboTokoCallplanVal2.code;
         },
         resetForm() {
             var mythis = this;
@@ -626,14 +676,14 @@ export default {
                     {
                         id: "date",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>DATE</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>TANGGAL PLAN</b></div>'
                         ),
                     },
 
                     {
                         id: "storename",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>STORE</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>TOKO</b></div>'
                         ),
                     },
 
@@ -644,12 +694,12 @@ export default {
                         ),
                     },
 
-                    {
-                        id: "createdby",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>CREATED BY</b></div>'
-                        ),
-                    },
+                    // {
+                    //     id: "createdby",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>CREATED BY</b></div>'
+                    //     ),
+                    // },
 
                     {
                         name: "AKSI",
@@ -657,7 +707,7 @@ export default {
                             html(
                                 `
                 <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
-                &nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
               `
                             ),
@@ -687,19 +737,22 @@ export default {
                 },
                 server: {
                     // url: mythis.$root.API_URL + 'sgs/call-plans',
-                    url: mythis.$root.API_URL + 'sgs/master_call_plan',
+                    url: mythis.$root.API_URL + 'sgs/call-plans',
                     then: (data) =>
-                        data.results.map((card, index) => [
+                        data.resource.data.map((card, index) => [
                             index + 1,
                             index + 1,
-                            card.user_fullname,
+                            // card.user_fullname,
+                            card.user.fullname,
                             card.month_plan + '-' + card.year_plan,
-                            // card.details.map(data => data.date + '\n'),
+                            card.details.map(datax => datax.date + '\n'),
+                            card.details.map(datax => datax.store.store_id + '-' + datax.store.store_name + '\n'),
                             // card.details.map(data => data.store.store_code + '-' + data.store.store_name + '\n'),
-                            card.date,
-                            card.store_name,
+
+                            // card.date,
+                            // card.store_name,
                             card.updated_at,
-                            card.created_by,
+                            // card.created_by,
                         ]),
                     total: (data) => data.count,
                     handle: (res) => {
@@ -741,18 +794,30 @@ export default {
                 mythis.modal();
                 mythis.$root.loader = true;
                 axios
-                    .get(mythis.$root.API_URL + 'sgs/master_call_plan' + id)
+                    .get(mythis.$root.API_URL + 'sgs/call-plans/' + id)
                     .then((res) => {
                         mythis.acuanEdit = id;
                         Object.keys(res.data.resource).forEach(function (key) {
-                            mythis.todo2[key] = res.data.resource[key];
+                            mythis.todo2 = res.data.resource;
                         });
-                        document.getElementById("inputA").focus(); // sets the focus on the input
 
-                        mythis.cboSalesmanCallplanVal2 = res.data.data.fullname;
-                        mythis.cboTahunCallplanVal2 = res.data.data.year_plan;
-                        mythis.cboBulanCallplanVal2 = res.data.data.month_plan;
-                        mythis.cboFrekuensiCallplanVal2 = res.data.data.frekuensi;
+                        // let details = [];
+                        // // console.log(mythis.todo2.details)
+                        // mythis.todo2.details.forEach(element => {
+                        //     details.push({
+                        //         date: element.date,
+                        //         store_id: element.store_id
+                        //     })
+                        // });
+
+                        // mythis.frekuensiDetails = details;
+                        // console.log(this.frekuensiDetails);
+                        // document.getElementById("inputA").focus(); // sets the focus on the input
+
+                        mythis.cboSalesmanCallplanVal2 = mythis.todo2.user.fullname;
+                        mythis.cboTahunCallplanVal2 = mythis.todo2.year_plan;
+                        mythis.cboBulanCallplanVal2 = mythis.todo2.month_plan;
+                        mythis.cboFrekuensiCallplanVal2 = mythis.todo2.frekuensi;
 
                         mythis.$root.loader = false;
                     });
@@ -778,7 +843,7 @@ export default {
                 if (result.isConfirmed) {
                     mythis.$root.loader = true;
                     axios
-                        .delete(mythis.$root.API_URL + 'sgs/master_call_plan' + id, {
+                        .delete(mythis.$root.API_URL + 'sgs/call-plans/' + id, {
                             data: {
                                 fileUpload: "form satuan",
                                 userid: mythis.userid,
@@ -823,25 +888,24 @@ export default {
             mythis.$root.loader = true;
 
             //error handler
-            for(i=0;i<this.todo.frekuensi;i++){
-                let aaa = i+1;
-                
-                if ( this.data_tgl[i] == 'null' || this.data_tgl[i] == null || this.data_tgl[i] == undefined)
-                {
-                    toast.error('Data Daily Plan Tanggal, Baris Ke : '+aaa + ' harus terisi');
+            for (i = 0; i < this.todo.frekuensi; i++) {
+                let aaa = i + 1;
+
+                if (this.data_tgl[i] == 'null' || this.data_tgl[i] == null || this.data_tgl[i] == undefined) {
+                    toast.error('Data Daily Plan Tanggal, Baris Ke : ' + aaa + ' harus terisi');
                     mythis.$root.loader = false;
                     return false;
                 }
-                if (  this.data_toko[i] == 'null' || this.data_toko[i] == null || this.data_toko[i] == undefined)
-                {
-                    toast.error('Data Daily Plan Toko, Baris Ke : '+aaa + ' harus terisi');
+                if (this.data_toko[i] == 'null' || this.data_toko[i] == null || this.data_toko[i] == undefined) {
+                    toast.error('Data Daily Plan Toko, Baris Ke : ' + aaa + ' harus terisi');
                     mythis.$root.loader = false;
                     return false;
                 }
             }
+            console.log(mythis.todo);
 
             axios
-                .post(mythis.$root.API_URL + 'sgs/master_call_plan', {
+                .post(mythis.$root.API_URL + 'sgs/call-plans', {
                     data: mythis.todo,
                     data_tgl: mythis.data_tgl,
                     data_toko: mythis.data_toko,
@@ -903,7 +967,7 @@ export default {
             mythis.$root.loader = true;
             axios
                 .put(
-                    mythis.$root.API_URL + 'sgs/master_call_plan' + mythis.acuanEdit, {
+                    mythis.$root.API_URL + 'sgs/call-plans/' + mythis.acuanEdit, {
                         data: mythis.todo2,
                         fileUpload: "form satuan",
                         userid: mythis.userid,
