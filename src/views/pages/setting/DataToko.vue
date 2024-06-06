@@ -70,17 +70,16 @@
                     </div>
                 </div> -->
 
-                <!-- <div class="form-group">
+                <div class="form-group">
                     <div class="row">
-                        <div class="col-md-2"></div>
                         <div class="col-md-3">
-                            <Button type="button" @click="saveTodo">Simpan</Button>
+                            <button class="btn btn-sm btn-warning text-white" data-toggle="tooltip" @click="exportDetailData()"><i class="fa-solid fa-floppy-disk"></i> PRINT</button>
                         </div>
                     </div>
-                </div> -->
+                </div>
 
             </div>
-            
+
         </div>
         <hr />
         <!------------------------>
@@ -195,6 +194,7 @@
 </template>
 
 <script>
+import * as XLSX from "xlsx";
 import Pages from "@/components/template/Pages.vue";
 import FormInput from "@/components/forms/FormInput.vue";
 import Button from "@/components/forms/FormButton.vue";
@@ -378,7 +378,6 @@ export default {
         mySelectEvent13() {
             this.todo2.active = this.cboStatusStoreVal03.code;
         },
-
 
         // mySelectEvent7_2() {
         //     this.todo2.subcabang_id = this.cboIDCabangVal.code;
@@ -589,7 +588,7 @@ export default {
                             mythis.todo2[key] = res.data.data[key];
                         });
                         // document.getElementById("inputA").focus(); // sets the focus on the input
-                        
+
                         mythis.cboIDCabangVal01 = res.data.data.subcabang_id;
                         mythis.cboIDStoreVal02 = res.data.data.store_type_id;
                         mythis.cboStatusStoreVal03 = res.data.data.active;
@@ -764,6 +763,26 @@ export default {
                         console.log("Error", error.message);
                     }
                 });
+        },
+
+        async exportDetailData() {
+            try {
+                this.$root.loader = true;
+
+                const data = await axios.get("http://localhost:8000/sgs/getStoreInfoDistri");
+
+                console.log(data.data.data);
+
+                const ws = XLSX.utils.json_to_sheet(data.data.data);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+                XLSX.writeFile(wb, "data_toko.xls");
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
+                this.$root.loader = false;
+            }
         },
 
         /////////////////////////////////////////////////////////////////////

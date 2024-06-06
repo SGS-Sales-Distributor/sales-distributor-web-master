@@ -12,7 +12,7 @@
                             <div class="col-md-6">
                                 <FormInput :class="errorField.store_type_name ? 'input-error' : ''" v-model="todo.store_type_name" @input="
                       (val) => 
-                        (todo.store_type_name = todo.store_type_name.toUpperCase().trim())
+                        (todo.store_type_name = todo.store_type_name)
                     "></FormInput>
                             </div>
                         </div>
@@ -22,6 +22,9 @@
                             <div class="col-md-2"></div>
                             <div class="col-md-3">
                                 <Button type="button" @click="saveTodo">Simpan</Button>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-sm btn-warning text-white" data-toggle="tooltip" @click="exportDetailData()"><i class="fa-solid fa-floppy-disk"></i> PRINT</button>
                             </div>
                         </div>
                     </div>
@@ -70,7 +73,7 @@
                                     <div class="col-md-6">
                                         <FormInput :class="errorField.store_type_name ? 'input-error' : ''" v-model="todo2.store_type_name" @input="
                           (val) =>
-                            (todo2.store_type_name = todo2.store_type_name.toUpperCase().trim())
+                            (todo2.store_type_name = todo2.store_type_name.trim())
                         "></FormInput>
                                     </div>
                                 </div>
@@ -99,6 +102,7 @@
 </template>
 
 <script>
+import * as XLSX from "xlsx";
 import Pages from "@/components/template/Pages.vue";
 import FormInput from "@/components/forms/FormInput.vue";
 import Button from "@/components/forms/FormButton.vue";
@@ -168,6 +172,7 @@ export default {
     },
     mounted() {
         this.getTable();
+        this.getDetailData(3);
         //this.getCbowhsCodeType();
         //this.userid = "9999";
 
@@ -226,27 +231,37 @@ export default {
                     },
 
                     {
-                        id: "store_type_id",
+                        id: "nomor",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID TOKO</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>NO</b></div>'
                         ),
                     },
+
+                    // {
+                    //     id: "store_type_id",
+                    //     name: html(
+                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID TOKO</b></div>'
+                    //     ),
+                    // },
 
                     {
                         id: "store_type_name",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>TOKO</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>TOKO</b></div>'
                         ),
                     },
 
                     {
-                        name: "AKSI",
+                        id:"aksi",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>AKSI</b></div>'
+                        ),
                         formatter: (_, row) =>
                             html(
                                 `
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
+                <button data-id="${row.cells[1].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
                 &nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
+                <button data-id="${row.cells[1].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
               `
                             ),
                     },
@@ -265,20 +280,22 @@ export default {
                         "background-color": "rgb(111, 71, 189)",
                         color: "#FFFFFF",
                         border: "1px solid #ccc",
-                        "text-align": "center",
+                        "text-align": "left",
                     },
                     td: {
-                        "text-align": "center",
+                        "text-align": "left",
                         border: "1px solid #ccc",
                         padding: "5px 10px",
                     },
                 },
                 server: {
-                    url: 'http://localhost:8000/sgs/store_type',
+                    url: mythis.$root.API_URL + 'sgs/store_type',
                     then: (data) =>
-                        data.results.map((card) => [
+                        data.original.results.map((card, index) => [
+                            index+1,
+                            // index+1,
                             card.store_type_id,
-                            card.store_type_id,
+                            // card.store_type_id,
                             card.store_type_name,
                         ]),
                     total: (data) => data.count,
@@ -287,8 +304,10 @@ export default {
                         if (res.status === 404) return {
                             data: []
                         };
-                        if (res.ok) return res.json();
-
+                        // if (res.ok) return res.json();
+                        if (res.ok) {
+                            return res.json()
+                        }
                         throw Error("oh no :(");
                     },
                 },
@@ -312,6 +331,16 @@ export default {
             //////////////////////////////
         },
 
+        async getDetailData(store_type_id) {
+            try {
+                const response = await axios.get(`${this.$root.API_URL}sgs/store_type/${store_type_id}`);
+
+                console.log(response);
+            } catch (error) {
+                console.error("Gagal memuat data detail Tipe Toko: ", error);
+            }
+        },
+
         jqueryDelEdit() {
             const mythis = this;
 
@@ -321,7 +350,7 @@ export default {
                 mythis.modal();
                 mythis.$root.loader = true;
                 axios
-                    .get('http://localhost:8000/sgs/store_type/' + id)
+                    .get(mythis.$root.API_URL + 'sgs/store_type/' + id)
                     .then((res) => {
                         mythis.acuanEdit = id;
                         Object.keys(res.data.data).forEach(function (key) {
@@ -353,7 +382,7 @@ export default {
                 if (result.isConfirmed) {
                     mythis.$root.loader = true;
                     axios
-                        .delete('http://localhost:8000/sgs/store_type/' + id, {
+                        .delete(mythis.$root.API_URL + 'sgs/store_type/' + id, {
                             data: {
                                 fileUpload: "form satuan",
                                 userid: mythis.userid,
@@ -397,7 +426,7 @@ export default {
             mythis.$root.loader = true;
 
             axios
-                .post('http://localhost:8000/sgs/store_type', {
+                .post(mythis.$root.API_URL + 'sgs/store_type', {
                     data: mythis.todo,
                     fileUpload: "form satuan",
                     userid: mythis.userid,
@@ -455,12 +484,14 @@ export default {
         editTodo() {
             var mythis = this;
             mythis.$root.loader = true;
+            const str_type_id = mythis.todo2.store_type_id;
+
+            console.log(str_type_id);
             axios
                 .put(
-                    "http://localhost:8000/sgs/store_type/" + mythis.acuanEdit, {
+                    mythis.$root.API_URL + "sgs/store_type/" + str_type_id, {
                         data: mythis.todo2,
                         fileUpload: "form satuan",
-                        userid: mythis.userid,
                     }
                 )
                 .then((res) => {
@@ -500,6 +531,26 @@ export default {
                         console.log("Error", error.message);
                     }
                 });
+        },
+
+        async exportDetailData() {
+            try {
+                this.$root.loader = true;
+
+                const data = await axios.get(mythis.$root.API_URL + "sgs/getTipeToko");
+
+                // console.log(data.data.data);
+
+                const ws = XLSX.utils.json_to_sheet(data.data.data);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+                XLSX.writeFile(wb, "master_tipe_toko.xls");
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
+                this.$root.loader = false;
+            }
         },
 
         /////////////////////////////////////////////////////////////////////

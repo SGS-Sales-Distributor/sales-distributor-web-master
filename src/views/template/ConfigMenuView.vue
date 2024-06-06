@@ -1,25 +1,25 @@
 <template>
-    <div id="container" v-if="isLogin == 1">
-        <ul>
-            <template v-if="menu != null">
-                <div class="dropdown">
-                    <div id="logo-container" class="collapsed" data-bs-toggle="dropdown" aria-expanded="true">
-                        <img src="@/assets/img/profile.png" />
-                    </div>
-                    <ul class="dropdown-menu">
-                        <div v-for="(menu, index) in menu" :key="index">
-                            <div v-if="menu.sub_menu_id == null">
-                                <li @click="this.$root.goto(menu.menu)">
-                                    <a class="dropdown-item">{{ menu.name }}</a>
-                                </li>
-                                <li @click="logout()"><a class="dropdown-item">Logout</a></li>
-                            </div>
-                        </div>
-                    </ul>
+<div id="container" v-if="isLogin == 1">
+    <ul>
+        <template v-if="menu != null">
+            <div class="dropdown">
+                <div id="logo-container" class="collapsed" data-bs-toggle="dropdown" aria-expanded="true">
+                    <img src="@/assets/img/profile.png" />
                 </div>
-            </template>
-        </ul>
-    </div>
+                <ul class="dropdown-menu">
+                    <div v-for="(menu, index) in menu" :key="index">
+                        <div v-if="menu.sub_menu_id == null">
+                            <li @click="this.$root.goto(menu.menu)">
+                                <a class="dropdown-item">{{ menu.name }}</a>
+                            </li>
+                            <li @click="logout()"><a class="dropdown-item">Logout</a></li>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </template>
+    </ul>
+</div>
 </template>
 
 <script>
@@ -45,8 +45,7 @@ export default {
                     name: 'Profile',
                     menu: 'ProfileView',
                     sub_menu_id: null,
-                    sub_menu: [
-                    ],
+                    sub_menu: [],
                 },
             ],
             isLogin: (localStorage.getItem('auth') != null || localStorage.getItem('token_sso') != null ? 1 : 0),
@@ -54,31 +53,35 @@ export default {
         };
     },
     methods: {
-        logout: async function () {
-            try {
-                // show loader
-                this.$root.loader = true;
+        // logout: async function () {
+        //     try {
+        //         // show loader
+        //         this.$root.loader = true;
 
-                const auth = JSON.parse(localStorage.getItem('auth'));
+        //         const auth = JSON.parse(localStorage.getItem('auth'));
 
-                const post = {
-                    token: auth.token
-                }
+        //         const post = {
+        //             token: auth.token
+        //         }
 
-                const store = await axios({
-                    method: 'post',
-                    url: import.meta.env.VITE_API_PATH + 'auth/out',
-                    data: post,
-                });
+        //         const store = await axios({
+        //             method: 'post',
+        //             url: import.meta.env.VITE_API_PATH + 'auth/out',
+        //             data: post,
+        //         });
 
-                if (store.status == 200) {
-                    localStorage.clear();
-                    sessionStorage.clear();
-                    location.reload();
-                }
-            } catch (e) {
-                console.log(e);
-            }
+        //         if (store.status == 200) {
+        //             localStorage.clear();
+        //             sessionStorage.clear();
+        //             location.reload();
+        //         }
+        //     } catch (e) {
+        //         console.log(e);
+        //     }
+        // },
+        logout() {
+            localStorage.clear();
+            window.location.reload()
         },
         logged(e) {
             console.log(e)
@@ -138,7 +141,6 @@ export default {
     color: var(--vt-color-step-400);
     /* background-color: var(--vt-color-step-950); */
 }
-
 
 /* dropdown */
 /* Style The Dropdown Button */

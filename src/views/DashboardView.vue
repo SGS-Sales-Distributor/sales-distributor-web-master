@@ -38,7 +38,8 @@
   
   <script>
   import Pages from "@/components/template/Pages.vue";
-  
+  import axios from "axios";
+
   export default {
     // Define components used in the template
     components: {
@@ -53,11 +54,30 @@
         },
       };
     },
+    methods: {
+      async fetchAuthUser() {
+        const tokens = localStorage.getItem("tokens") ? JSON.parse(localStorage.getItem("tokens")) : null;
+
+        const headers = {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${tokens.access_token}`
+        }
+
+        const response = await axios.get('http://178.1.32.224:2022/api/v2/auth/me', {
+          headers: headers
+        });
+
+        console.log(response);
+      }
+    },
     // Define mounted lifecycle hook for the component
     mounted() {
       // Fetch the user's data from local storage and assign it to the user property
       const user = JSON.parse(localStorage.getItem("auth"));
-      this.user = user;
+      //this.user = user;
+
+      //testing firestore
+      this.$root.sendNotifFirebase("ini adalah header", "ini adalah judul notif");
     },
   };
 </script>

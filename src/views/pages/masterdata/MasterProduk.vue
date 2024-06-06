@@ -39,6 +39,9 @@
                         </div>
                     </div> -->
 
+                    <div class="col-md-3">
+                        <button class="btn btn-sm btn-warning text-white" data-toggle="tooltip" @click="exportDetailData()"><i class="fa-solid fa-floppy-disk"></i> PRINT</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,7 +73,7 @@
                                         <label for="">Prod Base Price</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input id="inputA" v-model="todo2.prod_base_price"  type="number" pattern="[0-9]" style="width: 20em" min="0" />
+                                        <input id="inputA" v-model="todo2.prod_base_price" type="number" style="width: 20em" min="0" />
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +94,7 @@
                                         <label for="">Prod Special Offer</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input :id="'txt_1'" v-model="todo2.prod_special_offer"  type="number" pattern="[0-9]" style="width: 20em" min="0" />
+                                        <input :id="'txt_1'" v-model="todo2.prod_special_offer" type="number" pattern="[0-9]" style="width: 20em" min="0" />
                                     </div>
                                 </div>
                             </div>
@@ -119,6 +122,7 @@
 </template>
 
 <script>
+import * as XLSX from "xlsx";
 import Pages from "@/components/template/Pages.vue";
 import FormInput from "@/components/forms/FormInput.vue";
 import Button from "@/components/forms/FormButton.vue";
@@ -208,6 +212,19 @@ export default {
         this.userid = this.uObject.id;
     },
     methods: {
+        // formatNumber(value) {
+        //     return new Intl.NumberFormat('id-ID', {
+        //         style: 'currency',
+        //         currency: 'IDR'
+        //     }).format(value);
+        // },
+        formatNumber(value) {
+            const formattedValue = new Intl.NumberFormat('id-ID', {
+                style: 'decimal',
+                minimumFractionDigits: 2
+            }).format(value / 1000000);
+            return formattedValue.replace(/\./g, ',') + '.00';
+        },
         mySelectEvent() {
             this.todo.whsCodeType = this.tmp_whsCodeType.code;
         },
@@ -254,49 +271,64 @@ export default {
                     },
                 },
                 columns: [{
-                        name: "ID",
-                        hidden: true
+                        id: "NO",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>NO</b></div>'
+                        ),
+                        // hidden: true
                     },
 
                     {
                         id: "prod_number",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>MTG CODE</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>MTG CODE</b></div>'
                         ),
                     },
                     {
                         id: "prod_name",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>PRODUK NAME</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>NAMA PRODUK</b></div>'
                         ),
                     },
                     {
                         id: "prod_base_price",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>PRODUK BASE PRICE</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>HARGA PRODUK</b></div>'
                         ),
+                        // formatter: (cell, row) => this.formatNumber(row.prod_base_price),
+                        formatter: (cell, row) => {
+                            const formattedValue = new Intl.NumberFormat('id-ID', {
+                                style: 'decimal',
+                                minimumFractionDigits: 2
+                            }).format(cell);
+                            return formattedValue.replace(/\./g, '.');
+                        }
                     },
                     {
                         id: "prod_special_offer",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>DISKON REGULAR</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>DISKON REGULAR</b></div>'
                         ),
                     },
                     {
                         id: "brand_id",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>BRAND ID</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>BRAND</b></div>'
                         ),
                     },
 
                     {
-                        name: "AKSI",
+                        id:"aksi",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>AKSI</b></div>'
+                        ),
+                        
                         formatter: (_, row) =>
                             html(
                                 `
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
+                <button data-id="${row.cells[1].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
                 &nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
+                <button data-id="${row.cells[1].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
               `
                             ),
                     },
@@ -315,29 +347,31 @@ export default {
                         "background-color": "rgb(111, 71, 189)",
                         color: "#FFFFFF",
                         border: "1px solid #ccc",
-                        "text-align": "center",
+                        "text-align": "left",
                     },
-                    td: {
-                        "text-align": "center",
+                    td:{
+                        "text-align": "left",
                         border: "1px solid #ccc",
                         padding: "5px 10px",
                     },
+                    
+                    
                 },
                 server: {
-                    url: 'http://localhost:8000/sgs/product_info_do',
+                    url: mythis.$root.API_URL + 'sgs/product_info_do',
                     then: (data) =>
-                        data.results.map((card) => [
-                            card.prod_number,
+                        data.results.map((card,index) => [
+                            index+1,
                             card.prod_number,
                             // card.prod_barcode_number,
                             // card.prod_sai_number,
                             // card.prod_universal_number,
                             card.prod_name,
                             card.prod_base_price,
-                            card.prod_special_offer,
+                            card.prod_special_offer + '%',
                             // card.prod_base_price_offer,
                             // card.prod_special_offer_unit,
-                            card.brand_id,
+                            card.brand.brand_name,
                             // card.category_id,
                             // card.category_sub_id,
                             // card.prod_type_id,
@@ -386,11 +420,11 @@ export default {
                 mythis.modal();
                 mythis.$root.loader = true;
                 axios
-                    .get('http://localhost:8000/sgs/product_info_do/' + id)
+                    .get(mythis.$root.API_URL + 'sgs/product_info_do/' + id)
                     .then((res) => {
                         mythis.acuanEdit = id;
                         Object.keys(res.data.data).forEach(function (key) {
-                            mythis.todo2 = res.data.data[key];
+                            mythis.todo2 = res.data.data;
                         });
                         document.getElementById("inputA").focus(); // sets the focus on the input
 
@@ -420,8 +454,7 @@ export default {
                 if (result.isConfirmed) {
                     mythis.$root.loader = true;
                     axios
-                        .delete('http://localhost:8000/sgs/product_info_do/' + id, 
-                        {
+                        .delete(mythis.$root.API_URL + 'sgs/product_info_do/' + id, {
                             data: {
                                 fileUpload: "form satuan",
                                 userid: mythis.userid,
@@ -465,7 +498,7 @@ export default {
             mythis.$root.loader = true;
 
             axios
-                .post('http://localhost:8000/sgs/product_info_do', {
+                .post(mythis.$root.API_URL + 'sgs/product_info_do', {
                     data: mythis.todo,
                     fileUpload: "form satuan",
                     userid: mythis.userid,
@@ -525,7 +558,7 @@ export default {
             mythis.$root.loader = true;
             axios
                 .put(
-                    "http://localhost:8000/sgs/product_info_do/" + mythis.acuanEdit, {
+                    mythis.$root.API_URL + "sgs/product_info_do/" + mythis.acuanEdit, {
                         data: mythis.todo2,
                         fileUpload: "form satuan",
                         userid: mythis.userid,
@@ -568,6 +601,26 @@ export default {
                         console.log("Error", error.message);
                     }
                 });
+        },
+
+        async exportDetailData() {
+            try {
+                this.$root.loader = true;
+
+                const data = await axios.get(mythis.$root.API_URL + "sgs/getMasterProduk");
+
+                // console.log(data.data.data);
+
+                const ws = XLSX.utils.json_to_sheet(data.data.data);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+                XLSX.writeFile(wb, "master_produk.xls");
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
+                this.$root.loader = false;
+            }
         },
 
         /////////////////////////////////////////////////////////////////////
