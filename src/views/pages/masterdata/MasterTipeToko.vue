@@ -289,7 +289,7 @@ export default {
                     },
                 },
                 server: {
-                    url: mythis.$root.API_URL + 'sgs/store_type',
+                    url: mythis.$root.API_URL + 'api/sgs/store_type',
                     then: (data) =>
                         data.original.results.map((card, index) => [
                             index+1,
@@ -333,7 +333,7 @@ export default {
 
         async getDetailData(store_type_id) {
             try {
-                const response = await axios.get(`${this.$root.API_URL}sgs/store_type/${store_type_id}`);
+                const response = await axios.get(`${this.$root.API_URL}api/sgs/store_type/${store_type_id}`);
 
                 console.log(response);
             } catch (error) {
@@ -350,7 +350,7 @@ export default {
                 mythis.modal();
                 mythis.$root.loader = true;
                 axios
-                    .get(mythis.$root.API_URL + 'sgs/store_type/' + id)
+                    .get(mythis.$root.API_URL + 'api/sgs/store_type/' + id)
                     .then((res) => {
                         mythis.acuanEdit = id;
                         Object.keys(res.data.data).forEach(function (key) {
@@ -382,7 +382,7 @@ export default {
                 if (result.isConfirmed) {
                     mythis.$root.loader = true;
                     axios
-                        .delete(mythis.$root.API_URL + 'sgs/store_type/' + id, {
+                        .delete(mythis.$root.API_URL + 'api/sgs/store_type/' + id, {
                             data: {
                                 fileUpload: "form satuan",
                                 userid: mythis.userid,
@@ -426,7 +426,7 @@ export default {
             mythis.$root.loader = true;
 
             axios
-                .post(mythis.$root.API_URL + 'sgs/store_type', {
+                .post(mythis.$root.API_URL + 'api/sgs/store_type', {
                     data: mythis.todo,
                     fileUpload: "form satuan",
                     userid: mythis.userid,
@@ -489,7 +489,7 @@ export default {
             console.log(str_type_id);
             axios
                 .put(
-                    mythis.$root.API_URL + "sgs/store_type/" + str_type_id, {
+                    mythis.$root.API_URL + "api/sgs/store_type/" + str_type_id, {
                         data: mythis.todo2,
                         fileUpload: "form satuan",
                     }
@@ -537,7 +537,7 @@ export default {
             try {
                 this.$root.loader = true;
 
-                const data = await axios.get(mythis.$root.API_URL + "sgs/getTipeToko");
+                const data = await axios.get(mythis.$root.API_URL + "api/sgs/getTipeToko");
 
                 // console.log(data.data.data);
 

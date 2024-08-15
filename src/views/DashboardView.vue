@@ -1,16 +1,16 @@
 <template>
-    <Pages title="Beranda">
-      <!-- Display a welcome message and recent activity and notifications -->
-      <div class="col-md-12">
-        <h2>Selamat datang, {{ user.name }} !</h2>
-        <p>
-          Anda telah login sebagai {{ user.role }}. Silakan gunakan menu di samping
-          untuk navigasi.
-        </p>
-        <hr />
+  <Pages title="Beranda">
+    <!-- Display a welcome message and recent activity and notifications -->
+    <div class="col-md-12">
+      <h2>Selamat datang Kak, {{ user.fullname }} !</h2>
+      <p>
+        Anda telah login sebagai {{ user.role }}. Silakan gunakan menu di samping
+        untuk navigasi.
+      </p>
+      <hr />
 
-        
-        <h3>Aktivitas Terakhir</h3>
+
+      <!-- <h3>Aktivitas Terakhir</h3>
         <ul>
           <li>
             <strong>1 April 2024:</strong> Anda telah menambahkan data baru.
@@ -22,8 +22,8 @@
             <strong>1 April 2024:</strong> Anda telah mengirim pesan kepada tim.
           </li>
         </ul>
-        <hr />
-        <h3>Notifikasi</h3>
+        <hr /> -->
+      <!-- <h3>Notifikasi</h3>
         <ul>
           <li>
             <strong>1 April 2024:</strong> Anda memiliki 3 tugas baru.
@@ -31,55 +31,63 @@
           <li>
             <strong>1 April 2024:</strong> Anda memiliki 2 pesan baru.
           </li>
-        </ul>
-      </div>
-    </Pages>
-  </template>
-  
-  <script>
-  import Pages from "@/components/template/Pages.vue";
-  import axios from "axios";
+        </ul> -->
+    </div>
+  </Pages>
+</template>
 
-  export default {
-    // Define components used in the template
-    components: {
-      Pages,
-    },
-    // Define data properties for the component
-    data() {
-      return {
-        user: {
-          name: "Jenyta",
-          role: "Admin",
-        },
-      };
-    },
-    methods: {
-      async fetchAuthUser() {
-        const tokens = localStorage.getItem("tokens") ? JSON.parse(localStorage.getItem("tokens")) : null;
+<script>
+import Pages from "@/components/template/Pages.vue";
+import axios from "axios";
 
-        const headers = {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${tokens.access_token}`
-        }
+export default {
+  // Define components used in the template
+  components: {
+    Pages,
+  },
+  // Define data properties for the component
+  data() {
+    return {
 
-        const response = await axios.get('http://178.1.32.224:2022/api/v2/auth/me', {
-          headers: headers
-        });
+      user: {
+        name: null,
+        role: "Admin",
+      },
+    };
+  },
+  methods: {
+    async fetchAuthUser() {
+      const tokens = localStorage.getItem("tokens") ? JSON.parse(localStorage.getItem("tokens")) : null;
 
-        console.log(response);
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${tokens.access_token}`
       }
-    },
-    // Define mounted lifecycle hook for the component
-    mounted() {
-      // Fetch the user's data from local storage and assign it to the user property
-      const user = JSON.parse(localStorage.getItem("auth"));
-      //this.user = user;
 
-      //testing firestore
-      this.$root.sendNotifFirebase("ini adalah header", "ini adalah judul notif");
-    },
-  };
+      const response = await axios.get(import.meta.env.VITE_API_PATH +'api/v2/auth/me', {
+        headers: headers,
+      });
+
+      const authUserData = response.data.resource.data;
+
+      localStorage.setItem("user", JSON.stringify(authUserData));
+
+      console.log(JSON.parse(localStorage.getItem("user")));
+    }
+  },
+  // Define mounted lifecycle hook for the component
+  mounted() {
+    this.fetchAuthUser();
+    // Fetch the user's data from local storage and assign it to the user property
+    const auth = localStorage.getItem("auth") ? JSON.parse(localStorage.getItem("auth")) : "";
+    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "";
+    //this.user = user;
+
+    //testing firestore
+    this.$root.sendNotifFirebase("Selamat Datang Kak, " + user.fullname, "Ini Adalah Aplikasi Web SIDIA (SGS Distribution Application)");
+    // this.$root.sendNotifFirebase("Selamat Datang Kak"+user.email); 
+  },
+};
 </script>
-  
+
 <style scoped></style>

@@ -60,11 +60,14 @@ import Input from '@/components/forms/FormInput.vue';
 import Button from '@/components/forms/FormButton.vue';
 import toast from "@/assets/js/toast"; // Import the toast library for displaying messages
 import * as Yup from "yup";
+
+
 import {
     ErrorMessage,
     Field,
     Form
 } from 'vee-validate';
+import { Toast } from "bootstrap";
 // import router from '../../router';
 
 export default {
@@ -113,7 +116,7 @@ export default {
 
         async login() {
             try {
-                const response = await axios.post(mythis.$root.API_URL + `v2/auth/login`, this.formData);
+                const response = await axios.post(import.meta.env.VITE_API_PATH +`api/v2/auth/login`, this.formData);
 
                 const tokens = JSON.stringify(response.data.resource.tokens);
 
@@ -133,7 +136,7 @@ export default {
 
                 location.reload();
 
-                sessionStorage.setItem('page', 'DashboardView')
+                sessionStorage.setItem('page', 'DashboardView');
 
                 that.$root.goto('DashboardView');
             } catch (error) {

@@ -31,7 +31,7 @@ const componentPages =
 const componentAuth =
     import.meta.globEager("@/views/auth/*.vue");
 
-const API_URL =
+const API_URL = 
     import.meta.env.VITE_API_PATH;
 
 let routeComponent = {};
