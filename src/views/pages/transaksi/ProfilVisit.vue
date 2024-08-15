@@ -1,9 +1,9 @@
 <template>
-<Pages :title="title">
-    <div class="container-fluid">
-        <div class="mb-2">
-            <div class="row">
-                <!-- <div class="col-md-12">
+    <Pages :title="title">
+        <div class="container-fluid">
+            <div class="mb-2">
+                <div class="row">
+                    <!-- <div class="col-md-12">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-2">
@@ -26,26 +26,26 @@
                         </div>
                     </div>
                 </div> -->
+                </div>
             </div>
-        </div>
-        <hr />
-        <!------------------------>
-        <div class="block-content">
-            <div id="wrapper2"></div>
-            <div id="box"></div>
+            <hr />
+            <!------------------------>
+            <div class="block-content">
+                <div id="wrapper2"></div>
+                <div id="box"></div>
+            </div>
+
+            <!------------------------>
         </div>
 
-        <!------------------------>
-    </div>
-
-    <!-- modals -->
-    <Teleport to="body">
-        <!-- use the modal component, pass in the prop -->
-        <!-- <FormModal :show="showModal" :style="showmodal_zindex" @close="showModal = false">
+        <!-- modals -->
+        <Teleport to="body">
+            <!-- use the modal component, pass in the prop -->
+            <!-- <FormModal :show="showModal" :style="showmodal_zindex" @close="showModal = false">
             <template #header>
                 <h3>Edit Form</h3>
             </template>
-            <template #body>
+<template #body>
                 <div style="width: 90vw">
                     <div class="row">
                         <div class="col-md-12">
@@ -75,224 +75,230 @@
                     </div>
                 </div>
             </template>
-            <template #footer>
+<template #footer>
                 <button class="modal-default-button btn btn-secondary btn-sm me-1" @click="close">
                     Tutup
                 </button>
             </template>
-        </FormModal> -->
-    </Teleport>
+</FormModal> -->
+        </Teleport>
 
-    <Teleport to="body">
-        <!-- use the modal component, pass in the prop -->
+        <Teleport to="body">
+            <!-- use the modal component, pass in the prop -->
 
-        <!-- Modal Detail Check IN -->
-        <FormModal :show="showModal_check_in" :style="showmodal_zindex" @close="showModal_check_in = false">
-            <template #header>
-                <h3>Detail Status Check IN</h3>
-            </template>
-            <template #body>
-                <div style="width: 90vw">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-6">
+            <!-- Modal Detail Check IN -->
+            <FormModal :show="showModal_check_in" :style="showmodal_zindex" @close="showModal_check_in = false">
+                <template #header>
+                    <h3>Detail Status Check IN</h3>
+                </template>
+                <template #body>
+                    <div style="width: 90vw">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
 
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">User</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            {{userx}}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">Check IN Time</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            {{ var_check_in.tanggal_visit }} {{ var_check_in.time_in }}
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">User</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                {{ userx }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">Maps Location</label>
-                                        </div>
-                                        <div class="col-md-8">
-
-                                            <iframe width="300" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" :src="var_check_in.location">
-                                            </iframe>
-                                            <br />
-                                            <small>
-                                                <a :href="var_check_in.location" style="color:#0000FF;text-align:left" target="_blank">
-                                                    See map bigger
-                                                </a>
-                                            </small>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Check IN Time</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                {{ var_check_in.tanggal_visit }} {{ var_check_in.time_in }}
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Maps Location</label>
+                                            </div>
+                                            <div class="col-md-8">
+
+                                                <iframe width="300" height="250" frameborder="0" scrolling="no"
+                                                    marginheight="0" marginwidth="0" :src="var_check_in.location">
+                                                </iframe>
+                                                <br />
+                                                <small>
+                                                    <a :href="var_check_in.location"
+                                                        style="color:#0000FF;text-align:left" target="_blank">
+                                                        See map bigger
+                                                    </a>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
 
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Nama Toko</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                {{ store_name }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Addres</label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                {{ alamat }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Photo</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <img width="300" height="250" style="border:0"
+                                                    :src="var_check_in.photo" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <br />
+                                <br />
+                                <br />
                             </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">Nama Toko</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            {{store_name}}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">Addres</label>
-                                        </div>
-                                        <div class="col-md-7">
-                                            {{ alamat }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">Photo</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <img width="300" height="250" style="border:0" :src="var_check_in.photo" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <br />
-                            <br />
-                            <br />
                         </div>
                     </div>
-                </div>
-            </template>
-            <template #footer>
-                <button class="modal-default-button btn btn-secondary btn-sm me-1" @click="close_check_in">
-                    Tutup
-                </button>
-            </template>
-        </FormModal>
+                </template>
+                <template #footer>
+                    <button class="modal-default-button btn btn-secondary btn-sm me-1" @click="close_check_in">
+                        Tutup
+                    </button>
+                </template>
+            </FormModal>
 
-        <!-- Modal Detail Check OUT -->
-        <FormModal :show="showModal_check_out" :style="showmodal_zindex" @close="showModal_check_out = false">
-            <template #header>
-                <h3>Detail Status Check OUT</h3>
-            </template>
-            <template #body>
-                <div style="width: 90vw">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-6">
+            <!-- Modal Detail Check OUT -->
+            <FormModal :show="showModal_check_out" :style="showmodal_zindex" @close="showModal_check_out = false">
+                <template #header>
+                    <h3>Detail Status Check OUT</h3>
+                </template>
+                <template #body>
+                    <div style="width: 90vw">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
 
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">User</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            {{userx}}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">Check OUT Time</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            {{ var_check_out.tanggal_visit }} {{ var_check_out.time_out }}
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">User</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                {{ userx }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">Maps Location</label>
-                                        </div>
-                                        <div class="col-md-8">
-
-                                            <iframe width="300" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" :src="var_check_out.location">
-                                            </iframe>
-                                            <br />
-                                            <small>
-                                                <a :href="var_check_out.location" style="color:#0000FF;text-align:left" target="_blank">
-                                                    See map bigger
-                                                </a>
-                                            </small>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Check OUT Time</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                {{ var_check_out.tanggal_visit }} {{ var_check_out.time_out }}
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Maps Location</label>
+                                            </div>
+                                            <div class="col-md-8">
+
+                                                <iframe width="300" height="250" frameborder="0" scrolling="no"
+                                                    marginheight="0" marginwidth="0" :src="var_check_out.location">
+                                                </iframe>
+                                                <br />
+                                                <small>
+                                                    <a :href="var_check_out.location"
+                                                        style="color:#0000FF;text-align:left" target="_blank">
+                                                        See map bigger
+                                                    </a>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
 
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Nama Toko</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                {{ store_name }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Address</label>
+                                            </div>
+                                            <div class="col-md-7">
+                                                {{ alamat }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Photo</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <img width="300" height="250" style="border:0"
+                                                    :src="var_check_out.photo" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <br />
+                                <br />
+                                <br />
                             </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">Nama Toko</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            {{store_name}}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">Address</label>
-                                        </div>
-                                        <div class="col-md-7">
-                                            {{ alamat }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">Photo</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <img width="300" height="250" style="border:0" :src="var_check_out.photo" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <br />
-                            <br />
-                            <br />
                         </div>
                     </div>
-                </div>
-            </template>
-            <template #footer>
-                <button class="modal-default-button btn btn-secondary btn-sm me-1" @click="close_check_out">
-                    Tutup
-                </button>
-            </template>
-        </FormModal>
-    </Teleport>
-</Pages>
+                </template>
+                <template #footer>
+                    <button class="modal-default-button btn btn-secondary btn-sm me-1" @click="close_check_out">
+                        Tutup
+                    </button>
+                </template>
+            </FormModal>
+        </Teleport>
+    </Pages>
 </template>
 
 <script>
@@ -439,9 +445,8 @@ export default {
                     limit: 10,
                     server: {
                         url: (prev, page, limit) =>
-                            `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${
-                page * limit
-              }`,
+                            `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${page * limit
+                            }`,
                     },
                 },
                 search: {
@@ -450,141 +455,141 @@ export default {
                     },
                 },
                 columns: [{
-                        name: "ID",
-                        hidden: true
-                    },
+                    name: "ID",
+                    hidden: true
+                },
 
-                    {
-                        id: "nomor",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>NO</b></div>'
-                        ),
-                    },
+                {
+                    id: "nomor",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>NO</b></div>'
+                    ),
+                },
 
-                    // {
-                    //     id: "id",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID</b></div>'
-                    //     ),
-                    // },
+                // {
+                //     id: "id",
+                //     name: html(
+                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID</b></div>'
+                //     ),
+                // },
 
-                    {
-                        id: "store",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>NAMA TOKO</b></div>'
-                        ),
-                    },
 
-                    // {
-                    //     id: "user",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>USER</b></div>'
-                    //     ),
-                    // },
+                {
+                    id: "user",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>USER</b></div>'
+                    ),
+                },
+                {
+                    id: "tanggal_visit",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Tanggal Visit</b></div>'
+                    ),
+                },
+                {
+                    id: "store",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>NAMA TOKO</b></div>'
+                    ),
+                },
 
-                    {
-                        id: "photo_visit",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>CHECK IN STATUS</b></div>'
-                        ),
-                    },
+                {
+                    id: "photo_visit",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>CHECK IN STATUS</b></div>'
+                    ),
+                },
 
-                    {
-                        id: "photo_visit_out",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>CHECK OUT STATUS</b></div>'
-                        ),
-                    },
+                {
+                    id: "photo_visit_out",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>CHECK OUT STATUS</b></div>'
+                    ),
+                },
 
-                    // {
-                    //     id: "tanggal_visit",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Tanggal Visit</b></div>'
-                    //     ),
-                    // },
 
-                    // {
-                    //     id: "time_in",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Time In</b></div>'
-                    //     ),
-                    // },
+                // {
+                //     id: "time_in",
+                //     name: html(
+                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Time In</b></div>'
+                //     ),
+                // },
 
-                    // {
-                    //     id: "time_out",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Time Out</b></div>'
-                    //     ),
-                    // },
+                // {
+                //     id: "time_out",
+                //     name: html(
+                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Time Out</b></div>'
+                //     ),
+                // },
 
-                    // {
-                    //     id: "purchase_order_in",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Purchase Order In</b></div>'
-                    //     ),
-                    // },
+                // {
+                //     id: "purchase_order_in",
+                //     name: html(
+                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Purchase Order In</b></div>'
+                //     ),
+                // },
 
-                    // {
-                    //     id: "condit_owner",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Condit Owner</b></div>'
-                    //     ),
-                    // },
+                // {
+                //     id: "condit_owner",
+                //     name: html(
+                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Condit Owner</b></div>'
+                //     ),
+                // },
 
-                    // {
-                    //     id: "ket",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Keterangan</b></div>'
-                    //     ),
-                    // },
+                // {
+                //     id: "ket",
+                //     name: html(
+                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Keterangan</b></div>'
+                //     ),
+                // },
 
-                    // {
-                    //     id: "comment_appr",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Komentar Approval</b></div>'
-                    //     ),
-                    // },
+                // {
+                //     id: "comment_appr",
+                //     name: html(
+                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Komentar Approval</b></div>'
+                //     ),
+                // },
 
-                    // {
-                    //     id: "lat_in",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Latitude In</b></div>'
-                    //     ),
-                    // },
+                // {
+                //     id: "lat_in",
+                //     name: html(
+                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Latitude In</b></div>'
+                //     ),
+                // },
 
-                    // {
-                    //     id: "long_in",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Longitude In</b></div>'
-                    //     ),
-                    // },
+                // {
+                //     id: "long_in",
+                //     name: html(
+                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Longitude In</b></div>'
+                //     ),
+                // },
 
-                    // {
-                    //     id: "lat_out",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Latitude Out</b></div>'
-                    //     ),
-                    // },
+                // {
+                //     id: "lat_out",
+                //     name: html(
+                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Latitude Out</b></div>'
+                //     ),
+                // },
 
-                    // {
-                    //     id: "long_out",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Longitude Out</b></div>'
-                    //     ),
-                    // },
+                // {
+                //     id: "long_out",
+                //     name: html(
+                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Longitude Out</b></div>'
+                //     ),
+                // },
 
-                    {
-                        id: "approval",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>APPROVAL</b></div>'
-                        ),
-                    },
-                    {
-                        id: "AKSI",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>AKSI</b></div>'
-                        ),
-                    },
+                {
+                    id: "approval",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>APPROVAL</b></div>'
+                    ),
+                },
+                {
+                    id: "AKSI",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>AKSI</b></div>'
+                    ),
+                },
                 ],
                 style: {
                     container: {
@@ -609,13 +614,15 @@ export default {
                     },
                 },
                 server: {
-                    url: mythis.$root.API_URL + 'sgs/profil_visit',
+                    url: import.meta.env.VITE_API_PATH + 'api/sgs/profil_visit',
                     then: (data) =>
                         data.resource.data.map((card, index) => [
                             // index + 1,
                             // index + 1,
                             card.id,
                             card.id,
+                            card.user.fullname,
+                            card.tanggal_visit,
                             card.store.store_name,
                             // card.user.fullname,
                             (card.photo_visit) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_in" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-thumbs-up"></i></button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-x"></i></button>`),
@@ -625,8 +632,8 @@ export default {
                             // button edit approval
 
                             (card.photo_visit && card.photo_visit_out) ?
-                            html(`<button data-id="` + card.id + `" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;&nbsp;`)
-                            :  html(`<button data-id="` + card.id + `" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" disabled><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;&nbsp;`)
+                                html(`<button data-id="` + card.id + `" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;&nbsp;`)
+                                : html(`<button data-id="` + card.id + `" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" disabled><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;&nbsp;`)
                         ]),
                     total: (data) => data.count,
                     handle: (res) => {
@@ -687,7 +694,7 @@ export default {
                 mythis.$root.loader = true;
 
                 axios
-                    .get(mythis.$root.API_URL + 'sgs/profil_visit/' + id)
+                    .get(import.meta.env.VITE_API_PATH + 'api/sgs/profil_visit/' + id)
                     .then(async (res) => {
                         mythis.acuanEdit = id;
                         Object.keys(res.data.resource).forEach(function (key) {
@@ -696,7 +703,7 @@ export default {
                         // document.getElementById("inputA").focus(); // sets the focus on the input
 
                         mythis.var_check_out.location = 'https://maps.google.com/maps?q=' + res.data.resource.lat_out + ',' + res.data.resource.long_out + '&hl=es&z=14&output=embed';
-                        mythis.var_check_out.photo = 'http://178.1.32.224:2022/images/' + res.data.resource.photo_visit_out;
+                        mythis.var_check_out.photo = import.meta.env.VITE_API_PATH + 'images/' + res.data.resource.photo_visit_out;
                         await mythis.getAlamat(res.data.resource.long_out, res.data.resource.lat_out);
                         mythis.userx = res.data.resource.fullname;
                         mythis.store_name = res.data.resource.store_name;
@@ -713,7 +720,7 @@ export default {
                 mythis.$root.loader = true;
 
                 axios
-                    .get(mythis.$root.API_URL + 'sgs/profil_visit/' + id)
+                    .get(import.meta.env.VITE_API_PATH + 'api/sgs/profil_visit/' + id)
                     .then(async (res) => {
                         console.log(res);
                         mythis.acuanEdit = id;
@@ -724,7 +731,7 @@ export default {
                         // mythis.var_check_in.location = "https://maps.google.com/?q=" +  res.data.data.lat_in + "," +  res.data.data.long_in;
 
                         mythis.var_check_in.location = 'https://maps.google.com/maps?q=' + res.data.resource.lat_in + ',' + res.data.resource.long_in + '&hl=es&z=14&output=embed';
-                        mythis.var_check_in.photo = 'http://178.1.32.224:2022/images/' + res.data.resource.photo_visit;
+                        mythis.var_check_in.photo = import.meta.env.VITE_API_PATH + 'images/' + res.data.resource.photo_visit;
                         await mythis.getAlamat(res.data.resource.long_in, res.data.resource.lat_in);
                         mythis.userx = res.data.resource.fullname;
                         mythis.store_name = res.data.resource.store_name;
@@ -741,7 +748,7 @@ export default {
                 mythis.modal();
                 mythis.$root.loader = true;
                 axios
-                    .get(mythis.$root.API_URL + 'sgs/profil_visit/' + id)
+                    .get(import.meta.env.VITE_API_PATH + 'api/sgs/profil_visit/' + id)
                     .then((res) => {
                         mythis.acuanEdit = id;
                         Object.keys(res.data.resource).forEach(function (key) {
@@ -778,7 +785,7 @@ export default {
                 if (result.isConfirmed) {
                     mythis.$root.loader = true;
                     axios
-                        .delete(mythis.$root.API_URL + 'sgs/profil_visit/' + id, {
+                        .delete(import.meta.env.VITE_API_PATH + 'api/sgs/profil_visit/' + id, {
                             data: {
                                 fileUpload: "form satuan",
                                 userid: mythis.userid,
@@ -894,15 +901,15 @@ export default {
             mythis.todo2.approval = 1;
 
             // console.log(mythis.todo2);
-            
+
             axios
                 .put(
-                    mythis.$root.API_URL + "sgs/profil_visit/" + mythis.acuanEdit, {
-                        data: mythis.todo2,
-                        fileUpload: "form satuan",
-                        user_id: mythis.user_id,
-                        userid: mythis.id,
-                    }
+                    import.meta.env.VITE_API_PATH + "api/sgs/profil_visit/" + mythis.acuanEdit, {
+                    data: mythis.todo2,
+                    fileUpload: "form satuan",
+                    user_id: mythis.user_id,
+                    userid: mythis.id,
+                }
                 )
                 .then((res) => {
                     console.log(res);

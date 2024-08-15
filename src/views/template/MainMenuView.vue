@@ -81,36 +81,36 @@ export default {
           menu: "dashboard",
           sub_menu_id: "all-menu-dashboard",
           sub_menu: [
-            {
-              name: "Monitoring Performance Toko",
-              menu: "MonitoringPerformanceToko",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
-              name: "Report Incentive Salesman",
-              menu: "ReportIncentiveSalesman",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
-              name: "Report Monthly Call Plan",
-              menu: "ReportMonthlyCallPlan",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
-              name: "Report Daily Call Plan",
-              menu: "ReportDailyCallPlan",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
-              name: "Report Purchase Order",
-              menu: "ReportPurchaseOrder",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
+            // {
+            //   name: "Monitoring Performance Toko",
+            //   menu: "MonitoringPerformanceToko",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
+            // {
+            //   name: "Report Incentive Salesman",
+            //   menu: "ReportIncentiveSalesman",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
+            // {
+            //   name: "Report Monthly Call Plan",
+            //   menu: "ReportMonthlyCallPlan",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
+            // {
+            //   name: "Report Daily Call Plan",
+            //   menu: "ReportDailyCallPlan",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
+            // {
+            //   name: "Report Purchase Order",
+            //   menu: "ReportPurchaseOrder",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
           ]
         },
         {
@@ -118,48 +118,48 @@ export default {
           menu: "masterdata",
           sub_menu_id: "all-menu-masterdata",
           sub_menu: [
-            {
-              name: "Tipe Program",
-              menu: "MasterTipeProgram",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
-              name: "Limit Credit",
-              menu: "MasterLimitCredit",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
-              name: "Overdue",
-              menu: "MasterOverdue",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
-              name: "Call Plan",
-              menu: "MasterCallPlan",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
-              name: "Produk",
-              menu: "MasterProduk",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
-              name: "Target NOO",
-              menu: "MasterTargetNOO",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
-              name: "Tipe Toko",
-              menu: "MasterTipeToko",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
+            // {
+            //   name: "Tipe Program",
+            //   menu: "MasterTipeProgram",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
+            // {
+            //   name: "Limit Credit",
+            //   menu: "MasterLimitCredit",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
+            // {
+            //   name: "Overdue",
+            //   menu: "MasterOverdue",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
+            // {
+            //   name: "Call Plan",
+            //   menu: "MasterCallPlan",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
+            // {
+            //   name: "Produk",
+            //   menu: "MasterProduk",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
+            // {
+            //   name: "Target NOO",
+            //   menu: "MasterTargetNOO",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
+            // {
+            //   name: "Tipe Toko",
+            //   menu: "MasterTipeToko",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
           ]
         },
         {
@@ -167,12 +167,12 @@ export default {
           menu: "admin",
           sub_menu_id: "all-menu-admin",
           sub_menu: [
-            {
-              name: "Data User",
-              menu: "DataUser",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
+            // {
+            //   name: "Data User",
+            //   menu: "DataUser",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
           ]
         },
         {
@@ -180,18 +180,18 @@ export default {
           menu: "transaksi",
           sub_menu_id: "all-menu-transaksi",
           sub_menu: [
-            {
-              name: "Purchase Order",
-              menu: "PurchaseOrder",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
-              name: "Retur Produk",
-              menu: "ReturProduk",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
+            // {
+            //   name: "Purchase Order",
+            //   menu: "PurchaseOrder",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
+            // {
+            //   name: "Retur Produk",
+            //   menu: "ReturProduk",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
             {
               name: "Profil Visit",
               menu: "ProfilVisit",
@@ -205,24 +205,24 @@ export default {
           menu: "setting",
           sub_menu_id: "all-menu-setting",
           sub_menu: [
-            {
-              name: "Data Program Promo",
-              menu: "DataProgramPromo",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
-              name: "Data Salesman",
-              menu: "DataSalesman",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
-            {
-              name: "Data Toko",
-              menu: "DataToko",
-              sub_menu_id: null,
-              sub_menu: [],
-            },
+            // {
+            //   name: "Data Program Promo",
+            //   menu: "DataProgramPromo",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
+            // {
+            //   name: "Data Salesman",
+            //   menu: "DataSalesman",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
+            // {
+            //   name: "Data Toko",
+            //   menu: "DataToko",
+            //   sub_menu_id: null,
+            //   sub_menu: [],
+            // },
           ]
         },
       ],
