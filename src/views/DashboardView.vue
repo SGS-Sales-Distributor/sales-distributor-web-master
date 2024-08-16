@@ -39,6 +39,7 @@
 <script>
 import Pages from "@/components/template/Pages.vue";
 import axios from "axios";
+import { toHandlerKey } from "vue";
 
 export default {
   // Define components used in the template
@@ -79,12 +80,12 @@ export default {
   mounted() {
     this.fetchAuthUser();
     // Fetch the user's data from local storage and assign it to the user property
-    const auth = localStorage.getItem("auth") ? JSON.parse(localStorage.getItem("auth")) : "";
-    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "";
+    const auth = localStorage.getItem("auth") ? JSON.parse(localStorage.getItem("auth")) : null;
+    const user2 = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
     //this.user = user;
-
+    
     //testing firestore
-    this.$root.sendNotifFirebase("Selamat Datang Kak, " + user.fullname, "Ini Adalah Aplikasi Web SIDIA (SGS Distribution Application)");
+    this.$root.sendNotifFirebase("Selamat Datang Kak, " + user2.fullname, "Ini Adalah Aplikasi Web SIDIA (SGS Distribution Application)");
     // this.$root.sendNotifFirebase("Selamat Datang Kak"+user.email); 
   },
 };

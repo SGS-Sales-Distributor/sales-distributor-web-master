@@ -139,6 +139,7 @@ export default {
                 sessionStorage.setItem('page', 'DashboardView');
 
                 that.$root.goto('DashboardView');
+                toast('Succesfully Login',3000);
             } catch (error) {
                 const errorMessage = error.response.data.message;
                 toast.error(errorMessage, {
