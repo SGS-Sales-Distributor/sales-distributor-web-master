@@ -632,7 +632,7 @@ export default {
                             // button edit approval
 
                             // (card.photo_visit && card.photo_visit_out) ?
-                            (card.approval === 0) ?
+                            (card.approval === 0 && card.time_in !== null && card.time_out !== null) ?
                                 html(`<button data-id="` + card.id + `" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;&nbsp;`)
                                 : html(`<button data-id="` + card.id + `" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" disabled><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;&nbsp;`)
                         ]),
