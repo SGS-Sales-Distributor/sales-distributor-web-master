@@ -628,7 +628,7 @@ export default {
                             (card.photo_visit) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_in" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-thumbs-up"></i></button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-x"></i></button>`),
                             (card.photo_visit_out) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_out" data-toggle="tooltip" title="Status Check OUT" ><i class="fa-solid fa-thumbs-up"></i></button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check OUT" ><i class="fa-solid fa-x"></i></button>`),
                             // btn status
-                            (card.approval === 1) ? html(`<span class="btn btn-sm btn-success text-white">Disetujui</span>`) : html(`<span class="btn btn-sm btn-danger text-white">Tidak Disetujui</span>`),
+                            (card.approval === 1) ? html(`<span class="btn btn-sm btn-success text-white">Disetujui</span>`) : html(`<span class="btn btn-sm btn-danger text-white">Butuh Approval</span>`),
                             // button edit approval
 
                             (card.photo_visit && card.photo_visit_out) ?
@@ -668,7 +668,7 @@ export default {
 
         approved() {
             Swal.fire({
-                title: 'Berikan Approved?',
+                title: 'Yakin Approve?',
                 text: "Anda Tidak Bisa Mengembalikannya!",
                 icon: 'warning',
                 showCancelButton: true,
