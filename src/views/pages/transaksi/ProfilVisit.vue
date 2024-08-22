@@ -426,6 +426,7 @@ export default {
             mythis.errorList = "";
             mythis.tmp_whsCodeType = "";
         },
+
         getCbowhsCodeType() {
             var mythis = this;
             mythis.$root.loader = true;
@@ -442,12 +443,12 @@ export default {
             this.grid2.updateConfig({
                 language: idID,
                 pagination: {
-                    limit: 10,
-                    server: {
-                        url: (prev, page, limit) =>
-                            `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${page * limit
-                            }`,
-                    },
+                    // limit: 10,
+                    // server: {
+                    //     url: (prev, page, limit) =>
+                    //         `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${page * limit
+                    //         }`,
+                    // },
                 },
                 search: {
                     server: {
@@ -466,13 +467,6 @@ export default {
                     ),
                 },
 
-                // {
-                //     id: "id",
-                //     name: html(
-                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID</b></div>'
-                //     ),
-                // },
-
 
                 {
                     id: "user",
@@ -483,101 +477,35 @@ export default {
                 {
                     id: "tanggal_visit",
                     name: html(
-                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Tanggal Visit</b></div>'
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>TANGGAL PLAN</b></div>'
                     ),
                 },
                 {
-                    id: "store",
+                    id: "tanggal_visit",
                     name: html(
-                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>NAMA TOKO</b></div>'
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>TOKO</b></div>'
                     ),
                 },
-
                 {
                     id: "photo_visit",
                     name: html(
-                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>CHECK IN STATUS</b></div>'
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>REAL CHECK IN TIME</b></div>'
                     ),
                 },
 
                 {
                     id: "photo_visit_out",
                     name: html(
-                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>CHECK OUT STATUS</b></div>'
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>REAL CHECK OUT TIME</b></div>'
                     ),
                 },
 
-
-                // {
-                //     id: "time_in",
-                //     name: html(
-                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Time In</b></div>'
-                //     ),
-                // },
-
-                // {
-                //     id: "time_out",
-                //     name: html(
-                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Time Out</b></div>'
-                //     ),
-                // },
-
-                // {
-                //     id: "purchase_order_in",
-                //     name: html(
-                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Purchase Order In</b></div>'
-                //     ),
-                // },
-
-                // {
-                //     id: "condit_owner",
-                //     name: html(
-                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Condit Owner</b></div>'
-                //     ),
-                // },
-
-                // {
-                //     id: "ket",
-                //     name: html(
-                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Keterangan</b></div>'
-                //     ),
-                // },
-
-                // {
-                //     id: "comment_appr",
-                //     name: html(
-                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Komentar Approval</b></div>'
-                //     ),
-                // },
-
-                // {
-                //     id: "lat_in",
-                //     name: html(
-                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Latitude In</b></div>'
-                //     ),
-                // },
-
-                // {
-                //     id: "long_in",
-                //     name: html(
-                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Longitude In</b></div>'
-                //     ),
-                // },
-
-                // {
-                //     id: "lat_out",
-                //     name: html(
-                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Latitude Out</b></div>'
-                //     ),
-                // },
-
-                // {
-                //     id: "long_out",
-                //     name: html(
-                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Longitude Out</b></div>'
-                //     ),
-                // },
-
+                {
+                    id: "statusVisit",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>STATUS</b></div>'
+                    ),
+                },
                 {
                     id: "approval",
                     name: html(
@@ -617,22 +545,16 @@ export default {
                     url: import.meta.env.VITE_API_PATH + 'api/sgs/profil_visit',
                     then: (data) =>
                         data.resource.data.map((card, index) => [
-                            // index + 1,
-                            // index + 1,
                             card.id,
-                            card.id,
-                            card.user.fullname,
-                            card.tanggal_visit,
-                            card.store.store_name,
-                            // card.user.fullname,
-                            (card.photo_visit) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_in" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-thumbs-up"></i></button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-x"></i></button>`),
-                            (card.photo_visit_out) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_out" data-toggle="tooltip" title="Status Check OUT" ><i class="fa-solid fa-thumbs-up"></i></button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check OUT" ><i class="fa-solid fa-x"></i></button>`),
-                            // btn status
-                            (card.approval === 1) ? html(`<span class="btn btn-sm btn-success text-white">Disetujui</span>`) : html(`<span class="btn btn-sm btn-danger text-white">Butuh Approval</span>`),
-                            // button edit approval
-
-                            // (card.photo_visit && card.photo_visit_out) ?
-                            (card.approval === 0 && card.time_in !== null && card.time_out !== null) ?
+                            index + 1,
+                            card.userSalesman,
+                            card.tanggal_plan,
+                            card.nama_toko,
+                            (card.photo_visit) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_in" data-toggle="tooltip" title="Lihat Check In" ><i class="fa-solid fa-thumbs-up"></i> `+card.waktu_masuk+`</button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-x"></i></button>`),
+                            (card.photo_visit_out) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_out" data-toggle="tooltip" title="Lihat Check Out" ><i class="fa-solid fa-thumbs-up"></i> `+card.waktu_keluar+` </button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check OUT" ><i class="fa-solid fa-x"></i></button>`),
+                            (card.tanggal_visit == card.tanggal_plan && card.waktu_keluar !== null && card.waktu_masuk !== null ) ? html(`<span class="btn btn-sm btn-info text-white">Terpenuhi</span>`) : (card.waktu_keluar === null && card.waktu_masuk !==null) ? html(`<span class="btn btn-sm btn-warning text-white">Tidak Check Out</span>`) : html(`<span class="btn btn-sm btn-warning text-white">Tidak Terpenuhi</span>`) ,
+                            (card.approval === 1) ? html(`<span class="btn btn-sm btn-success text-white">Disetujui</span>`) : (card.waktu_masuk !== null && card.waktu_keluar !== null) ? html(`<span class="btn btn-sm btn-danger text-white">Butuh Approval</span>`) : null,
+                            (card.approval === 0 && card.waktu_masuk !== null && card.waktu_keluar !== null) ?
                                 html(`<button data-id="` + card.id + `" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;&nbsp;`)
                                 : html(`<button data-id="` + card.id + `" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" disabled><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;&nbsp;`)
                         ]),
@@ -659,12 +581,10 @@ export default {
 
         refreshTable() {
             var mythis = this;
-            //////////////////////////////
             $("#wrapper2").remove();
             var e = $('<div id="wrapper2"></div>');
             $("#box").append(e);
             this.getTable();
-            //////////////////////////////
         },
 
         approved() {
@@ -956,11 +876,6 @@ export default {
                     }
                 });
         },
-
-        /////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////
     },
 };
 </script>
