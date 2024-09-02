@@ -584,7 +584,8 @@ export default {
                     url: import.meta.env.VITE_API_PATH + 'api/sgs/profil_visit',
                     then: (data) =>
                         data.resource.data.map((card, index) => [
-                        // local data.resource.map((card, index) => [
+                        //local
+                        // data.resource.map((card, index) => [
                             card.id,
                             index + 1,
                             card.userSalesman,
