@@ -544,7 +544,7 @@ export default {
                         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>KETERANGAN</b></div>'
                     ),
                 },
-                
+
                 {
                     id: "approval",
                     name: html(
@@ -583,8 +583,8 @@ export default {
                 server: {
                     url: import.meta.env.VITE_API_PATH + 'api/sgs/profil_visit',
                     then: (data) =>
-                        // data.resource.data.map((card, index) => [
-                        data.resource.map((card, index) => [
+                        data.resource.data.map((card, index) => [
+                        // local data.resource.map((card, index) => [
                             card.id,
                             index + 1,
                             card.userSalesman,
