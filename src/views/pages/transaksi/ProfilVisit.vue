@@ -583,7 +583,7 @@ export default {
                 server: {
                     url: import.meta.env.VITE_API_PATH + 'api/sgs/profil_visit',
                     then: (data) =>
-                        data.resource.map((card, index) => [
+                        data.resource.data.map((card, index) => [
                         //local
                         // data.resource.map((card, index) => [
                             card.id,
@@ -593,8 +593,8 @@ export default {
                             card.nama_toko,
                             (card.photo_visit) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_in" data-toggle="tooltip" title="Lihat Check In" ><i class="fa-solid fa-thumbs-up"></i> ` + card.waktu_masuk + `</button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-x"></i></button>`),
                             (card.photo_visit_out) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_out" data-toggle="tooltip" title="Lihat Check Out" ><i class="fa-solid fa-thumbs-up"></i> ` + card.waktu_keluar + ` </button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check OUT" ><i class="fa-solid fa-x"></i></button>`),
-                            (card.tanggal_visit == card.tanggal_plan && card.waktu_keluar !== null && card.waktu_masuk !== null) ? html(`<span class="btn btn-sm btn-info text-white">Terpenuhi</span>`) : (card.waktu_keluar === null && card.waktu_masuk !== null) ? html(`<span class="btn btn-sm btn-warning text-white">Tidak Check Out</span>`) : formatedDate > card.tanggal_plan ? html(`<span class="btn btn-sm btn-danger text-white">Tidak Terpenuhi</span>`) : html(`<span class="btn btn-sm btn-warning text-white">Belum Visit</span>`) ,
-                            card.keterangan==null ? '-' : html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_out" data-toggle="tooltip" title="Lihat Keterangan" ><i class="fa-solid fa-eye"></i> Lihat Keterangan</button>`) ,
+                            (card.tanggal_visit == card.tanggal_plan && card.waktu_keluar !== null && card.waktu_masuk !== null) ? html(`<span class="btn btn-sm btn-info text-white">Terpenuhi</span>`) : (card.waktu_keluar === null && card.waktu_masuk !== null) ? html(`<span class="btn btn-sm btn-warning text-white">Tidak Check Out</span>`) : (formatedDate > card.tanggal_plan) ? html(`<span class="btn btn-sm btn-danger text-white">Tidak Terpenuhi</span>`) : html(`<span class="btn btn-sm btn-warning text-white">Belum Visit</span>`) ,
+                            (card.keterangan == null) ? '-' : html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_out" data-toggle="tooltip" title="Lihat Keterangan" ><i class="fa-solid fa-eye"></i> Lihat Keterangan</button>`) ,
                             (card.approval === 1) ? html(`<span class="btn btn-sm btn-success text-white">Disetujui</span>`) : (card.waktu_masuk !== null && card.waktu_keluar !== null) ? html(`<span class="btn btn-sm btn-danger text-white">Butuh Approval</span>`) : null,
                             (card.approval === 0 && card.waktu_masuk !== null && card.waktu_keluar !== null) ?
                                 html(`<button data-id="` + card.id + `" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;&nbsp;`)
