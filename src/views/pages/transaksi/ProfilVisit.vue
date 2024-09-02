@@ -177,6 +177,17 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Keterangan</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                {{ var_check_in.ket==null ? '-' : var_check_in.ket }}
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <br />
                                 <br />
@@ -279,6 +290,17 @@
                                             <div class="col-md-8">
                                                 <img width="300" height="250" style="border:0"
                                                     :src="var_check_out.photo" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Keterangan</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                               {{ var_check_out.ket == null ? '-' : var_check_out.ket }}
                                             </div>
                                         </div>
                                     </div>
@@ -440,6 +462,14 @@ export default {
         },
         getTable() {
             var mythis = this;
+
+            const tday = new Date();
+            const m = String(tday.getMonth() + 1).padStart(2, '0');
+            const d = String(tday.getDate()).padStart(2, '0');
+            const y = String(tday.getFullYear());
+
+            const formatedDate = [y, m, d].join('-');
+
             this.grid2.updateConfig({
                 language: idID,
                 pagination: {
@@ -500,12 +530,21 @@ export default {
                     ),
                 },
 
+                
                 {
                     id: "statusVisit",
                     name: html(
                         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>STATUS</b></div>'
                     ),
                 },
+
+                {
+                    id: "keterangan",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>KETERANGAN</b></div>'
+                    ),
+                },
+                
                 {
                     id: "approval",
                     name: html(
@@ -544,15 +583,17 @@ export default {
                 server: {
                     url: import.meta.env.VITE_API_PATH + 'api/sgs/profil_visit',
                     then: (data) =>
-                        data.resource.data.map((card, index) => [
+                        // data.resource.data.map((card, index) => [
+                        data.resource.map((card, index) => [
                             card.id,
                             index + 1,
                             card.userSalesman,
                             card.tanggal_plan,
                             card.nama_toko,
-                            (card.photo_visit) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_in" data-toggle="tooltip" title="Lihat Check In" ><i class="fa-solid fa-thumbs-up"></i> `+card.waktu_masuk+`</button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-x"></i></button>`),
-                            (card.photo_visit_out) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_out" data-toggle="tooltip" title="Lihat Check Out" ><i class="fa-solid fa-thumbs-up"></i> `+card.waktu_keluar+` </button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check OUT" ><i class="fa-solid fa-x"></i></button>`),
-                            (card.tanggal_visit == card.tanggal_plan && card.waktu_keluar !== null && card.waktu_masuk !== null ) ? html(`<span class="btn btn-sm btn-info text-white">Terpenuhi</span>`) : (card.waktu_keluar === null && card.waktu_masuk !==null) ? html(`<span class="btn btn-sm btn-warning text-white">Tidak Check Out</span>`) : html(`<span class="btn btn-sm btn-warning text-white">Tidak Terpenuhi</span>`) ,
+                            (card.photo_visit) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_in" data-toggle="tooltip" title="Lihat Check In" ><i class="fa-solid fa-thumbs-up"></i> ` + card.waktu_masuk + `</button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-x"></i></button>`),
+                            (card.photo_visit_out) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_out" data-toggle="tooltip" title="Lihat Check Out" ><i class="fa-solid fa-thumbs-up"></i> ` + card.waktu_keluar + ` </button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check OUT" ><i class="fa-solid fa-x"></i></button>`),
+                            (card.tanggal_visit == card.tanggal_plan && card.waktu_keluar !== null && card.waktu_masuk !== null) ? html(`<span class="btn btn-sm btn-info text-white">Terpenuhi</span>`) : (card.waktu_keluar === null && card.waktu_masuk !== null) ? html(`<span class="btn btn-sm btn-warning text-white">Tidak Check Out</span>`) : formatedDate > card.tanggal_plan ? html(`<span class="btn btn-sm btn-danger text-white">Tidak Terpenuhi</span>`) : html(`<span class="btn btn-sm btn-warning text-white">Belum Visit</span>`) ,
+                            card.keterangan==null ? '-' : card.keterangan ,
                             (card.approval === 1) ? html(`<span class="btn btn-sm btn-success text-white">Disetujui</span>`) : (card.waktu_masuk !== null && card.waktu_keluar !== null) ? html(`<span class="btn btn-sm btn-danger text-white">Butuh Approval</span>`) : null,
                             (card.approval === 0 && card.waktu_masuk !== null && card.waktu_keluar !== null) ?
                                 html(`<button data-id="` + card.id + `" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;&nbsp;`)
