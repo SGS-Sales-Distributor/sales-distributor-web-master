@@ -183,7 +183,7 @@
                                                 <label for="">Keterangan</label>
                                             </div>
                                             <div class="col-md-8">
-                                                {{ var_check_in.ket==null ? '-' : var_check_in.ket }}
+                                                {{ var_check_in.ket == null ? '-' : var_check_in.ket }}
                                             </div>
                                         </div>
                                     </div>
@@ -300,7 +300,7 @@
                                                 <label for="">Keterangan</label>
                                             </div>
                                             <div class="col-md-8">
-                                               {{ var_check_out.ket == null ? '-' : var_check_out.ket }}
+                                                {{ var_check_out.ket == null ? '-' : var_check_out.ket }}
                                             </div>
                                         </div>
                                     </div>
@@ -315,6 +315,63 @@
                 </template>
                 <template #footer>
                     <button class="modal-default-button btn btn-secondary btn-sm me-1" @click="close_check_out">
+                        Tutup
+                    </button>
+                </template>
+            </FormModal>
+            <!-- Modal Tidak Visit -->
+            <FormModal :show="showModal_notVisit" :style="showmodal_zindex" @close="showModal_notVisit = false">
+                <template #header>
+                    <h3>Detail Visit Tidak Terpenuhi</h3>
+                </template>
+                <template #body>
+                    <div style="width: 50vw">
+                        <div class="container-fluid">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="">User Salesman</label>
+                                    </div>
+                                    <div class="col-md-8">:
+                                        {{ var_notVisit.userAs }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="">Tanggal Plan</label>
+                                    </div>
+                                    <div class="col-md-8">:
+                                        {{ var_notVisit.tgl_plan }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="">Nama Toko</label>
+                                    </div>
+                                    <div class="col-md-8">:
+                                        {{ var_notVisit.nama_toko }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="">Keterangan</label>
+                                    </div>
+                                    <div class="col-md-8">:
+                                        {{ var_notVisit.ketNotVisit }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template #footer>
+                    <button class="modal-default-button btn btn-secondary btn-sm me-1" @click="close_modalNotVisit">
                         Tutup
                     </button>
                 </template>
@@ -396,8 +453,10 @@ export default {
             uObject: "",
             var_check_in: {},
             var_check_out: {},
+            var_notVisit: {},
             showModal_check_in: false,
             showModal_check_out: false,
+            showModal_notVisit: false,
         };
     },
     mounted() {
@@ -431,6 +490,9 @@ export default {
         },
         modal_check_out() {
             this.showModal_check_out = true;
+        },
+        modal_notVisit() {
+            this.showModal_notVisit = true;
         },
         mySelectEvent() {
             this.todo.whsCodeType = this.tmp_whsCodeType.code;
@@ -530,7 +592,7 @@ export default {
                     ),
                 },
 
-                
+
                 {
                     id: "statusVisit",
                     name: html(
@@ -591,8 +653,8 @@ export default {
                             card.nama_toko,
                             (card.photo_visit) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_in" data-toggle="tooltip" title="Lihat Check In" ><i class="fa-solid fa-thumbs-up"></i> ` + card.waktu_masuk + `</button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check IN" ><i class="fa-solid fa-x"></i></button>`),
                             (card.photo_visit_out) ? html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_out" data-toggle="tooltip" title="Lihat Check Out" ><i class="fa-solid fa-thumbs-up"></i> ` + card.waktu_keluar + ` </button>`) : html(`<button data-id="" class="btn btn-sm btn-danger text-white" data-toggle="tooltip" title="Status Check OUT" ><i class="fa-solid fa-x"></i></button>`),
-                            (card.tanggal_visit == card.tanggal_plan && card.waktu_keluar !== null && card.waktu_masuk !== null) ? html(`<span class="btn btn-sm btn-info text-white">Terpenuhi</span>`) : (card.waktu_keluar === null && card.waktu_masuk !== null) ? html(`<span class="btn btn-sm btn-warning text-white">Tidak Check Out</span>`) : (formatedDate > card.tanggal_plan) ? html(`<span class="btn btn-sm btn-danger text-white">Tidak Terpenuhi</span>`) : html(`<span class="btn btn-sm btn-warning text-white">Belum Visit</span>`) ,
-                            (card.keterangan == null) ? '-' : html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_out" data-toggle="tooltip" title="Lihat Keterangan" ><i class="fa-solid fa-eye"></i> Lihat Keterangan</button>`) ,
+                            (card.tanggal_visit == card.tanggal_plan && card.waktu_keluar !== null && card.waktu_masuk !== null) ? html(`<span class="btn btn-sm btn-info text-white">Terpenuhi</span>`) : (card.waktu_keluar === null && card.waktu_masuk !== null) ? html(`<span class="btn btn-sm btn-warning text-white">Tidak Check Out</span>`) : (formatedDate > card.tanggal_plan) ? html(`<span class="btn btn-sm btn-danger text-white">Tidak Terpenuhi</span>`) : html(`<span class="btn btn-sm btn-warning text-white">Belum Visit</span>`),
+                            (card.keterangan === null && card.id === null) ? (card.idNotVisit === null && card.ketNotVisit === null) ? '-' : html(`<button data-id="` + card.idNotVisit + `" class="btn btn-sm btn-danger text-white" id="status_tidak_terpenuhi" data-toggle="tooltip" title="Lihat Keterangan Tida Terpenuhi" ><i class="fa-solid fa-eye"></i> Lihat Keterangan</button>`) : html(`<button data-id="` + card.id + `" class="btn btn-sm btn-success text-white" id="status_check_out" data-toggle="tooltip" title="Lihat Keterangan" ><i class="fa-solid fa-eye"></i> Lihat Keterangan</button>`),
                             (card.approval === 1) ? html(`<span class="btn btn-sm btn-success text-white">Disetujui</span>`) : (card.waktu_masuk !== null && card.waktu_keluar !== null) ? html(`<span class="btn btn-sm btn-danger text-white">Butuh Approval</span>`) : null,
                             (card.approval === 0 && card.waktu_masuk !== null && card.waktu_keluar !== null) ?
                                 html(`<button data-id="` + card.id + `" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>&nbsp;&nbsp;&nbsp;`)
@@ -645,6 +707,31 @@ export default {
 
         jqueryDelEdit() {
             const mythis = this;
+
+            $(document).on("click", "#status_tidak_terpenuhi", function () {
+                let id = $(this).data("id");
+                mythis.idRincian = id;
+                mythis.modal_notVisit();
+
+                mythis.$root.loader = true;
+
+                axios
+                    .get(import.meta.env.VITE_API_PATH + 'api/sgs/profil_notvisitOne/' + id)
+                    .then(async (res) => {
+                        mythis.acuanEdit = id;
+                        Object.keys(res.data.resource).forEach(function (key) {
+                            mythis.var_notVisit[key] = res.data.resource[key];
+                        });
+
+                        //         mythis.var_check_out.location = 'https://maps.google.com/maps?q=' + res.data.resource.lat_out + ',' + res.data.resource.long_out + '&hl=es&z=14&output=embed';
+                        //         mythis.var_check_out.photo = import.meta.env.VITE_API_PATH + 'images/' + res.data.resource.photo_visit_out;
+                        //         await mythis.getAlamat(res.data.resource.long_out, res.data.resource.lat_out);
+                        //         mythis.userx = res.data.resource.fullname;
+                        //         mythis.store_name = res.data.resource.store_name;
+                        await mythis.sleep(3000);
+                        mythis.$root.loader = false;
+                    });
+            });
 
             $(document).on("click", "#status_check_out", function () {
                 let id = $(this).data("id");
@@ -847,6 +934,9 @@ export default {
             this.todo = {};
             this.todo2 = {};
             this.resetForm();
+        },
+        close_modalNotVisit: function () {
+            this.showModal_notVisit = false;
         },
         modal() {
             // binding data to form modal
