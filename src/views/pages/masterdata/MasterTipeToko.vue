@@ -7,7 +7,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-2">
-                                <label for="">Type Toko</label>
+                                <label for="">Nama Tipe Toko</label>
                             </div>
                             <div class="col-md-6">
                                 <FormInput :class="errorField.store_type_name ? 'input-error' : ''" v-model="todo.store_type_name" @input="
@@ -247,7 +247,7 @@ export default {
                     {
                         id: "store_type_name",
                         name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>TOKO</b></div>'
+                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>NAMA TIPE TOKO</b></div>'
                         ),
                     },
 
@@ -289,12 +289,13 @@ export default {
                     },
                 },
                 server: {
-                    url: mythis.$root.API_URL + 'api/sgs/store_type',
+                    // url: mythis.$root.API_URL + 'api/sgs/store_type',
+                    url: import.meta.env.VITE_API_PATH + 'api/sgs/store_type',
                     then: (data) =>
-                        data.original.results.map((card, index) => [
+                        data.results.map((card, index) => [
                             index+1,
-                            // index+1,
-                            card.store_type_id,
+                            index+1,
+                            // card.store_type_id,
                             // card.store_type_id,
                             card.store_type_name,
                         ]),
@@ -382,7 +383,7 @@ export default {
                 if (result.isConfirmed) {
                     mythis.$root.loader = true;
                     axios
-                        .delete(mythis.$root.API_URL + 'api/sgs/store_type/' + id, {
+                        .delete(import.meta.env.VITE_API_PATH + 'api/sgs/store_type/' + id, {
                             data: {
                                 fileUpload: "form satuan",
                                 userid: mythis.userid,
@@ -426,7 +427,7 @@ export default {
             mythis.$root.loader = true;
 
             axios
-                .post(mythis.$root.API_URL + 'api/sgs/store_type', {
+                .post(import.meta.env.VITE_API_PATH + 'api/sgs/store_type', {
                     data: mythis.todo,
                     fileUpload: "form satuan",
                     userid: mythis.userid,
@@ -489,7 +490,7 @@ export default {
             console.log(str_type_id);
             axios
                 .put(
-                    mythis.$root.API_URL + "api/sgs/store_type/" + str_type_id, {
+                    import.meta.env.VITE_API_PATH + "api/sgs/store_type/" + str_type_id, {
                         data: mythis.todo2,
                         fileUpload: "form satuan",
                     }
@@ -537,7 +538,7 @@ export default {
             try {
                 this.$root.loader = true;
 
-                const data = await axios.get(mythis.$root.API_URL + "api/sgs/getTipeToko");
+                const data = await axios.get(import.meta.env.VITE_API_PATH + "api/sgs/getTipeToko");
 
                 // console.log(data.data.data);
 

@@ -85,7 +85,7 @@ export default {
     //this.user = user;
     
     //testing firestore
-    this.$root.sendNotifFirebase("Selamat Datang Kak, " + user2.fullname, "Ini Adalah Aplikasi Web SIDIA (SGS Distribution Application)");
+    this.$root.sendNotifFirebase("Selamat Datang Kak, " + user2.fullname, "Di Aplikasi Web SIDIA (SGS Distribution Application)");
     // this.$root.sendNotifFirebase("Selamat Datang Kak"+user.email); 
   },
 };
