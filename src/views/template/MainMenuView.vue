@@ -154,12 +154,12 @@ export default {
             //   sub_menu_id: null,
             //   sub_menu: [],
             // },
-            // {
-            //   name: "Tipe Toko",
-            //   menu: "MasterTipeToko",
-            //   sub_menu_id: null,
-            //   sub_menu: [],
-            // },
+            {
+              name: "Tipe Toko",
+              menu: "MasterTipeToko",
+              sub_menu_id: null,
+              sub_menu: [],
+            },
           ]
         },
         {

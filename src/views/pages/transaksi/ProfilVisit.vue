@@ -723,11 +723,6 @@ export default {
                             mythis.var_notVisit[key] = res.data.resource[key];
                         });
 
-                        //         mythis.var_check_out.location = 'https://maps.google.com/maps?q=' + res.data.resource.lat_out + ',' + res.data.resource.long_out + '&hl=es&z=14&output=embed';
-                        //         mythis.var_check_out.photo = import.meta.env.VITE_API_PATH + 'images/' + res.data.resource.photo_visit_out;
-                        //         await mythis.getAlamat(res.data.resource.long_out, res.data.resource.lat_out);
-                        //         mythis.userx = res.data.resource.fullname;
-                        //         mythis.store_name = res.data.resource.store_name;
                         await mythis.sleep(3000);
                         mythis.$root.loader = false;
                     });

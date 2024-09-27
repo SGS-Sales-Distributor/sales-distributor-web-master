@@ -515,13 +515,13 @@ export default {
         },
         getCboSalesmanCallplan() {
             var mythis = this;
-            mythis.$root.loader = true;
+            // mythis.$root.loader = true;
             axios
                 .get(mythis.$root.API_URL + "sgs/getCboSalesmanCallplan")
                 .then((res) => {
                     mythis.cboSalesmanCallplan = res.data.data;
                     console.log(res.data.data);
-                    mythis.$root.loader = false;
+                    // mythis.$root.loader = false;
                 });
         },
         // getCboFrekuensiCallplan() {
