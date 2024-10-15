@@ -535,12 +535,12 @@ export default {
             this.grid2.updateConfig({
                 language: idID,
                 pagination: {
-                    // limit: 10,
-                    // server: {
-                    //     url: (prev, page, limit) =>
-                    //         `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${page * limit
-                    //         }`,
-                    // },
+                    limit: 10,
+                    server: {
+                        url: (prev, page, limit) =>
+                            `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${page * limit
+                            }`,
+                    },
                 },
                 search: {
                     server: {
