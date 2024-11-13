@@ -172,7 +172,7 @@ export default {
     },
     mounted() {
         this.getTable();
-        this.getDetailData(3);
+        // this.getDetailData(3);
         //this.getCbowhsCodeType();
         //this.userid = "9999";
 
@@ -259,9 +259,9 @@ export default {
                         formatter: (_, row) =>
                             html(
                                 `
-                <button data-id="${row.cells[1].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
+                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
                 &nbsp;&nbsp;&nbsp;
-                <button data-id="${row.cells[1].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
+                <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
               `
                             ),
                     },
@@ -293,9 +293,9 @@ export default {
                     url: import.meta.env.VITE_API_PATH + 'api/sgs/store_type',
                     then: (data) =>
                         data.results.map((card, index) => [
+                            card.store_type_id,
                             index+1,
-                            index+1,
-                            // card.store_type_id,
+                            // index+1,
                             // card.store_type_id,
                             card.store_type_name,
                         ]),
@@ -332,9 +332,9 @@ export default {
             //////////////////////////////
         },
 
-        async getDetailData(store_type_id) {
+        async getDetailData(store_type_name) {
             try {
-                const response = await axios.get(`${this.$root.API_URL}api/sgs/store_type/${store_type_id}`);
+                const response = await axios.get(`${this.$root.API_URL}api/sgs/store_type/${store_type_name}`);
 
                 console.log(response);
             } catch (error) {
@@ -486,6 +486,7 @@ export default {
             var mythis = this;
             mythis.$root.loader = true;
             const str_type_id = mythis.todo2.store_type_id;
+            const id = mythis.todo2.id;
 
             console.log(str_type_id);
             axios

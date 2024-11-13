@@ -198,6 +198,12 @@ export default {
               sub_menu_id: null,
               sub_menu: [],
             },
+            {
+              name: "Summary Profil Visit",
+              menu: "sumProfilVisit",
+              sub_menu_id: null,
+              sub_menu: [],
+            },
           ]
         },
         {
