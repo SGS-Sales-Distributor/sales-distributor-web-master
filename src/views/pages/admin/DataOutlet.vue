@@ -4,7 +4,6 @@
             <div class="mb-6">
                 <div class="row">
                     
-                    
                 </div>
             </div>
 
@@ -246,7 +245,7 @@ export default {
     },
     data() {
         return {
-            title: "Data User",
+            title: "Data Outlet",
             showModal: false,
             showmodal_zindex: "z-index:1000",
             grid2: new Grid(),
@@ -532,87 +531,95 @@ export default {
                         url: (prev, keyword) => `${prev}?search=${keyword}`,
                     },
                 },
-                columns: [{
-                    id: "no",
-                    name: html(
-                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>No</b></div>'
-                    ),
-                },
+                columns: [
+                    {
+                        id: "No",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>No</b></div>'
+                        ),
+                    },
 
-                // {
-                //     id: "user_id",
-                //     name: html(
-                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID USER</b></div>'
-                //     ),
-                // },
+                    {
+                        id: "kodeCbg",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Cabang</b></div>'
+                        ),
+                    },
 
-                {
-                    id: "user_nik",
-                    name: html(
-                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>NIK</b></div>'
-                    ),
-                },
+                    {
+                        id: "kodeToko",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Kode Toko</b></div>'
+                        ),
+                    },
 
-                {
-                    id: "user_fullname",
-                    name: html(
-                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>FULLNAME</b></div>'
-                    ),
-                },
+                    {
+                        id: "NamaToko",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Nama Toko</b></div>'
+                        ),
+                    },
 
-                {
-                    id: "user_name",
-                    name: html(
-                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>USERNAME</b></div>'
-                    ),
-                },
+                    {
+                        id: "AlamatToko",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Alamat Toko</b></div>'
+                        ),
+                    },
 
-                {
-                    id: "user_phone",
-                    name: html(
-                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>PHONE</b></div>'
-                    ),
-                },
+                    {
+                        id: "No Telepon",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>No Telepon</b></div>'
+                        ),
+                    },
 
-                {
-                    id: "user_email",
-                    name: html(
-                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>EMAIL</b></div>'
-                    ),
-                },
+                    {
+                        id: "Owner",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Onwer</b></div>'
+                        ),
+                    },
 
-                // {
-                //     id: "password",
-                //     name: html(
-                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>PASSWORD</b></div>'
-                //     ),
-                // },
+                    {
+                        id: "nikOwner",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Nik Owner</b></div>'
+                        ),
+                    },
 
-                {
-                    id: "user_type_id",
-                    name: html(
-                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Tipe User</b></div>'
-                    ),
-                },
+                    {
+                        id: "emailOwner",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Email Toko</b></div>'
+                        ),
+                    },
 
-                {
-                    id: "status_ba",
-                    name: html(
-                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>USER STATUS</b></div>'
-                    ),
-                },
+                    {
+                        id: "filPendukung1",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>KTP Owner</b></div>'
+                        ),
+                    },
 
-        //         {
-        //             name: "AKSI",
-        //             formatter: (_, row) =>
-        //                 html(
-        //                     `
-        //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
-        //         &nbsp;&nbsp;&nbsp;
-        //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
-        //       `
-        //                 ),
-        // },
+                    {
+                        id: "filPendukung2",
+                        name: html(
+                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>Photo Pendukung</b></div>'
+                        ),
+                    },
+
+                    //         {
+                    //             name: "AKSI",
+                    //             formatter: (_, row) =>
+                    //                 html(
+                    //                     `
+                    //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
+                    //         &nbsp;&nbsp;&nbsp;
+                    //         <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
+                    //       `
+                    //                 ),
+                    // },
                 ],
                 style: {
                     container: {
@@ -637,24 +644,40 @@ export default {
                     },
                 },
                 server: {
-                    url: import.meta.env.VITE_API_PATH + 'api/v2/salesmen',
+                    url: import.meta.env.VITE_API_PATH + 'api/v2/stores',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${this.tokens.access_token}`
                     },
                     then: (data) =>
-                        data.resource.data.map((card,index) => [
-                            index+1,
-                            // card.user_id,
-                            card.nik,
-                            card.fullname,
-                            card.name,
-                            card.phone,
-                            card.email,
-                            card.type.user_type_name,
-                            card.status.status,
-                            // card.cabang_id,
-                            card.updated_at,
+                        data.resource.data.map((card, index) => [
+                            // card.store_id,
+                            index + 1,
+                            card.cabang.kode_cabang,
+                            card.store_code,
+                            card.store_name,
+                            card.store_address,
+                            card.store_phone,
+                            card.owners.map((card2) => [
+                                card2.owner,
+                            ]),
+                            card.owners.map((card2) => [
+                                card2.nik_owner
+                            ]),
+                            card.owners.map((card2) => [
+                                card2.email_owner
+                            ]),
+                            card.owners.map((card2) => [
+                                card2.ktp_owner
+                            ]),
+                            card.owners.map((card2) => [
+                                card2.photo_other
+                            ]),
+
+
+                            // card.owners.email_owner,
+                            // card.owners.ktp_owner,
+                            // card.owners.photo_other,
                         ]),
                     total: (data) => data.count,
                     handle: (res) => {
@@ -689,7 +712,7 @@ export default {
 
         jqueryDelEdit() {
             const mythis = this;
-            
+
             $(document).on("click", "#editData", function () {
                 let id = $(this).data("id");
                 mythis.idRincian = id;
@@ -894,20 +917,19 @@ export default {
             try {
                 this.$root.loader = true;
 
-                const data = await axios.get(import.meta.env.VITE_API_PATH + 'api/v2/salesmen',{
+                const data = await axios.get(import.meta.env.VITE_API_PATH + 'api/v2/stores',{
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${this.tokens.access_token}`
                     },
                 });
 
-                // console.log(data.data.data);
 
                 const ws = XLSX.utils.json_to_sheet(data.data.resource.data);
                 const wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, ws, "Data-User");
+                XLSX.utils.book_append_sheet(wb, ws, "Data-Outlet");
 
-                XLSX.writeFile(wb, "Data-User.xls");
+                XLSX.writeFile(wb, "Data-Outlet.xls");
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
@@ -915,6 +937,10 @@ export default {
             }
         },
 
+        /////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////
     },
 };
 </script>
