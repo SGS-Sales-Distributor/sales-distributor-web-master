@@ -167,12 +167,18 @@ export default {
           menu: "admin",
           sub_menu_id: "all-menu-admin",
           sub_menu: [
-            // {
-            //   name: "Data User",
-            //   menu: "DataUser",
-            //   sub_menu_id: null,
-            //   sub_menu: [],
-            // },
+            {
+              name: "Data User",
+              menu: "DataUser",
+              sub_menu_id: null,
+              sub_menu: [],
+            },
+            {
+              name: "Data Outlet",
+              menu: "DataOutlet",
+              sub_menu_id: null,
+              sub_menu: [],
+            },
           ]
         },
         {
