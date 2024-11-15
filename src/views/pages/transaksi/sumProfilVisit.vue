@@ -3,14 +3,14 @@
         <div class="container-fluid">
             <div class="mb-2">
                 <div class="row">
-                    <!-- <div class="col-md-12">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
                                     <label for="">Tanggal</label>
                                 </div>
                                 <div class="col-md-6">
-                                     <input type="date" name="search" id="search" value="">
+                                    <input v-model="tanggal" type="date" name="tanggal" id="tanggal" format="Y-M-d" />
                                 </div>
                             </div>
                         </div>
@@ -19,11 +19,11 @@
                             <div class="row">
                                 <div class="col-md-4"></div>
                                 <div class="col-md-3">
-                                    <Button type="button" @click="getTable()">Lihat</Button>
+                                    <Button type="button" @click="refreshTable()">Lihat</Button>
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
             <hr />
@@ -135,11 +135,12 @@ export default {
             grid2: new Grid(),
            
             tokens: JSON.parse(localStorage.getItem('tokens')),
+            tanggal:"",
         };
     },
 
     mounted() {
-        console.log(this.tokens.access_token);
+        // console.log(this.tokens.access_token);
         // this.getTable();
         this.getTable();
     },
@@ -155,12 +156,12 @@ export default {
                     server: {
                         url: (prev, page, limit) =>
                             `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${page * limit
-                            }`,
+                            }&tanggal=${this.tanggal}`,
                     },
                 },
                 search: {
                     server: {
-                        url: (prev, keyword) => `${prev}?search=${keyword}`,
+                        url: (prev, keyword) => `${prev}?search=${keyword}&tanggal=${this.tanggal}`,
                     },
                 },
                 columns: [{
@@ -252,7 +253,6 @@ export default {
                     },
                 },
                 server: {
-
                     url: import.meta.env.VITE_API_PATH + 'api/v2/getCovPlans',
                     headers: {
                         'Content-Type': 'application/json',
@@ -292,6 +292,15 @@ export default {
             this.number = 0;
         },
 
+        async refreshTable() {
+            var mythis = this;
+            $("#wrapper2").remove();
+            var e = $('<div id="wrapper2"></div>');
+            $("#box").append(e);
+            this.getTable();
+        },
+
+
         async getDataTable(){
             try {
                 const header = {
@@ -301,7 +310,6 @@ export default {
 
                 const response = await axios.get(import.meta.env.VITE_API_PATH + 'api/v2/getCovPlans',{
                     headers : header,
-                    search : 2024-11-11,
                 });
 
                 const data  = response.data;
