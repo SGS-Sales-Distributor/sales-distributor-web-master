@@ -3,29 +3,41 @@
         <div class="container-fluid">
             <div class="mb-2">
                 <div class="row">
-                    <!-- <div class="col-md-12">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="">Type Program</label>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="">Dari Tanggal</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <VueDatePicker v-model="tanggalfr" placeholder="Pilih Tanggal" :locale="en"
+                                        :format="format_date">
+                                    </VueDatePicker>
+                                    <!-- <input v-model="tanggalfr" type="date" name="tanggalfr" id="tanggalfr"
+                                        format="Y-M-d" /> -->
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <FormInput :class="errorField.type ? 'input-error' : ''" v-model="todo.type" @input="
-                      (val) => 
-                        (todo.type = todo.type.trim())
-                    "></FormInput>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="">Sampai Tanggal</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <VueDatePicker v-model="tanggalto" placeholder="Pilih Tanggal" :locale="en"
+                                        :format="format_date">
+                                    </VueDatePicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-3">
+                                    <Button type="button" @click="refreshTable()">Lihat</Button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-3">
-                                <Button type="button" @click="saveTodo">Simpan</Button>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
                 </div>
             </div>
             <hr />
@@ -404,6 +416,7 @@ import {
 import $ from "jquery";
 
 import Swal from "sweetalert2";
+import moment from "moment";
 
 export default {
     components: {
@@ -457,6 +470,8 @@ export default {
             showModal_check_in: false,
             showModal_check_out: false,
             showModal_notVisit: false,
+            tanggalfr: "",
+            tanggalto: "",
         };
     },
     mounted() {
@@ -468,6 +483,11 @@ export default {
         this.userid = this.uObject.id;
     },
     methods: {
+        format_date(value) {
+            if (value) {
+                return moment(String(value)).format('YYYY-MM-DD')
+            }
+        },
         async sleep(ms) {
             return new Promise((resolve) => setTimeout(resolve, ms));
         },
@@ -524,7 +544,8 @@ export default {
         },
         getTable() {
             var mythis = this;
-
+            const starDate = this.tanggalfr == "" ? this.tanggalfr : this.format_date(this.tanggalfr);
+            const endDate = this.tanggalto == "" ? this.tanggalto : this.format_date(this.tanggalto);
             const tday = new Date();
             const m = String(tday.getMonth() + 1).padStart(2, '0');
             const d = String(tday.getDate()).padStart(2, '0');
@@ -539,12 +560,12 @@ export default {
                     server: {
                         url: (prev, page, limit) =>
                             `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${page * limit
-                            }`,
+                            }&tanggalfr=${starDate}&tanggalto=${endDate}`,
                     },
                 },
                 search: {
                     server: {
-                        url: (prev, keyword) => `${prev}?search=${keyword}`,
+                        url: (prev, keyword) => `${prev}?search=${keyword}&tanggalfr=${starDate}&tanggalto=${endDate}`,
                     },
                 },
                 columns: [{

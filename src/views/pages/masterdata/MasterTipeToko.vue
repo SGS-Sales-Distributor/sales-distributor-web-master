@@ -1,104 +1,107 @@
 <template>
-<Pages :title="title">
-    <div class="container-fluid">
-        <div class="mb-2">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="">Nama Tipe Toko</label>
-                            </div>
-                            <div class="col-md-6">
-                                <FormInput :class="errorField.store_type_name ? 'input-error' : ''" v-model="todo.store_type_name" @input="
-                      (val) => 
-                        (todo.store_type_name = todo.store_type_name)
-                    "></FormInput>
+    <Pages :title="title">
+        <div class="container-fluid">
+            <div class="mb-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="">Nama Tipe Toko</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <FormInput :class="errorField.store_type_name ? 'input-error' : ''"
+                                        v-model="todo.store_type_name" @input="(val) =>
+                                                (todo.store_type_name = todo.store_type_name)
+                                            "></FormInput>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-3">
-                                <Button type="button" @click="saveTodo">Simpan</Button>
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-sm btn-warning text-white" data-toggle="tooltip" @click="exportDetailData()"><i class="fa-solid fa-floppy-disk"></i> PRINT</button>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-3">
+                                    <Button type="button" @click="saveTodo">Simpan</Button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-sm btn-warning text-white" data-toggle="tooltip"
+                                        @click="exportDetailData()"><i class="fa-solid fa-floppy-disk"></i>
+                                        PRINT</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <hr />
-        <!------------------------>
-        <div class="block-content">
-            <div id="wrapper2"></div>
-            <div id="box"></div>
+            <hr />
+            <!------------------------>
+            <div class="block-content">
+                <div id="wrapper2"></div>
+                <div id="box"></div>
+            </div>
+
+            <!------------------------>
         </div>
 
-        <!------------------------>
-    </div>
-
-    <!-- modals -->
-    <Teleport to="body">
-        <!-- use the modal component, pass in the prop -->
-        <FormModal :show="showModal" :style="showmodal_zindex" @close="showModal = false">
-            <template #header>
-                <h3>Edit Form</h3>
-            </template>
-            <template #body>
-                <div style="width: 90vw">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">ID Toko</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <FormInput id="inputA" :class="errorField.store_type_id ? 'input-error' : ''" v-model="todo2.store_type_id" @input="
-                          (val) =>
-                            (todo2.store_type_id = todo2.store_type_id.trim())
-                        " readonly></FormInput>
+        <!-- modals -->
+        <Teleport to="body">
+            <!-- use the modal component, pass in the prop -->
+            <FormModal :show="showModal" :style="showmodal_zindex" @close="showModal = false">
+                <template #header>
+                    <h3>Edit Form</h3>
+                </template>
+                <template #body>
+                    <div style="width: 90vw">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label for="">ID Toko</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <FormInput id="inputA"
+                                                :class="errorField.store_type_id ? 'input-error' : ''"
+                                                v-model="todo2.store_type_id" @input="(val) =>
+                                                        (todo2.store_type_id = todo2.store_type_id.trim())
+                                                    " readonly></FormInput>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label for="">Type Toko</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <FormInput :class="errorField.store_type_name ? 'input-error' : ''" v-model="todo2.store_type_name" @input="
-                          (val) =>
-                            (todo2.store_type_name = todo2.store_type_name.trim())
-                        "></FormInput>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label for="">Type Toko</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <FormInput :class="errorField.store_type_name ? 'input-error' : ''"
+                                                v-model="todo2.store_type_name" @input="(val) =>
+                                                        (todo2.store_type_name = todo2.store_type_name.trim())
+                                                    "></FormInput>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="text-center">
+                            <button class="btn btn-success btn-sm me-1" @click="editTodo()">
+                                Ubah Data
+                            </button>
                         </div>
                     </div>
-                    <br />
-                    <br />
-                    <br />
-                    <div class="text-center">
-                        <button class="btn btn-success btn-sm me-1" @click="editTodo()">
-                            Ubah Data
-                        </button>
-                    </div>
-                </div>
-            </template>
-            <template #footer>
-                <button class="modal-default-button btn btn-secondary btn-sm me-1" @click="close">
-                    Tutup
-                </button>
-            </template>
-        </FormModal>
-    </Teleport>
-</Pages>
+                </template>
+                <template #footer>
+                    <button class="modal-default-button btn btn-secondary btn-sm me-1" @click="close">
+                        Tutup
+                    </button>
+                </template>
+            </FormModal>
+        </Teleport>
+    </Pages>
 </template>
 
 <script>
@@ -215,9 +218,8 @@ export default {
                     limit: 10,
                     server: {
                         url: (prev, page, limit) =>
-                            `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${
-                page * limit
-              }`,
+                            `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${page * limit
+                            }`,
                     },
                 },
                 search: {
@@ -226,45 +228,45 @@ export default {
                     },
                 },
                 columns: [{
-                        name: "ID",
-                        hidden: true
-                    },
+                    name: "ID",
+                    hidden: true
+                },
 
-                    {
-                        id: "nomor",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>NO</b></div>'
-                        ),
-                    },
+                {
+                    id: "nomor",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>NO</b></div>'
+                    ),
+                },
 
-                    // {
-                    //     id: "store_type_id",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID TOKO</b></div>'
-                    //     ),
-                    // },
+                // {
+                //     id: "store_type_id",
+                //     name: html(
+                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>ID TOKO</b></div>'
+                //     ),
+                // },
 
-                    {
-                        id: "store_type_name",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>NAMA TIPE TOKO</b></div>'
-                        ),
-                    },
+                {
+                    id: "store_type_name",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>NAMA TIPE TOKO</b></div>'
+                    ),
+                },
 
-                    {
-                        id:"aksi",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>AKSI</b></div>'
-                        ),
-                        formatter: (_, row) =>
-                            html(
-                                `
+                {
+                    id: "aksi",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: left;"><b>AKSI</b></div>'
+                    ),
+                    formatter: (_, row) =>
+                        html(
+                            `
                 <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
                 &nbsp;&nbsp;&nbsp;
                 <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
               `
-                            ),
-                    },
+                        ),
+                },
                 ],
                 style: {
                     container: {
@@ -294,7 +296,7 @@ export default {
                     then: (data) =>
                         data.results.map((card, index) => [
                             card.store_type_id,
-                            index+1,
+                            index + 1,
                             // index+1,
                             // card.store_type_id,
                             card.store_type_name,
@@ -492,9 +494,9 @@ export default {
             axios
                 .put(
                     import.meta.env.VITE_API_PATH + "api/sgs/store_type/" + str_type_id, {
-                        data: mythis.todo2,
-                        fileUpload: "form satuan",
-                    }
+                    data: mythis.todo2,
+                    fileUpload: "form satuan",
+                }
                 )
                 .then((res) => {
                     //console.log(res);
