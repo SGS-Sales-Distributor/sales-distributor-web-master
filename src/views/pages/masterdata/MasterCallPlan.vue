@@ -1,191 +1,213 @@
 <template>
-<Pages :title="title">
-    <div class="container-fluid">
-        <div class="mb-3">
+    <Pages :title="title">
+        <div class="container-fluid">
+            <div class="mb-3">
 
-            <div class="row">
+                <div class="row">
 
-                <div class="col-md-6">
+                    <div class="col-md-6">
 
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="">Bulan</label>
-                            </div>
-                            <div class="col-md-8">
-                                <v-select :options="cboBulanCallplan" v-model="cboBulanCallplanVal" @update:modelValue="mySelectEvent3()" :clearable="false"></v-select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="">Tahun</label>
-                            </div>
-                            <div class="col-md-8">
-                                <v-select :options="cboTahunCallplan" v-model="cboTahunCallplanVal" @update:modelValue="mySelectEvent5()" :clearable="false"></v-select>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-md-6">
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="">Salesman</label>
-                            </div>
-                            <div class="col-md-8">
-                                <v-select :options="cboSalesmanCallplan" v-model="cboSalesmanCallplanVal" @update:modelValue="mySelectEvent()" :clearable="false"></v-select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="">Frekuensi</label>
-                            </div>
-                            <div class="col-md-8">
-                                <v-select :disabled="!cboSalesmanCallplanVal" :options="cboFrekuensiCallplan" v-model="cboFrekuensiCallplanVal" @update:modelValue="mySelectEvent7()" :clearable="false"></v-select>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="row">
-                <table border="1">
-
-                    <div id="planDetail" class="col-md-20" v-if="cboFrekuensiCallplanVal"> Daily Call Plan
-                        <template v-for="(x,idx) in todo.frekuensi">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <VueDatePicker v-model="data_tgl[idx]" :enableTimePicker="false" :format="format" placeholder="Pilih Tanggal">
-                                        </VueDatePicker>
-                                    </div>
-                                    <div class="col-md-1">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <v-select :options="cboCabangCallplan" v-model="data_cabang[idx]" @update:modelValue="mySelectEvent9(idx)" :clearable="false" placeholder="Pilih Cabang"></v-select>
-                                    </div>
-                                    <div class="col-md-2">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <v-select :id="`data_toko_${idx}`" :options="cboTokoCallplan[idx]" v-model="data_toko[idx]" @update:modelValue="mySelectEvent10()" :clearable="false" placeholder="Pilih Toko" :disabled="!data_cabang[idx]"></v-select>
-                                    </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="">Bulan</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <v-select :options="cboBulanCallplan" v-model="cboBulanCallplanVal"
+                                        @update:modelValue="mySelectEvent3()" :clearable="false"></v-select>
                                 </div>
                             </div>
-                        </template>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="">Tahun</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <v-select :options="cboTahunCallplan" v-model="cboTahunCallplanVal"
+                                        @update:modelValue="mySelectEvent5()" :clearable="false"></v-select>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
-                </table>
 
-            </div>
-            <div class="form-group">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="">Salesman</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <v-select :options="cboSalesmanCallplan" v-model="cboSalesmanCallplanVal"
+                                        @update:modelValue="mySelectEvent()" :clearable="false"></v-select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="">Frekuensi</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <v-select :disabled="!cboSalesmanCallplanVal" :options="cboFrekuensiCallplan"
+                                        v-model="cboFrekuensiCallplanVal" @update:modelValue="mySelectEvent7()"
+                                        :clearable="false"></v-select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
                 <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-3">
-                        <!-- <pre>{{ todo }}</pre>todo
+                    <table border="1">
+
+                        <div id="planDetail" class="col-md-20" v-if="cboFrekuensiCallplanVal"> Daily Call Plan
+                            <template v-for="(x, idx) in todo.frekuensi">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <VueDatePicker v-model="data_tgl[idx]" :enableTimePicker="false"
+                                                :format="format" placeholder="Pilih Tanggal">
+                                            </VueDatePicker>
+                                        </div>
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <v-select :options="cboCabangCallplan" v-model="data_cabang[idx]"
+                                                @update:modelValue="mySelectEvent9(idx)" :clearable="false"
+                                                placeholder="Pilih Cabang"></v-select>
+                                        </div>
+                                        <div class="col-md-2">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <v-select :id="`data_toko_${idx}`" :options="cboTokoCallplan[idx]"
+                                                v-model="data_toko[idx]" @update:modelValue="mySelectEvent10()"
+                                                :clearable="false" placeholder="Pilih Toko"
+                                                :disabled="!data_cabang[idx]"></v-select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+
+                        </div>
+                    </table>
+
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-3">
+                            <!-- <pre>{{ todo }}</pre>todo
                         <pre>{{ data_tgl }}</pre>data_tgl
                         <pre>{{ data_toko }}</pre>data_toko
                         <pre>{{ data_cabang }}</pre>data_cabang -->
-                        <Button type="button" @click="saveTodo">Simpan</Button>
+                            <Button type="button" @click="saveTodo">Simpan</Button>
+                        </div>
                     </div>
                 </div>
+
+            </div>
+            <hr />
+            <!------------------------>
+            <div class="block-content">
+                <div id="wrapper2"></div>
+                <div id="box"></div>
             </div>
 
-        </div>
-        <hr />
-        <!------------------------>
-        <div class="block-content">
-            <div id="wrapper2"></div>
-            <div id="box"></div>
+            <!------------------------>
         </div>
 
-        <!------------------------>
-    </div>
+        <!-- modals -->
+        <Teleport to="body">
+            <!-- use the modal component, pass in the prop -->
+            <FormModal :show="showModal" :style="showmodal_zindex" @close="showModal = false">
+                <template #header>
+                    <h3>Edit Form</h3>
+                </template>
+                <template #body>
+                    <div style="width: 90vw">
+                        <div class="mb-3">
 
-    <!-- modals -->
-    <Teleport to="body">
-        <!-- use the modal component, pass in the prop -->
-        <FormModal :show="showModal" :style="showmodal_zindex" @close="showModal = false">
-            <template #header>
-                <h3>Edit Form</h3>
-            </template>
-            <template #body>
-                <div style="width: 90vw">
-                    <div class="mb-3">
+                            <div class="row">
 
-                        <div class="row">
+                                <div class="col-md-6">
 
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">Bulan</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <v-select :options="cboBulanCallplan" v-model="cboBulanCallplanVal2" @update:modelValue="mySelectEvent4()" :clearable="false"></v-select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">Tahun</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <v-select :options="cboTahunCallplan" v-model="cboTahunCallplanVal2" @update:modelValue="mySelectEvent6()" :clearable="false"></v-select>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Bulan</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <v-select :options="cboBulanCallplan" v-model="cboBulanCallplanVal2"
+                                                    @update:modelValue="mySelectEvent4()" :clearable="false"></v-select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">Salesman</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <v-select :options="cboSalesmanCallplan" v-model="cboSalesmanCallplanVal2" @update:modelValue="mySelectEvent2()" :clearable="false"></v-select>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Tahun</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <v-select :options="cboTahunCallplan" v-model="cboTahunCallplanVal2"
+                                                    @update:modelValue="mySelectEvent6()" :clearable="false"></v-select>
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
 
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="">Frekuensi</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <v-select :options="cboFrekuensiCallplan" v-model="cboFrekuensiCallplanVal2" @update:modelValue="mySelectEvent8()" :clearable="false" placeholder="Pilih Frekuensi"></v-select>
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Salesman</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <v-select :options="cboSalesmanCallplan"
+                                                    v-model="cboSalesmanCallplanVal2"
+                                                    @update:modelValue="mySelectEvent2()" :clearable="false"></v-select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                
 
-                                <div class="col-md-" v-for="(items, index) in todo2.details">
-                                    <input type="text" v-model="items.date">
-                                    <input type="text" v-model="items.store_id">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Frekuensi</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <v-select :options="cboFrekuensiCallplan"
+                                                    v-model="cboFrekuensiCallplanVal2"
+                                                    @update:modelValue="mySelectEvent8()" :clearable="false"
+                                                    placeholder="Pilih Frekuensi"></v-select>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                    <v-select :options="cboCabangCallplan" v-model="data_cabang[index]" @update:modelValue="mySelectEvent9(idx)(index)" :clearable="false" placeholder="Pilih Cabang"></v-select>
 
-                                    <v-select :id="`data_toko_${index}`" :options="cboTokoCallplan2[index]" v-model="items.store_id" @update:modelValue="mySelectEvent12()" :clearable="false" placeholder="Pilih Toko"></v-select>
-                                </div>
+                                    <div class="col-md-" v-for="(items, index) in todo2.details">
+                                        <input type="text" v-model="items.date">
+                                        <input type="text" v-model="items.store_id">
 
-                                <!-- <div class="form-group">
+                                        <v-select :options="cboCabangCallplan" v-model="data_cabang[index]"
+                                            @update:modelValue="mySelectEvent9(idx)(index)" :clearable="false"
+                                            placeholder="Pilih Cabang"></v-select>
+
+                                        <v-select :id="`data_toko_${index}`" :options="cboTokoCallplan2[index]"
+                                            v-model="items.store_id" @update:modelValue="mySelectEvent12()"
+                                            :clearable="false" placeholder="Pilih Toko"></v-select>
+                                    </div>
+
+                                    <!-- <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label for="">Daily Plan</label>
@@ -195,57 +217,69 @@
                                         </div>
                                     </div>
                                 </div> -->
-                                <div class="row">
-                                    <table border="1">
+                                    <div class="row">
+                                        <table border="1">
 
-                                        <div id="planDetail" class="col-md-20" v-if="cboFrekuensiCallplanVal"> Daily Call Plan
-                                            <template v-for="(x,idx) in cboFrekuensiCallplanVal">
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <VueDatePicker v-model="data_tgl[idx]" :enableTimePicker="false" :format="format" placeholder="Pilih Tanggal">
-                                                            </VueDatePicker>
-                                                        </div>
-                                                        <div class="col-md-1">
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <v-select :options="cboCabangCallplan1" v-model="data_cabang[idx]" @update:modelValue="mySelectEvent11(idx)" :clearable="false" placeholder="Pilih Cabang"></v-select>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <v-select :id="`data_toko_${idx}`" :options="cboTokoCallplan2[idx]" v-model="data_toko[idx]" @update:modelValue="mySelectEvent12()" :clearable="false" placeholder="Pilih Toko" :disabled="!data_cabang[idx]"></v-select>
+                                            <div id="planDetail" class="col-md-20" v-if="cboFrekuensiCallplanVal"> Daily
+                                                Call Plan
+                                                <template v-for="(x, idx) in cboFrekuensiCallplanVal">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <VueDatePicker v-model="data_tgl[idx]"
+                                                                    :enableTimePicker="false" :format="format"
+                                                                    placeholder="Pilih Tanggal">
+                                                                </VueDatePicker>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <v-select :options="cboCabangCallplan1"
+                                                                    v-model="data_cabang[idx]"
+                                                                    @update:modelValue="mySelectEvent11(idx)"
+                                                                    :clearable="false"
+                                                                    placeholder="Pilih Cabang"></v-select>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <v-select :id="`data_toko_${idx}`"
+                                                                    :options="cboTokoCallplan2[idx]"
+                                                                    v-model="data_toko[idx]"
+                                                                    @update:modelValue="mySelectEvent12()"
+                                                                    :clearable="false" placeholder="Pilih Toko"
+                                                                    :disabled="!data_cabang[idx]"></v-select>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </template>
+                                                </template>
 
-                                        </div>
-                                    </table>
+                                            </div>
+                                        </table>
+
+                                    </div>
 
                                 </div>
-
                             </div>
                         </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div class="text-center">
+                            <button class="btn btn-success btn-sm me-1" @click="editTodo()">
+                                Ubah Data
+                            </button>
+                        </div>
                     </div>
-                    <br />
-                    <br />
-                    <br />
-                    <div class="text-center">
-                        <button class="btn btn-success btn-sm me-1" @click="editTodo()">
-                            Ubah Data
-                        </button>
-                    </div>
-                </div>
-            </template>
-            <template #footer>
-                <button class="modal-default-button btn btn-secondary btn-sm me-1" @click="close">
-                    Tutup
-                </button>
-            </template>
-        </FormModal>
-    </Teleport>
-</Pages>
+                </template>
+                <template #footer>
+                    <button class="modal-default-button btn btn-secondary btn-sm me-1" @click="close">
+                        Tutup
+                    </button>
+                </template>
+            </FormModal>
+        </Teleport>
+    </Pages>
 </template>
 
 <script>
@@ -333,26 +367,26 @@ export default {
             cboCabangCallplan: [{
                 code: 1,
                 label: "ALL CABANG"
-            }, ],
+            },],
 
             cboTokoCallplan: [{
                 code: 1,
                 label: "ALL TOKO"
-            }, ],
+            },],
 
             cboSalesmanCallplan: [{
                 code: 1,
                 label: "ALL SALESMAN"
-            }, ],
+            },],
 
             cboTahunCallplan: [{
-                    code: 0,
-                    label: "2024"
-                },
-                {
-                    code: 1,
-                    label: "2025"
-                },
+                code: 0,
+                label: "2024"
+            },
+            {
+                code: 1,
+                label: "2025"
+            },
             ],
 
             cboFrekuensiCallplan: [
@@ -376,53 +410,53 @@ export default {
             ],
 
             cboBulanCallplan: [{
-                    code: 1,
-                    label: "Januari"
-                },
-                {
-                    code: 2,
-                    label: "Februari"
-                },
-                {
-                    code: 3,
-                    label: "Maret"
-                },
-                {
-                    code: 4,
-                    label: "April"
-                },
-                {
-                    code: 5,
-                    label: "Mei"
-                },
-                {
-                    code: 6,
-                    label: "Juni"
-                },
-                {
-                    code: 7,
-                    label: "Juli"
-                },
-                {
-                    code: 8,
-                    label: "Agustus"
-                },
-                {
-                    code: 9,
-                    label: "September"
-                },
-                {
-                    code: 10,
-                    label: "Oktober"
-                },
-                {
-                    code: 11,
-                    label: "November"
-                },
-                {
-                    code: 12,
-                    label: "Desember"
-                },
+                code: 1,
+                label: "Januari"
+            },
+            {
+                code: 2,
+                label: "Februari"
+            },
+            {
+                code: 3,
+                label: "Maret"
+            },
+            {
+                code: 4,
+                label: "April"
+            },
+            {
+                code: 5,
+                label: "Mei"
+            },
+            {
+                code: 6,
+                label: "Juni"
+            },
+            {
+                code: 7,
+                label: "Juli"
+            },
+            {
+                code: 8,
+                label: "Agustus"
+            },
+            {
+                code: 9,
+                label: "September"
+            },
+            {
+                code: 10,
+                label: "Oktober"
+            },
+            {
+                code: 11,
+                label: "November"
+            },
+            {
+                code: 12,
+                label: "Desember"
+            },
             ],
 
             errorList: "",
@@ -440,7 +474,8 @@ export default {
             cboTahunCallplanVal: null,
             cboFrekuensiCallplanVal: null,
 
-            userid: "",
+            userid: JSON.parse(localStorage.getItem("user")),
+            tokens: JSON.parse(localStorage.getItem('tokens')),
 
             uObject: "",
         };
@@ -458,7 +493,6 @@ export default {
         //this.userid = "9999";
 
         this.uObject = JSON.parse(localStorage.getItem("auth"));
-        this.userid = this.uObject.id;
     },
     methods: {
         addTgl() {
@@ -493,7 +527,7 @@ export default {
             var mythis = this;
             mythis.$root.loader = true;
             axios
-                .get(mythis.$root.API_URL + "sgs/getCboCabangCallplan?salesman=" + data)
+                .get(mythis.$root.API_URL + "api/v2/salesmenById/?user_id=" + data)
                 .then((res) => {
                     mythis.cboCabangCallplan = res.data.data;
                     //console.log(res.data.data);
@@ -515,12 +549,17 @@ export default {
         },
         getCboSalesmanCallplan() {
             var mythis = this;
-            // mythis.$root.loader = true;
+            const header = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.tokens.access_token}`
+            };
             axios
-                .get(mythis.$root.API_URL + "sgs/getCboSalesmanCallplan")
+                .get(mythis.$root.API_URL + "api/v2/salesmenById/" + this.userid.user_id, {
+                    headers: header
+                })
                 .then((res) => {
-                    mythis.cboSalesmanCallplan = res.data.data;
-                    console.log(res.data.data);
+                    mythis.cboSalesmanCallplan = res.data;
+                    console.log(res.data.fullname);
                     // mythis.$root.loader = false;
                 });
         },
@@ -637,9 +676,8 @@ export default {
                     limit: 10,
                     server: {
                         url: (prev, page, limit) =>
-                            `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${
-                page * limit
-              }`,
+                            `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${page * limit
+                            }`,
                     },
                 },
                 search: {
@@ -648,70 +686,70 @@ export default {
                     },
                 },
                 columns: [{
-                        name: "ID",
-                        hidden: true
-                    },
+                    name: "ID",
+                    hidden: true
+                },
 
-                    {
-                        id: "nomor",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>NO</b></div>'
-                        ),
-                    },
+                {
+                    id: "nomor",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>NO</b></div>'
+                    ),
+                },
 
-                    {
-                        id: "user",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>USER SALESMAN</b></div>'
-                        ),
-                    },
+                {
+                    id: "user",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>USER SALESMAN</b></div>'
+                    ),
+                },
 
-                    {
-                        id: "planbulan",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>PLAN BULAN KE</b></div>'
-                        ),
-                    },
+                {
+                    id: "planbulan",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>PLAN BULAN KE</b></div>'
+                    ),
+                },
 
-                    {
-                        id: "date",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>TANGGAL PLAN</b></div>'
-                        ),
-                    },
+                {
+                    id: "date",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>TANGGAL PLAN</b></div>'
+                    ),
+                },
 
-                    {
-                        id: "storename",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>TOKO</b></div>'
-                        ),
-                    },
+                {
+                    id: "storename",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>TOKO</b></div>'
+                    ),
+                },
 
-                    {
-                        id: "updateat",
-                        name: html(
-                            '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>UPDATE AT</b></div>'
-                        ),
-                    },
+                {
+                    id: "updateat",
+                    name: html(
+                        '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>UPDATE AT</b></div>'
+                    ),
+                },
 
-                    // {
-                    //     id: "createdby",
-                    //     name: html(
-                    //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>CREATED BY</b></div>'
-                    //     ),
-                    // },
+                // {
+                //     id: "createdby",
+                //     name: html(
+                //         '<div style="padding: 5px;border-radius: 5px;text-align: center;"><b>CREATED BY</b></div>'
+                //     ),
+                // },
 
-                    {
-                        name: "AKSI",
-                        formatter: (_, row) =>
-                            html(
-                                `
+                {
+                    name: "AKSI",
+                    formatter: (_, row) =>
+                        html(
+                            `
                 <button data-id="${row.cells[0].data}" class="btn btn-sm btn-warning text-white" id="editData" data-toggle="tooltip" title="Edit" ><i class="fa-solid fa-pen-to-square"></i></button>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <button data-id="${row.cells[0].data}" class="btn btn-sm btn-danger text-white" id="deleteData" data-toggle="tooltip" title="Delete" ><i class="fa-solid fa-trash-can"></i></button>
               `
-                            ),
-                    },
+                        ),
+                },
                 ],
                 style: {
                     container: {
@@ -968,10 +1006,10 @@ export default {
             axios
                 .put(
                     mythis.$root.API_URL + 'sgs/call-plans/' + mythis.acuanEdit, {
-                        data: mythis.todo2,
-                        fileUpload: "form satuan",
-                        userid: mythis.userid,
-                    }
+                    data: mythis.todo2,
+                    fileUpload: "form satuan",
+                    userid: mythis.userid,
+                }
                 )
                 .then((res) => {
                     //console.log(res);

@@ -136,12 +136,12 @@ export default {
             //   sub_menu_id: null,
             //   sub_menu: [],
             // },
-            // {
-            //   name: "Call Plan",
-            //   menu: "MasterCallPlan",
-            //   sub_menu_id: null,
-            //   sub_menu: [],
-            // },
+            {
+              name: "Call Plan",
+              menu: "MasterCallPlan",
+              sub_menu_id: null,
+              sub_menu: [],
+            },
             // {
             //   name: "Produk",
             //   menu: "MasterProduk",

@@ -7,10 +7,23 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <label for="">Tanggal</label>
+                                    <label for="">Dari Tanggal</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input v-model="tanggal" type="date" name="tanggal" id="tanggal" format="Y-M-d" />
+                                    <VueDatePicker v-model="tanggalfr" placeholder="Pilih Tanggal" :locale="en" :format="format_date" >
+                                    </VueDatePicker>
+                                    <!-- <input v-model="tanggalfr" type="date" name="tanggalfr" id="tanggalfr"
+                                        format="Y-M-d" /> -->
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="">Sampai Tanggal</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <VueDatePicker v-model="tanggalto" placeholder="Pilih Tanggal" :locale="en" :format="format_date" >
+                                    </VueDatePicker>
                                 </div>
                             </div>
                         </div>
@@ -114,6 +127,7 @@ import {
 import $ from "jquery";
 
 import Swal from "sweetalert2";
+import moment from "moment";
 
 export default {
     components: {
@@ -133,22 +147,31 @@ export default {
             showModal: false,
             showmodal_zindex: "z-index:1000",
             grid2: new Grid(),
-           
+
             tokens: JSON.parse(localStorage.getItem('tokens')),
-            tanggal:"",
+            tanggalfr: "",
+            tanggalto: "",
+            // s/tarDate: "",
+            // endDate: ""
         };
     },
 
     mounted() {
         // console.log(this.tokens.access_token);
-        // this.getTable();
         this.getTable();
     },
     methods: {
+        format_date(value) {
+            if (value) {
+                return moment(String(value)).format('YYYY-MM-DD')
+            }
+        },
         async sleep(ms) {
             return new Promise((resolve) => setTimeout(resolve, ms));
         },
         async getTable() {
+            const starDate = this.tanggalfr=="" ? this.tanggalfr : this.format_date(this.tanggalfr);
+            const endDate = this.tanggalto=="" ? this.tanggalto : this.format_date(this.tanggalto);
             this.grid2.updateConfig({
                 language: idID,
                 pagination: {
@@ -156,12 +179,12 @@ export default {
                     server: {
                         url: (prev, page, limit) =>
                             `${prev}${prev.includes("?") ? "&" : "?"}limit=${limit}&offset=${page * limit
-                            }&tanggal=${this.tanggal}`,
+                            }&tanggalfr=${starDate}&tanggalto=${endDate}`,
                     },
                 },
                 search: {
                     server: {
-                        url: (prev, keyword) => `${prev}?search=${keyword}&tanggal=${this.tanggal}`,
+                        url: (prev, keyword) => `${prev}?search=${keyword}&tanggalfr=${starDate}&tanggalto=${endDate}`,
                     },
                 },
                 columns: [{
@@ -280,7 +303,7 @@ export default {
                         if (res.ok) return res.json();
 
                         console.log(res.status == 500);
-                        if(res.status == 500){
+                        if (res.status == 500) {
                             // localStorage.clear();
                             // window.location.reload();   // toast.error(res.message);
                         }
@@ -301,18 +324,18 @@ export default {
         },
 
 
-        async getDataTable(){
+        async getDataTable() {
             try {
                 const header = {
-                     'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${this.tokens.access_token}`
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.tokens.access_token}`
                 }
 
-                const response = await axios.get(import.meta.env.VITE_API_PATH + 'api/v2/getCovPlans',{
-                    headers : header,
+                const response = await axios.get(import.meta.env.VITE_API_PATH + 'api/v2/getCovPlans', {
+                    headers: header,
                 });
 
-                const data  = response.data;
+                const data = response.data;
                 console.log(data);
             } catch (error) {
                 console.log(error.message)
